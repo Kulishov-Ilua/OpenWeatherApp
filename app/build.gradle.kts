@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
+    id("com.google.dagger.hilt.android") version "2.57" apply false
 }
 
 android {
@@ -60,6 +61,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.sqlite.bundled)
     implementation(libs.room.runtime)
+
+    implementation(libs.gson)
+
+    implementation("com.google.dagger:hilt-android:2.57")
+    ksp("com.google.dagger:hilt-android-compiler:2.57")
 }
 
 room {

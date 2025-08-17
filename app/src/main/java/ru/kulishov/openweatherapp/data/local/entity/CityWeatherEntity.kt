@@ -9,6 +9,6 @@ data class CityWeatherEntity(
     val cityName:String,
     val sunrise:Long,
     val sunset:Long,
-    val forecastTime:Long,
+    val forecastTime:Long= System.currentTimeMillis(),
     val forecast:String
 )
