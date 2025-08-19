@@ -61,11 +61,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.sqlite.bundled)
     implementation(libs.room.runtime)
+    //implementation(libs.gson)
 
-    implementation(libs.gson)
+    implementation (libs.converter.gson)
+    implementation (libs.retrofit)
 
-    implementation("com.google.dagger:hilt-android:2.57")
-    ksp("com.google.dagger:hilt-android-compiler:2.57")
+    ksp(libs.room.compiler)
+
+//    implementation(libs.hilt.android)
+//    ksp(libs.hilt.android.compiler)
+//    implementation(libs.androidx.hilt.navigation.compose)
 }
 
 room {
