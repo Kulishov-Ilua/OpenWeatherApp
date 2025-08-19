@@ -1,0 +1,12 @@
+package ru.kulishov.openweatherapp.domain.usecase.cities
+
+import kotlinx.coroutines.flow.Flow
+import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
+import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository
+
+class GetSelectedCityUseCase(
+    private val repository: SelectedCityRepository
+) {
+    suspend operator fun invoke(): Flow<List<SelectedCity>> = repository.getSelectedCity()
+}

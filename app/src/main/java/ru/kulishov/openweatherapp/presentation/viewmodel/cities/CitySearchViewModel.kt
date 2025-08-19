@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.presentation.viewmodel
+package ru.kulishov.openweatherapp.presentation.viewmodel.cities
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.cities.FindCityUseCase
-
+import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
 
 class CitySearchViewModel (
     val findCityUseCase: FindCityUseCase

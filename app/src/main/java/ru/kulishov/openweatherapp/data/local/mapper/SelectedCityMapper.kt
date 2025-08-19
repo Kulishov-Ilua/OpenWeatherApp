@@ -7,8 +7,9 @@ object SelectedCityMapper {
     fun toDomain(entity: SelectedCityEntity): SelectedCity = SelectedCity(
         id = entity.id,
         localName = entity.localName,
-        enName = entity.localName
+        enName = entity.enName
     )
+
 
     fun toEntity(domain: SelectedCity): SelectedCityEntity = SelectedCityEntity(
         id = domain.id,

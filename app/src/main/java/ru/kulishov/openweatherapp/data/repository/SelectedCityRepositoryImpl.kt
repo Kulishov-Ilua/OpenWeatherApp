@@ -14,8 +14,8 @@ class SelectedCityRepositoryImpl (
 ): SelectedCityRepository {
     override fun getSelectedCity(): Flow<List<SelectedCity>>  =selectedCityDao.getSelectedCities().map { entiies -> entiies.map { entity -> SelectedCityMapper.toDomain(entity) } }
 
-    override suspend fun insertSelectedCity(city: SelectedCity) {
-        selectedCityDao.insertSelectedCities(SelectedCityMapper.toEntity(city))
+    override suspend fun insertSelectedCity(city: SelectedCity): Long {
+        return selectedCityDao.insertSelectedCities(SelectedCityMapper.toEntity(city))
     }
 
     override suspend fun deleteSelectedCity(city: SelectedCity) {

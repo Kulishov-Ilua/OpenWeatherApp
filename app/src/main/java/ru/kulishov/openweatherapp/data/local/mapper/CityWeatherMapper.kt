@@ -7,6 +7,7 @@ import ru.kulishov.openweatherapp.domain.model.Coord
 import ru.kulishov.openweatherapp.domain.model.Forecast
 import ru.kulishov.openweatherapp.domain.model.MainForecast
 import ru.kulishov.openweatherapp.domain.model.Sys
+import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.domain.model.Wind
 
@@ -64,6 +65,59 @@ object CityWeatherMapper {
         )
     }
 
+    fun toDomainWithTime(entity: CityWeatherEntity): WeatherForecastResponceWithDateTime{
+        val forecastList = mutableListOf<Forecast>()
+        val toForecast = entity.forecast.split("][").map { forecast->
+            if(forecast.length>5){
+                val params = forecast.split('#')
+                forecastList+= Forecast(
+                    dt= params[0].toLong(),
+                    main = MainForecast(
+                        temp = params[1].toDouble(),
+                        feels_like = params[2].toDouble(),
+                        temp_min = params[3].toDouble(),
+                        temp_max = params[4].toDouble(),
+                        pressure = params[5].toInt(),
+                        sea_level = null,
+                        grnd_level = null,
+                        humidity = params[6].toInt(),
+                        temp_kf = 0.0
+                    ),
+                    emptyList(),
+                    clouds = Clouds(
+                        params[7].toInt()
+                    ),
+                    wind = Wind(
+                        params[8].toDouble(),
+                        deg=0,
+                        gust = null
+                    ),
+                    visibility = params[9].toInt(),
+                    pop = params[10].toDouble(),
+                    sys = Sys(""),
+                    dt_txt = params[11]
+                )
+            }
+        }
+
+        return WeatherForecastResponceWithDateTime(
+            cod="200 db_data",
+            message = 0,
+            cnt = 40,
+            list = forecastList,
+            city= City(
+                id= entity.cityId,
+                name = entity.cityName,
+                coord = Coord(0.0,0.0),
+                country = "",
+                population = 0,
+                timezone = 0,
+                sunrise = entity.sunrise,
+                sunset = entity.sunset
+            ),
+            update = entity.forecastTime
+        )
+    }
     fun toEntity(domain: WeatherForecastResponse): CityWeatherEntity{
         var forecastList =""
         for(forecast in domain.list){

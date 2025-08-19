@@ -14,8 +14,8 @@ interface SelectedCityDao {
     fun getSelectedCities(): Flow<List<SelectedCityEntity>>
 
     @Insert
-    fun insertSelectedCities(city: SelectedCityEntity)
+    suspend fun insertSelectedCities(city: SelectedCityEntity): Long
 
     @Delete
-    fun deleteSelectedCity(city: SelectedCityEntity)
+    suspend fun deleteSelectedCity(city: SelectedCityEntity)
 }
