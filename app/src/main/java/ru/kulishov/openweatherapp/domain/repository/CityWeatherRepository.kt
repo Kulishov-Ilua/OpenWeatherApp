@@ -2,7 +2,7 @@ package ru.kulishov.openweatherapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
 interface CityWeatherRepository {
     fun getCityWeather(): Flow<List<WeatherForecastResponse>>

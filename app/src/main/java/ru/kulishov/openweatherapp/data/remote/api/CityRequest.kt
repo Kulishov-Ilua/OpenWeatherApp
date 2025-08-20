@@ -1,12 +1,13 @@
-package ru.kulishov.openweatherapp.data.remote
+package ru.kulishov.openweatherapp.data.remote.api
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.BuildConfig
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
 fun cityRequest(retrofit: Retrofit, city: String, onSuccess: (WeatherForecastResponse)->Unit, onFailure: (String)->Unit){
     val openWeatherApi: OpenWeatherApi = retrofit.create(OpenWeatherApi::class.java)
@@ -14,7 +15,7 @@ fun cityRequest(retrofit: Retrofit, city: String, onSuccess: (WeatherForecastRes
         Callback<WeatherForecastResponse> {
         override fun onResponse(
             call: Call<WeatherForecastResponse>,
-            response: retrofit2.Response<WeatherForecastResponse>
+            response: Response<WeatherForecastResponse>
         ) {
             if(response.isSuccessful){
                 val weather = response.body()

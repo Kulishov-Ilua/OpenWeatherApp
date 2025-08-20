@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.presentation.ui.components
+package ru.kulishov.openweatherapp.presentation.ui.components.city
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -23,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.kulishov.openweatherapp.R
-import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
 
 @Composable
@@ -33,6 +31,8 @@ fun CityCardUI(viewModel: CityWeatherViewModel,
                onTap:()-> Unit){
     val forecast = viewModel.currentForecast.collectAsState()
     val dtText = viewModel.currentForecast.collectAsState()
+
+
     Box(Modifier.fillMaxWidth().height(60.dp), contentAlignment = Alignment.Center) {
         Image(painter = painterResource(R.drawable.city_card_bacground),
             contentDescription = "backgroung",

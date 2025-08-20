@@ -1,7 +1,7 @@
 package ru.kulishov.openweatherapp.domain.usecase.weather
 
 import kotlinx.coroutines.flow.Flow
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.domain.repository.CityWeatherRepository
 
 class GetCityWeatherUseCase(

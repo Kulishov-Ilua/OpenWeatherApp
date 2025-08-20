@@ -1,10 +1,12 @@
 package ru.kulishov.openweatherapp
 
 import android.annotation.SuppressLint
+import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +31,7 @@ import ru.kulishov.openweatherapp.data.local.database.getRoomDatabase
 import ru.kulishov.openweatherapp.data.repository.CityRepositoryImpl
 import ru.kulishov.openweatherapp.data.repository.CityWeatherRepositoryImpl
 import ru.kulishov.openweatherapp.data.repository.SelectedCityRepositoryImpl
+import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.cities.DeleteSelectedCityUseCase
 import ru.kulishov.openweatherapp.domain.usecase.cities.FindCityUseCase
 import ru.kulishov.openweatherapp.domain.usecase.cities.GetSelectedCityUseCase
@@ -35,9 +39,7 @@ import ru.kulishov.openweatherapp.domain.usecase.cities.InsertSelectedCityUseCas
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
-import ru.kulishov.openweatherapp.presentation.ui.cities.SelectedCityScreen
-import ru.kulishov.openweatherapp.presentation.ui.components.CityCardUI
-import ru.kulishov.openweatherapp.presentation.ui.components.FindCitiesField
+import ru.kulishov.openweatherapp.presentation.ui.components.weather.CityWeatherUI
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
@@ -66,7 +68,8 @@ class MainActivity : ComponentActivity() {
             val getCityWeatherByNameUseCase = GetCityWeatherByNameUseCase(cityWeatherRepository)
             val updateCityWeatherUseCase= UpdateCityWeatherUseCase(cityWeatherRepository)
             val insertWeatherByNameUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
-            //val cityWeatherViewModel= CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,"Taganrog", retrofit)
+            val cityWeatherViewModel= CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,
+                SelectedCity(6234,"Таганрог","Taganrog"), retrofit)
             //CityCardUI(cityWeatherViewModel)
 
             val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
@@ -82,9 +85,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.padding(top=50.dp,start=25.dp,end=25.dp),
                     verticalArrangement = Arrangement.spacedBy(25.dp),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
-                        updateCityWeatherUseCase,insertWeatherByNameUseCase,Color.White,
-                        TextStyle(),retrofit)
+//                    SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
+//                        updateCityWeatherUseCase,insertWeatherByNameUseCase,Color.White,
+//                        TextStyle(),retrofit)
+                    //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
+                    CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
                 }
 
             }

@@ -1,4 +1,6 @@
-package ru.kulishov.openweatherapp.domain.model
+package ru.kulishov.openweatherapp.data.remote.model
+
+import ru.kulishov.openweatherapp.data.remote.model.Clouds
 
 data class Forecast(
     val dt: Long,

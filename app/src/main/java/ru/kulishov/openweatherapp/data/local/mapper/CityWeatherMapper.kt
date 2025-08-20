@@ -1,15 +1,15 @@
 package ru.kulishov.openweatherapp.data.local.mapper
 
 import ru.kulishov.openweatherapp.data.local.entity.CityWeatherEntity
-import ru.kulishov.openweatherapp.domain.model.City
-import ru.kulishov.openweatherapp.domain.model.Clouds
-import ru.kulishov.openweatherapp.domain.model.Coord
-import ru.kulishov.openweatherapp.domain.model.Forecast
-import ru.kulishov.openweatherapp.domain.model.MainForecast
-import ru.kulishov.openweatherapp.domain.model.Sys
+import ru.kulishov.openweatherapp.data.remote.model.City
+import ru.kulishov.openweatherapp.data.remote.model.Clouds
+import ru.kulishov.openweatherapp.data.remote.model.Coord
+import ru.kulishov.openweatherapp.data.remote.model.Forecast
+import ru.kulishov.openweatherapp.data.remote.model.MainForecast
+import ru.kulishov.openweatherapp.data.remote.model.Sys
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
-import ru.kulishov.openweatherapp.domain.model.Wind
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.Wind
 
 object CityWeatherMapper {
     fun toDomain(entity: CityWeatherEntity): WeatherForecastResponse{

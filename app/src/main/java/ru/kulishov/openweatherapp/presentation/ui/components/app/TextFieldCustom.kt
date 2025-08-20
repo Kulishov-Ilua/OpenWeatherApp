@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.presentation.ui.components
+package ru.kulishov.openweatherapp.presentation.ui.components.app
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.KeyboardActions

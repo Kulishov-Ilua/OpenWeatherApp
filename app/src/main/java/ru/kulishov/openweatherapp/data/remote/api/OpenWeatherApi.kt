@@ -1,9 +1,9 @@
-package ru.kulishov.openweatherapp.data.remote
+package ru.kulishov.openweatherapp.data.remote.api
 
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
 interface OpenWeatherApi {
     @GET("data/2.5/forecast")

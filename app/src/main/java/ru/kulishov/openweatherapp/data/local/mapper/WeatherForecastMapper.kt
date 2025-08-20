@@ -1,7 +1,7 @@
 package ru.kulishov.openweatherapp.data.local.mapper
 
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
 object WeatherForecastMapper {
     fun toForecastWithoutDate(forecast: WeatherForecastResponceWithDateTime): WeatherForecastResponse =

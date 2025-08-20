@@ -4,9 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.kulishov.openweatherapp.data.local.dao.CityWeatherDao
 import ru.kulishov.openweatherapp.data.local.mapper.CityWeatherMapper
-import ru.kulishov.openweatherapp.data.remote.cityRequest
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.domain.repository.CityWeatherRepository
 
 class CityWeatherRepositoryImpl(

@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.presentation.ui.components
+package ru.kulishov.openweatherapp.presentation.ui.components.city
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.presentation.ui.components.app.TextFieldCustom
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 
 @Composable
@@ -69,7 +69,7 @@ fun FindCitiesField(
             .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             TextFieldCustom(
                 inpText = text.value,
-                onUpdate = { inp -> viewModel.setName(inp)},
+                onUpdate = { inp -> viewModel.setName(inp) },
                 modifier = Modifier.fillMaxWidth()
             )
 

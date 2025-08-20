@@ -1,34 +1,30 @@
 package ru.kulishov.openweatherapp.presentation.viewmodel.weather
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.data.local.mapper.WeatherForecastMapper
-import ru.kulishov.openweatherapp.data.remote.cityRequest
-import ru.kulishov.openweatherapp.domain.model.City
-import ru.kulishov.openweatherapp.domain.model.Clouds
-import ru.kulishov.openweatherapp.domain.model.Coord
-import ru.kulishov.openweatherapp.domain.model.Forecast
-import ru.kulishov.openweatherapp.domain.model.MainForecast
+import ru.kulishov.openweatherapp.data.remote.api.cityRequest
+import ru.kulishov.openweatherapp.data.remote.model.City
+import ru.kulishov.openweatherapp.data.remote.model.Clouds
+import ru.kulishov.openweatherapp.data.remote.model.Coord
+import ru.kulishov.openweatherapp.data.remote.model.Forecast
+import ru.kulishov.openweatherapp.data.remote.model.MainForecast
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
-import ru.kulishov.openweatherapp.domain.model.Sys
-import ru.kulishov.openweatherapp.domain.model.Weather
+import ru.kulishov.openweatherapp.data.remote.model.Sys
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponse
-import ru.kulishov.openweatherapp.domain.model.Wind
+import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
+import ru.kulishov.openweatherapp.data.remote.model.Wind
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
-import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Calendar
+import java.util.Collections.emptyList
 
 
 class CityWeatherViewModel(
@@ -40,6 +36,9 @@ class CityWeatherViewModel(
 ): BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+    private val _paramState = MutableStateFlow<Int>(0)
+    val paramState: StateFlow<Int> = _paramState.asStateFlow()
 
 
     private val _currentForecast = MutableStateFlow<Forecast>(Forecast(0,
@@ -84,6 +83,19 @@ class CityWeatherViewModel(
 
     private val _weatherCitiesDb = MutableStateFlow<List<WeatherForecastResponceWithDateTime>>(emptyList())
     val weatherCitiesDb: StateFlow<List<WeatherForecastResponceWithDateTime>> =_weatherCitiesDb.asStateFlow()
+
+    private val _weatherListWithDate = MutableStateFlow<List<Pair<Int, MutableList<Forecast>>>>(emptyList())
+    val weatherListWithDate: StateFlow<List<Pair<Int, MutableList<Forecast>>>> = _weatherListWithDate.asStateFlow()
+
+    private val _weatherListCurrentDayWithDate = MutableStateFlow<List<Forecast>>(emptyList())
+    val weatherListCurrentDayWithDate: StateFlow<List<Forecast>> = _weatherListCurrentDayWithDate.asStateFlow()
+
+    private val _selectedDay = MutableStateFlow<Int>(LocalDateTime.now().dayOfMonth)
+    val selecteDay: StateFlow<Int> = _selectedDay.asStateFlow()
+    private val _selectedTime = MutableStateFlow<Int>(LocalDateTime.now().hour)
+    val selectedTime: StateFlow<Int> = _selectedTime.asStateFlow()
+
+
     init{
         loadWeather()
 
@@ -103,6 +115,7 @@ class CityWeatherViewModel(
                     val fForecast = findTodayCurrentHourForecast(weatherForecast.value.list)
                     if(fForecast!=null){
                         _currentForecast.value=fForecast
+                        sortedForecastForDate()
                     }else{
                         _uiState.value= UiState.Error("Not data")
                     }
@@ -130,6 +143,7 @@ class CityWeatherViewModel(
                             val fForecast = findTodayCurrentHourForecast(weatherForecast.value.list)
                             if(fForecast!=null){
                                 _currentForecast.value=fForecast
+                                sortedForecastForDate()
                             }else{
                                 _uiState.value= UiState.Error("Not data")
                             }
@@ -189,12 +203,55 @@ class CityWeatherViewModel(
                     (currentTime.hour - forecastDateTime.hour<3)
         }
     }
+
+    fun sortedForecastForDate(){
+        _weatherListWithDate.value=emptyList()
+        _weatherListCurrentDayWithDate.value=emptyList()
+        for(x in weatherForecast.value.list){
+            val date = Instant.ofEpochMilli(x.dt*1000-10800000+60000)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+            val dayFind = _weatherListWithDate.value.find { it->
+                it.first==date.dayOfMonth
+            }
+            if(date.dayOfMonth==selecteDay.value){
+                _weatherListCurrentDayWithDate.value+=x
+            }
+
+            if(dayFind==null){
+                _weatherListWithDate.value +=Pair(date.dayOfMonth,mutableListOf(
+                    x
+                ))
+            }else{
+                dayFind.second+=x
+            }
+        }
+    }
     private fun handleApiFailure(cachedWeather: WeatherForecastResponceWithDateTime?, error: String) {
         if (cachedWeather != null) {
             _uiState.value = UiState.EnternetError(cachedWeather.update)
         } else {
             _uiState.value = UiState.Error("Network error: $error")
         }
+    }
+
+    fun setParamState(state:Int){
+        _paramState.value=state
+    }
+
+    fun setSelectedDay(day:Int){
+        _selectedDay.value=day
+        sortedForecastForDate()
+    }
+    fun setSelectedTime(hour:Int){
+        _selectedTime.value=hour
+    }
+    fun updateCurrentForecast(forecast: Forecast){
+        val forecastTime =   Instant.ofEpochMilli(forecast.dt*1000-10800000+60000)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        _currentForecast.value=forecast
+        setSelectedTime(forecastTime.hour)
     }
     sealed class UiState{
         object Loading: UiState()

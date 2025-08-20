@@ -3,7 +3,6 @@ package ru.kulishov.openweatherapp.presentation.ui.cities
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -19,8 +18,8 @@ import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
-import ru.kulishov.openweatherapp.presentation.ui.components.CityCardUI
-import ru.kulishov.openweatherapp.presentation.ui.components.FindCitiesField
+import ru.kulishov.openweatherapp.presentation.ui.components.city.CityCardUI
+import ru.kulishov.openweatherapp.presentation.ui.components.city.FindCitiesField
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
