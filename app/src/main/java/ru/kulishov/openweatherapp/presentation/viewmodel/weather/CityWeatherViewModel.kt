@@ -31,11 +31,13 @@ class CityWeatherViewModel(
     val getCityWeatherByNameUseCase: GetCityWeatherByNameUseCase,
     val updateCityWeatherUseCase: UpdateCityWeatherUseCase,
     val insertCityWeatherUseCase: InsertCityWeatherUseCase,
-    val cityName: SelectedCity,
     val retrofit: Retrofit
 ): BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+    private val _cityName = MutableStateFlow<SelectedCity>(SelectedCity(0,"",""))
+    val cityName: StateFlow<SelectedCity> = _cityName.asStateFlow()
 
     private val _paramState = MutableStateFlow<Int>(0)
     val paramState: StateFlow<Int> = _paramState.asStateFlow()
@@ -97,16 +99,17 @@ class CityWeatherViewModel(
 
 
     init{
-        loadWeather()
+        //loadWeather()
 
     }
-    fun loadWeather() {
+    fun loadWeather(city: SelectedCity) {
         launch {
             println("launch")
+            _cityName.value=city
             _uiState.value = UiState.Loading
 
             try {
-                val weatherFromDb = getCityWeatherByNameUseCase(cityName.enName).firstOrNull()
+                val weatherFromDb = getCityWeatherByNameUseCase(city.enName).firstOrNull()
 
 
                 if (weatherFromDb != null&&weatherFromDb.isNotEmpty()) {
@@ -133,7 +136,7 @@ class CityWeatherViewModel(
 
                     cityRequest(
                         retrofit = retrofit,
-                        city = cityName.enName,
+                        city = city.enName,
                         onSuccess = { weather ->
                             apiWeather = weather
                             val forecast = WeatherForecastMapper.toForecastWithDate(weather)
@@ -164,6 +167,7 @@ class CityWeatherViewModel(
             }
         }
     }
+
 
     private fun shouldUpdateFromApi(lastUpdate: Long?): Boolean {
         if (lastUpdate == null) return true

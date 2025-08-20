@@ -1,18 +1,26 @@
 package ru.kulishov.openweatherapp.presentation.ui.cities
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
@@ -34,6 +42,7 @@ fun SelectedCityScreen(
     primaryColor: Color,
     textStyle: TextStyle,
     retrofit: Retrofit,
+    onExit:()->Unit
 
 ){
     val towns = selectedCityViewModel.selectedCities.collectAsState()
@@ -46,7 +55,7 @@ fun SelectedCityScreen(
                     selectedCityViewModel.insertSelectedCities(city)
             })
         //CityCardUI(cityWeatherViewModel,Color.White, TextStyle())
-        LazyColumn(modifier = Modifier.fillMaxWidth(),
+        LazyColumn(modifier = Modifier.padding(bottom = 150.dp).fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp)) {
             items(towns.value){town->
@@ -54,18 +63,29 @@ fun SelectedCityScreen(
                     getCityWeatherByNameUseCase,
                     updateCityWeatherUseCase,
                     insertCityWeatherUseCase,
-                    town,
                     retrofit
                 )
+                cityWeatherViewModel.loadWeather(town)
                 CityCardUI(cityWeatherViewModel,primaryColor, textStyle,{
                         selectedCityViewModel.deleteSelectedCities(town)
                 })
             }
-            item {
-                Button(onClick = {
-                    selectedCityViewModel.deleteSelectedCities(SelectedCity(1,"Москва","Moscow"))
-                }) { }
-            }
+        }
+    }
+    Box(Modifier.padding(bottom = 25.dp).fillMaxSize(),
+       contentAlignment = Alignment.BottomCenter ){
+        Button(
+            onClick = {onExit()},
+            modifier = Modifier.fillMaxWidth().height(50.dp),
+            shape = RoundedCornerShape(10),
+        ) {
+            Text("Готово",  style = TextStyle(
+                fontFamily = textStyle.fontFamily,
+                color = primaryColor,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                fontStyle = textStyle.fontStyle
+           ))
         }
     }
 }

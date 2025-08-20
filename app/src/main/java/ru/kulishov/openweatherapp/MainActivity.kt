@@ -8,13 +8,19 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,10 +45,13 @@ import ru.kulishov.openweatherapp.domain.usecase.cities.InsertSelectedCityUseCas
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
+import ru.kulishov.openweatherapp.presentation.ui.cities.SelectedCityScreen
 import ru.kulishov.openweatherapp.presentation.ui.components.weather.CityWeatherUI
+import ru.kulishov.openweatherapp.presentation.ui.weather.WeatherScreenUi
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
+import ru.kulishov.openweatherapp.presentation.viewmodel.weather.WeatherNavigationViewModel
 import ru.kulishov.openweatherapp.ui.theme.OpenWeatherAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -68,9 +77,8 @@ class MainActivity : ComponentActivity() {
             val getCityWeatherByNameUseCase = GetCityWeatherByNameUseCase(cityWeatherRepository)
             val updateCityWeatherUseCase= UpdateCityWeatherUseCase(cityWeatherRepository)
             val insertWeatherByNameUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
-            val cityWeatherViewModel= CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,
-                SelectedCity(6234,"Таганрог","Taganrog"), retrofit)
-            //CityCardUI(cityWeatherViewModel)
+
+            val weatherScreenWeatherViewModel = CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,retrofit)
 
             val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
             val getSelectedCityUseCase= GetSelectedCityUseCase(selectedCityRepository)
@@ -79,20 +87,40 @@ class MainActivity : ComponentActivity() {
             val selectedCityScreenViewModel= CitiesScreenViewModel(getSelectedCityUseCase,
                 insertSelectedCityUseCase,
                 deleteSelectedCityUseCase)
+            val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
+
+            var navState by remember { mutableStateOf(true)  }
             Box(Modifier.fillMaxSize().background(Color.Black),
                 contentAlignment = Alignment.Center){
                 Column(
                     modifier = Modifier.padding(top=50.dp,start=25.dp,end=25.dp),
                     verticalArrangement = Arrangement.spacedBy(25.dp),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-//                    SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
-//                        updateCityWeatherUseCase,insertWeatherByNameUseCase,Color.White,
-//                        TextStyle(),retrofit)
+
                     //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
-                    CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
+                    //CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
+                    if(navState){
+                        WeatherScreenUi(weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,Color.White,
+                            TextStyle())
+                    }else{
+                        SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
+                            updateCityWeatherUseCase,insertWeatherByNameUseCase,Color.White,
+                            TextStyle(),retrofit,{navState=true})
+                    }
+
                 }
 
             }
+            if(navState){
+                Box(Modifier.padding(top=50.dp,start=25.dp).clickable{
+                    navState=false
+                }){
+                    Icon(painter = painterResource(R.drawable.menu),
+                        contentDescription = "Menu",
+                        tint = Color.White)
+                }
+            }
+
         }
     }
 }

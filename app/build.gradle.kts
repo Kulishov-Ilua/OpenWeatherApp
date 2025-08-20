@@ -78,6 +78,9 @@ dependencies {
 
     ksp(libs.room.compiler)
 
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+
 //    implementation(libs.hilt.android)
 //    ksp(libs.hilt.android.compiler)
 //    implementation(libs.androidx.hilt.navigation.compose)
