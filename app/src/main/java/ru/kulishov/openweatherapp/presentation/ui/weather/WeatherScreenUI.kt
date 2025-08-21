@@ -48,41 +48,25 @@ fun WeatherScreenUi(
     val selectedCities = weatherNavigationViewModel.selectedCities.collectAsState()
     val currentPage = weatherNavigationViewModel.currentPage.collectAsState()
     val isSwipeBlocked = weatherNavigationViewModel.isSwipeBlocked.collectAsState()
-
-    if(currentPage.value==0){
-
-    }
-
-
-    val pageCount = selectedCities.value.size
-
-    //val  pagerState = rememberPagerState(pageCount = { pageCount })
     Box(Modifier.fillMaxSize()
         .pointerInput(Unit){
             detectHorizontalDragGestures { change, dragAmount ->
-
                 if (isSwipeBlocked.value) return@detectHorizontalDragGestures
                 weatherNavigationViewModel.blockedSwipe()
-
                 change.consume()
                 if (dragAmount > 0) {
                     if(currentPage.value>0){
                         if(currentPage.value!=1){
                             cityWeatherViewModel.loadWeather(selectedCities.value[currentPage.value-2])
                         }
-
                         weatherNavigationViewModel.pageChanged(currentPage.value-1)
-
                     }
-
                 } else {
                     if(currentPage.value<selectedCities.value.size){
                         cityWeatherViewModel.loadWeather(selectedCities.value[currentPage.value])
                         weatherNavigationViewModel.pageChanged(currentPage.value+1)
-
                     }
                 }
-
             }
         },
         contentAlignment = Alignment.TopCenter){
@@ -98,26 +82,31 @@ fun WeatherScreenUi(
             ) {
                     Text(
                         if(currentPage.value==0) "Ваше местоположение"
-                        else selectedCities.value[currentPage.value-1].localName
-                        , style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                        else selectedCities.value[currentPage.value-1].localName,
+                        style = TextStyle(
+                                fontFamily = textStyle.fontFamily,
+                                color = primaryColor,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                                fontStyle = textStyle.fontStyle
+                            )
                         )
-                    )
                 PagerIndicator(
-                    selectedCities.value.size+1,
-                    currentPage.value,
-                    primaryColor
+                    pageCount = selectedCities.value.size+1,
+                    currentPageIndex = currentPage.value,
+                    primaryColor = primaryColor
                 )
                 if(currentPage.value==0){
-                    GeoWeatherUi(geoWeatherViewModel,primaryColor,textStyle)
+                    GeoWeatherUi(
+                        viewModel = geoWeatherViewModel,
+                        primaryColor = primaryColor,
+                        textStyle = textStyle)
                 }else{
-                    CityWeatherUI(cityWeatherViewModel,primaryColor,textStyle)
+                    CityWeatherUI(
+                        viewModel = cityWeatherViewModel,
+                        primaryColor = primaryColor,
+                        textStyle = textStyle)
                 }
-
             }
         }
     }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,17 +33,19 @@ fun CityCardUI(viewModel: CityWeatherViewModel,
                textStyle: TextStyle,
                onTap:()-> Unit){
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
-    val dtText = viewModel.currentForecast.collectAsState()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val cityName = viewModel.cityName.collectAsState()
 
-    Box(Modifier.fillMaxWidth().height(60.dp), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxWidth()
+        .height(60.dp),
+        contentAlignment = Alignment.Center) {
         Image(painter = painterResource(R.drawable.city_card_bacground),
             contentDescription = "backgroung",
             Modifier.fillMaxSize()
         )
         Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start=25.dp,end=25.dp).fillMaxSize(),
+            modifier = Modifier.padding(start=25.dp,end=25.dp)
+                .fillMaxSize(),
             horizontalArrangement = Arrangement.Start){
             Icon(painter = painterResource(R.drawable.exit),
                 contentDescription = "delete",
@@ -50,90 +53,81 @@ fun CityCardUI(viewModel: CityWeatherViewModel,
                 modifier = Modifier.clickable{
                     onTap()
                 })
-            Text(cityName.value.localName, style = TextStyle(
-                fontFamily = textStyle.fontFamily,
-                color = primaryColor,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                fontStyle = textStyle.fontStyle
+            Text(cityName.value.localName,
+                style = TextStyle(
+                    fontFamily = textStyle.fontFamily,
+                    color = primaryColor,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    fontStyle = textStyle.fontStyle
             ),
                 modifier = Modifier.padding(start=15.dp))
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd){
+            Box(Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd){
                 Row(verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(15.dp)) {
                     when (uiState.value) {
                         is CityWeatherViewModel.UiState.Loading -> {
-
+                            CircularProgressIndicator()
                         }
                         is CityWeatherViewModel.UiState.EnternetError -> {
                             Row(verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_min}°С", style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = Color(111,121,118),
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
+                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_min}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = Color(111,121,118),
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
+                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_max}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = primaryColor,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
-                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_max}°С", style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
-                                )
-                                )
-//                                Image(painter = painterResource(
-//                                    if(curentForecastList.value[curentForecastList.value.size/2].main.humidity>80) R.drawable.rain
-//                                    else if (curentForecastList.value[curentForecastList.value.size/2].clouds.all>10) R.drawable.cloud
-//                                    else R.drawable.sunpng
-//                                ),
-//                                    contentDescription = "cloud",
-//                                    modifier = Modifier.size(20.dp))
                             }
                         }
                         is CityWeatherViewModel.UiState.Success -> {
                             Row(verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_min}°С", style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = Color(111,121,118),
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
+                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_min}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = Color(111,121,118),
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
+                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_max}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = primaryColor,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
-                                Text("${curentForecastList.value[curentForecastList.value.size/2].main.temp_max}°С", style = TextStyle(
+                            }
+                        }
+                        is CityWeatherViewModel.UiState.Error -> {
+                            Text("Нет данных",
+                                style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 16.sp,
                                     fontStyle = textStyle.fontStyle
                                 )
-                                )
-//                                Image(painter = painterResource(
-//                                    if(curentForecastList.value[curentForecastList.value.size/2].main.humidity>80) R.drawable.rain
-//                                    else if (curentForecastList.value[curentForecastList.value.size/2].clouds.all>10) R.drawable.cloud
-//                                    else R.drawable.sunpng
-//                                ),
-//                                    contentDescription = "cloud",
-//                                    modifier = Modifier.size(20.dp))
-                            }
-                        }
-                        is CityWeatherViewModel.UiState.Error -> {
-                            Text("Нет данных",style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            )
                         }
                     }
-
-
-
                 }
             }
         }

@@ -63,7 +63,6 @@ class CitiesScreenViewModel(
                     println("tag:$a")
                     _selectedCities.value = selectedCities.value + city
                 }
-
                 _uiState.value= UiState.Success
             } catch (e: Exception){
                 _uiState.value = UiState.Error(e.message ?: "Failed to add event")

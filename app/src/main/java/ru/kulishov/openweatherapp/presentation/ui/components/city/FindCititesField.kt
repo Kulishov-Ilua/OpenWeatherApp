@@ -36,38 +36,38 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewMo
 @Composable
 fun FindCitiesField(
     viewModel: CitySearchViewModel,
-    backgroundColor: Color,
     textColor: Color,
     textStyle: TextStyle,
     onTap:(SelectedCity)-> Unit
 ){
     val text = viewModel.findName.collectAsState()
     val cities = viewModel.findCities.collectAsState()
-    //println(cities)
-
     val boxHeight = animateDpAsState(targetValue = if(cities.value.isNotEmpty()) 200.dp
     else 70.dp)
 
-    Box(Modifier.fillMaxWidth().height(boxHeight.value)
+    Box(Modifier.fillMaxWidth()
+        .height(boxHeight.value)
         .clip(RoundedCornerShape(10))
-    //.background(backgroundColor, RoundedCornerShape(10))
         , contentAlignment = Alignment.Center){
         if(boxHeight.value==200.dp){
             Image(painter = painterResource(R.drawable.find_background),
                 contentDescription = "backgroung",
-                Modifier.fillMaxWidth().height(boxHeight.value),
+                Modifier.fillMaxWidth()
+                    .height(boxHeight.value),
 
             )
         }else {
             Image(
                 painter = painterResource(R.drawable.city_card_bacground),
                 contentDescription = "backgroung",
-                Modifier.fillMaxWidth().height(boxHeight.value),
+                Modifier.fillMaxWidth()
+                    .height(boxHeight.value),
                 contentScale = ContentScale.Crop
             )
         }
         Column(Modifier.padding(top=5.dp, bottom = 15.dp, start = 25.dp, end = 25.dp)
-            .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally) {
             TextFieldCustom(
                 inpText = text.value,
                 onUpdate = { inp -> viewModel.setName(inp) },
@@ -82,17 +82,22 @@ fun FindCitiesField(
                         .clickable{
                         onTap(city)
                     }
-                        .padding(bottom = 5.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                        .padding(bottom = 5.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                        Box(modifier = Modifier.padding(start=5.dp,end=5.dp).fillMaxWidth().height(1.dp)
+                        Box(modifier = Modifier.padding(start=5.dp,end=5.dp)
+                            .fillMaxWidth()
+                            .height(1.dp)
                             .background(textColor, CircleShape))
-                        Text(city.localName, style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = textColor,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
-                        ))
+                        Text(city.localName,
+                            style = TextStyle(
+                                fontFamily = textStyle.fontFamily,
+                                color = textColor,
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 16.sp,
+                                fontStyle = textStyle.fontStyle
+                            )
+                        )
                     }
 
                 }

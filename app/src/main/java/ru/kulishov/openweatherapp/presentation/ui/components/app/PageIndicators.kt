@@ -22,9 +22,11 @@ import androidx.compose.ui.unit.dp
 import ru.kulishov.openweatherapp.R
 
 @Composable
-fun PagerIndicator(pageCount: Int, currentPageIndex: Int,
-                   primaryColor: Color,
-                   modifier: Modifier = Modifier) {
+fun PagerIndicator(
+    pageCount: Int,
+    currentPageIndex: Int,
+    primaryColor: Color,
+    modifier: Modifier = Modifier) {
     Box() {
         Row(
             modifier = Modifier

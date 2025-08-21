@@ -55,11 +55,12 @@ fun HoursWeatherBlock(
                 .clickable {
                     onClick(forecast)
                 }
-                .width(70.dp).height(80.dp).clip(RoundedCornerShape(10)), contentAlignment = Alignment.Center){
-                println(selectedHour)
-                println(forecastTime.hour)
+                .width(70.dp).height(80.dp)
+                .clip(RoundedCornerShape(10)),
+                contentAlignment = Alignment.Center){
                 if((selectedHour-forecastTime.hour)<3&&(selectedHour-forecastTime.hour)>=0){
-                    Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                    Image(painter = painterResource(R.drawable.weather_params_background),
+                        contentDescription = "background",
                         modifier = Modifier.fillMaxHeight(),
                         contentScale = ContentScale.FillHeight)
                 }
@@ -68,13 +69,15 @@ fun HoursWeatherBlock(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
-                    Text(forecastTime.hour.toString(), style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text(forecastTime.hour.toString(),
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                     when(state){
                         1->{
                             Icon(painter = painterResource(R.drawable.outline_air_24),
@@ -83,13 +86,15 @@ fun HoursWeatherBlock(
                                 modifier = Modifier.size(20.dp))
                         }
                         2->{
-                            Text(forecast.main.pressure.toString(), style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text(forecast.main.pressure.toString(),
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = primaryColor,
+                                        fontWeight = FontWeight.Medium,
+                                        fontSize = 14.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
+                            )
                         }
                         3->{
                             Icon(painter = painterResource(
@@ -117,13 +122,15 @@ fun HoursWeatherBlock(
                                 modifier = Modifier.size(20.dp))
                         }
                         5->{
-                            Text(forecast.visibility.toString(), style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text(forecast.visibility.toString(),
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         else->{
                             Image(painter = painterResource(
@@ -138,65 +145,74 @@ fun HoursWeatherBlock(
 
                     when(state){
                         1->{
-                            Text("${forecast.wind.speed} м/с", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("${forecast.wind.speed} м/с",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         2->{
-                            Text("мм/рт", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("мм/рт",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         3->{
-                            Text("${forecast.main.humidity}%", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("${forecast.main.humidity}%",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         4->{
-                            Text("${forecast.clouds.all}", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("${forecast.clouds.all}",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         5->{
-                            Text("м", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("м",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                         else->{
-                            Text("${forecast.main.temp}°С", style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = primaryColor,
-                                fontWeight = FontWeight.Medium,
-                                fontSize = 14.sp,
-                                fontStyle = textStyle.fontStyle
-                            ))
+                            Text("${forecast.main.temp}°С",
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
                         }
                     }
                 }
             }
-
         }
-
     }
-
 }

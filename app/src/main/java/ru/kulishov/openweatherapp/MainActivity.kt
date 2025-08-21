@@ -65,66 +65,80 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
-
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
                 .client(OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-                val db = getRoomDatabase(getDatabaseBuilder(this))
-                val cityRepository= CityRepositoryImpl(db.cityDao())
-                val findCityUseCase = FindCityUseCase(cityRepository)
-                val searchViewModel= CitySearchViewModel(findCityUseCase)
+            val db = getRoomDatabase(getDatabaseBuilder(this))
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            var navState by remember { mutableStateOf(true)  }
 
+
+            val cityRepository= CityRepositoryImpl(db.cityDao())
+            val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
             val cityWeatherRepository = CityWeatherRepositoryImpl(db.cityWeatherDao())
+
+            val findCityUseCase = FindCityUseCase(cityRepository)
             val getCityWeatherByNameUseCase = GetCityWeatherByNameUseCase(cityWeatherRepository)
             val updateCityWeatherUseCase= UpdateCityWeatherUseCase(cityWeatherRepository)
             val insertWeatherByNameUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
-
-            val weatherScreenWeatherViewModel = CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,retrofit)
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-
-            val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
             val getSelectedCityUseCase= GetSelectedCityUseCase(selectedCityRepository)
             val insertSelectedCityUseCase = InsertSelectedCityUseCase(selectedCityRepository)
             val deleteSelectedCityUseCase = DeleteSelectedCityUseCase(selectedCityRepository)
-            val selectedCityScreenViewModel= CitiesScreenViewModel(getSelectedCityUseCase,
-                insertSelectedCityUseCase,
-                deleteSelectedCityUseCase)
-            val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
-            val geoWeatherViewModel = GeoWeatherViewModel(retrofit, this, locationManager)
 
-            var navState by remember { mutableStateOf(true)  }
+            val weatherScreenWeatherViewModel = CityWeatherViewModel(
+                getCityWeatherByNameUseCase = getCityWeatherByNameUseCase,
+                updateCityWeatherUseCase = updateCityWeatherUseCase,
+                insertCityWeatherUseCase = insertWeatherByNameUseCase,
+                retrofit = retrofit)
+            val searchViewModel= CitySearchViewModel(findCityUseCase)
+            val selectedCityScreenViewModel= CitiesScreenViewModel(
+                getSelectedCityUseCase = getSelectedCityUseCase,
+                insertSelectedCityUseCase = insertSelectedCityUseCase,
+                deleteSelectedCity = deleteSelectedCityUseCase)
+            val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
+            val geoWeatherViewModel = GeoWeatherViewModel(
+                retrofit = retrofit,
+                context = this,
+                locationManager = locationManager)
+
             OpenWeatherAppTheme {
-                Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+                Box(Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface),
                     contentAlignment = Alignment.Center){
                     Column(
                         modifier = Modifier.padding(top=50.dp,start=25.dp,end=25.dp),
                         verticalArrangement = Arrangement.spacedBy(25.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
-
-                        //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
-                        //CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
                         if(navState){
                             WeatherScreenUi(
-                                geoWeatherViewModel,
-                                weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,
-                                MaterialTheme.colorScheme.onSurface,
-                                MaterialTheme.typography.bodyMedium)
+                                geoWeatherViewModel = geoWeatherViewModel,
+                                weatherNavigationViewModel = weatherNavigationViewModel,
+                                cityWeatherViewModel = weatherScreenWeatherViewModel,
+                                retrofit=retrofit,
+                                primaryColor = MaterialTheme.colorScheme.onSurface,
+                                textStyle = MaterialTheme.typography.bodyMedium)
                         }else{
-                            SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
-                                updateCityWeatherUseCase,insertWeatherByNameUseCase,MaterialTheme.colorScheme.onSurface,
-                                MaterialTheme.typography.bodyMedium,retrofit,{navState=true})
+                            SelectedCityScreen(
+                                selectedCityViewModel = selectedCityScreenViewModel,
+                                searchViewModel = searchViewModel,getCityWeatherByNameUseCase,
+                                updateCityWeatherUseCase = updateCityWeatherUseCase,
+                                insertCityWeatherUseCase = insertWeatherByNameUseCase,
+                                primaryColor = MaterialTheme.colorScheme.onSurface,
+                                textStyle = MaterialTheme.typography.bodyMedium,
+                                retrofit = retrofit,
+                                onExit = {navState=true})
                         }
 
                     }
 
                 }
                 if(navState){
-                    Box(Modifier.padding(top=50.dp,start=25.dp).clickable{
+                    Box(Modifier.padding(top=50.dp,start=25.dp)
+                        .clickable{
                         navState=false
                     }){
                         Icon(painter = painterResource(R.drawable.menu),
@@ -136,21 +150,5 @@ class MainActivity : ComponentActivity() {
 
 
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    OpenWeatherAppTheme {
-        Greeting("Android")
     }
 }

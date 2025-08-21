@@ -15,7 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ErrorMessageBoxUI(message: String, textStyle: TextStyle){
+fun ErrorMessageBoxUI(
+    message: String,
+    textStyle: TextStyle){
     Box(
         Modifier.background(Color(105,0,5), RoundedCornerShape(5)),
         contentAlignment = Alignment.Center

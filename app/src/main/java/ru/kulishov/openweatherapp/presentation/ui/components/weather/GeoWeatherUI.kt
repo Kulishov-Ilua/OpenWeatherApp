@@ -39,49 +39,58 @@ fun GeoWeatherUi(
     val selectedDay = viewModel.selecteDay.collectAsState()
     val paramsState = viewModel.paramState.collectAsState()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val weatherResponse = viewModel.weatherForecast.collectAsState()
     when (uiState.value) {
         is GeoWeatherViewModel.UiState.locationEnabled->{
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                ErrorMessageBoxUI("Геолокация выключена",textStyle)
+                ErrorMessageBoxUI("Геолокация выключена",
+                    textStyle)
                 Box(Modifier.padding(bottom = 25.dp).fillMaxSize(),
                     contentAlignment = Alignment.BottomCenter ){
                     Button(
                         onClick = {viewModel.getForecast()},
-                        modifier = Modifier.fillMaxWidth().height(50.dp),
+                        modifier = Modifier.fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(10),
                     ) {
-                        Text("Обновить",  style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = MaterialTheme.colorScheme.surface,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
-                        ))
+                        Text("Обновить",
+                            style = TextStyle(
+                                fontFamily = textStyle.fontFamily,
+                                color = MaterialTheme.colorScheme.surface,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                                fontStyle = textStyle.fontStyle
+                            )
+                        )
                     }
                 }
             }
-
-
         }
         is GeoWeatherViewModel.UiState.NotPermission ->{
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                ErrorMessageBoxUI("Нет разрешения на использование геолокации",textStyle)
-                Box(Modifier.padding(bottom = 25.dp).fillMaxSize(),
+                ErrorMessageBoxUI(
+                    message = "Нет разрешения на использование геолокации",
+                    textStyle = textStyle)
+                Box(Modifier.padding(bottom = 25.dp)
+                    .fillMaxSize(),
                     contentAlignment = Alignment.BottomCenter ){
                     Button(
                         onClick = {viewModel.getForecast()},
-                        modifier = Modifier.fillMaxWidth().height(50.dp),
+                        modifier = Modifier.fillMaxWidth()
+                            .height(50.dp),
                         shape = RoundedCornerShape(10),
                     ) {
-                        Text("Обновить",  style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = MaterialTheme.colorScheme.surface,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
-                        ))
+                        Text("Обновить",
+                            style = TextStyle(
+                                fontFamily = textStyle.fontFamily,
+                                color = MaterialTheme.colorScheme.surface,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                                fontStyle = textStyle.fontStyle
+                            )
+                        )
                     }
                 }
             }
@@ -93,44 +102,55 @@ fun GeoWeatherUi(
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                ErrorMessageBoxUI("Отсутствует подключение к интернету!", textStyle)
+                ErrorMessageBoxUI(
+                    message = "Отсутствует подключение к интернету!",
+                    textStyle = textStyle)
             }
 
         }
         is GeoWeatherViewModel.UiState.Error -> {
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                ErrorMessageBoxUI("Данные отсутствуют!",textStyle)
+                ErrorMessageBoxUI(
+                    message = "Данные отсутствуют!",
+                    textStyle = textStyle)
             }
         }
         is GeoWeatherViewModel.UiState.Success ->{
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                CurrentWeatherBlockUI(currentForecast.value,primaryColor,textStyle)
-                WeatherParamsBlockUI(paramsState.value,
-                    {state->
+                CurrentWeatherBlockUI(
+                    weather = currentForecast.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle)
+                WeatherParamsBlockUI(
+                    state = paramsState.value,
+                    onClick = {state->
                         viewModel.setParamState(state)
-                    }, currentForecast.value,primaryColor,textStyle)
+                    },
+                    weather = currentForecast.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle)
                 HoursWeatherBlock(
-                    paramsState.value,
-                    {
+                    state = paramsState.value,
+                    onClick = {
                             forecast->
                         viewModel.updateCurrentForecast(forecast)
                     },
-                    curentForecastList.value,
-                    selectedHour.value,
-                    primaryColor,
-                    textStyle
+                    listForecast = curentForecastList.value,
+                    selectedHour = selectedHour.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
-                    { day->
+                    onClick = { day->
                         viewModel.setSelectedDay(day)
                     },
-                    forecastList.value,
-                    selectedDay.value,
-                    primaryColor,
-                    textStyle
+                    listForecast = forecastList.value,
+                    selectedDay = selectedDay.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle
                 )
             }
         }
