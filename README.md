@@ -12,6 +12,8 @@
 - `Room`
     
 - `Retrofit2`
+
+- `Dagger Hilt`
     
 - `OpenWeather Api`
     
