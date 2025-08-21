@@ -50,6 +50,7 @@ android {
         compose = true
         buildConfig = true
     }
+
 }
 
 dependencies {
@@ -81,6 +82,12 @@ dependencies {
 
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+
+    implementation(libs.androidx.glance.appwidget)
+
+    implementation(libs.androidx.glance.material3)
+
+    implementation(libs.androidx.glance.material)
 
 //    implementation(libs.hilt.android)
 //    ksp(libs.hilt.android.compiler)

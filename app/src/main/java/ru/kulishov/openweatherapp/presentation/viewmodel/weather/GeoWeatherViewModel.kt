@@ -2,13 +2,17 @@ package ru.kulishov.openweatherapp.presentation.viewmodel.weather
 
 import android.Manifest
 import android.app.Activity
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.edit
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -20,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.MainActivity
+import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.data.local.mapper.WeatherForecastMapper
 import ru.kulishov.openweatherapp.data.remote.api.cityRequest
 import ru.kulishov.openweatherapp.data.remote.api.geoRequest
@@ -34,6 +39,7 @@ import ru.kulishov.openweatherapp.data.remote.model.Wind
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
+import ru.kulishov.openweatherapp.widget_feature.WeatherWidget
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -46,6 +52,7 @@ class GeoWeatherViewModel(
     private val context: Context,
     private val locationManager: LocationManager
 ): BaseViewModel() {
+
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
@@ -186,13 +193,13 @@ class GeoWeatherViewModel(
                             lat = lat,
                             lon=lon,
                             onSuccess = { weather ->
-                                apiWeather = weather
                                 val forecast = WeatherForecastMapper.toForecastWithDate(weather)
                                 _weatherForecat.value = forecast
 
                                 val fForecast = findTodayCurrentHourForecast(weatherForecast.value.list)
                                 if(fForecast!=null){
                                     _currentForecast.value=fForecast
+                                    onWeatherUpdated(currentForecast.value)
                                     sortedForecastForDate()
                                 }else{
                                     _uiState.value= UiState.Error("Not data")
@@ -254,7 +261,28 @@ class GeoWeatherViewModel(
         }
     }
 
+    fun onWeatherUpdated(weather: Forecast) {
+        launch {
+            val prefs = context.getSharedPreferences("weather_widget", Context.MODE_PRIVATE)
+            prefs.edit {
+                putFloat("temp", weather.main.temp.toFloat())
+                putInt("state",    if (weather.main.humidity > 80) 2
+                else if (weather.clouds.all > 10) 1
+                else 0)
 
+            }
+            updateWidgetBroadcast()
+        }
+    }
+    private fun updateWidgetBroadcast() {
+        val intent = Intent(context, WeatherWidget::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        }
+        val ids = AppWidgetManager.getInstance(context)
+            .getAppWidgetIds(ComponentName(context, WeatherWidget::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        context.sendBroadcast(intent)
+    }
     fun setParamState(state:Int){
         _paramState.value=state
     }
