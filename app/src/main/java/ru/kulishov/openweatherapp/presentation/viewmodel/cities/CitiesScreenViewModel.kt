@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.presentation.viewmodel.cities
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,8 +10,10 @@ import ru.kulishov.openweatherapp.domain.usecase.cities.DeleteSelectedCityUseCas
 import ru.kulishov.openweatherapp.domain.usecase.cities.GetSelectedCityUseCase
 import ru.kulishov.openweatherapp.domain.usecase.cities.InsertSelectedCityUseCase
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
+import javax.inject.Inject
 
-class CitiesScreenViewModel(
+@HiltViewModel
+class CitiesScreenViewModel @Inject constructor(
     private val getSelectedCityUseCase: GetSelectedCityUseCase,
     private val insertSelectedCityUseCase: InsertSelectedCityUseCase,
     private val deleteSelectedCity: DeleteSelectedCityUseCase

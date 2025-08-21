@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.presentation.viewmodel.weather
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,8 +10,10 @@ import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.cities.GetSelectedCityUseCase
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
+import javax.inject.Inject
 
-class WeatherNavigationViewModel(
+@HiltViewModel
+class WeatherNavigationViewModel @Inject constructor(
     private val getSelectedCityUseCase: GetSelectedCityUseCase
 ): BaseViewModel() {
     private val _uiState = MutableStateFlow<CitiesScreenViewModel.UiState>(CitiesScreenViewModel.UiState.Loading)
