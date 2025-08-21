@@ -30,12 +30,15 @@ import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCas
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
 import ru.kulishov.openweatherapp.presentation.ui.components.app.PagerIndicator
 import ru.kulishov.openweatherapp.presentation.ui.components.weather.CityWeatherUI
+import ru.kulishov.openweatherapp.presentation.ui.components.weather.GeoWeatherUi
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
+import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.WeatherNavigationViewModel
 
 @Composable
 fun WeatherScreenUi(
+    geoWeatherViewModel: GeoWeatherViewModel,
     weatherNavigationViewModel: WeatherNavigationViewModel,
     cityWeatherViewModel: CityWeatherViewModel,
     retrofit: Retrofit,
@@ -110,7 +113,7 @@ fun WeatherScreenUi(
                     primaryColor
                 )
                 if(currentPage.value==0){
-
+                    GeoWeatherUi(geoWeatherViewModel,primaryColor,textStyle)
                 }else{
                     CityWeatherUI(cityWeatherViewModel,primaryColor,textStyle)
                 }

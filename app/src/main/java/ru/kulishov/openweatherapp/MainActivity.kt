@@ -1,6 +1,9 @@
 package ru.kulishov.openweatherapp
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
+import android.location.LocationManager
 import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -52,6 +55,7 @@ import ru.kulishov.openweatherapp.presentation.ui.weather.WeatherScreenUi
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
+import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.WeatherNavigationViewModel
 import ru.kulishov.openweatherapp.ui.theme.OpenWeatherAppTheme
 
@@ -80,6 +84,8 @@ class MainActivity : ComponentActivity() {
             val insertWeatherByNameUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
 
             val weatherScreenWeatherViewModel = CityWeatherViewModel(getCityWeatherByNameUseCase,updateCityWeatherUseCase,insertWeatherByNameUseCase,retrofit)
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
 
             val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
             val getSelectedCityUseCase= GetSelectedCityUseCase(selectedCityRepository)
@@ -89,6 +95,7 @@ class MainActivity : ComponentActivity() {
                 insertSelectedCityUseCase,
                 deleteSelectedCityUseCase)
             val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
+            val geoWeatherViewModel = GeoWeatherViewModel(retrofit, this, locationManager)
 
             var navState by remember { mutableStateOf(true)  }
             OpenWeatherAppTheme {
@@ -102,7 +109,9 @@ class MainActivity : ComponentActivity() {
                         //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
                         //CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
                         if(navState){
-                            WeatherScreenUi(weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,
+                            WeatherScreenUi(
+                                geoWeatherViewModel,
+                                weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,
                                 MaterialTheme.colorScheme.onSurface,
                                 MaterialTheme.typography.bodyMedium)
                         }else{
