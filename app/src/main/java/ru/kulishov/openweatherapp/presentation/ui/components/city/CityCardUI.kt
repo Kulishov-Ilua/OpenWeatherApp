@@ -122,7 +122,7 @@ fun CityCardUI(viewModel: CityWeatherViewModel,
                             }
                         }
                         is CityWeatherViewModel.UiState.Error -> {
-                            Text("Not data",style = TextStyle(
+                            Text("Нет данных",style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = primaryColor,
                                 fontWeight = FontWeight.Bold,

@@ -72,7 +72,8 @@ fun DaysWeatherBlockUI(
                         contentScale = ContentScale.FillHeight)
                 }
                 Row(modifier = Modifier.padding(15.dp).fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically) {
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(text = if(currentDate==day.first)"Сегодня"
                     else dayInWeek, style = TextStyle(
                         fontFamily = textStyle.fontFamily,
@@ -82,6 +83,21 @@ fun DaysWeatherBlockUI(
                         fontStyle = textStyle.fontStyle
                     )
                         )
+                    Text(text = if(day.second.isNotEmpty()){
+                        "(${Instant.ofEpochMilli( day.second.first().dt*1000-10800000+60000)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDateTime().dayOfMonth}.${Instant.ofEpochMilli( day.second.first().dt*1000-10800000+60000)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDateTime().month.ordinal})"
+
+                    } else "", style = TextStyle(
+                        fontFamily = textStyle.fontFamily,
+                        color = primaryColor,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 14.sp,
+                        fontStyle = textStyle.fontStyle
+                    )
+                    )
                     Box(Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.CenterEnd){
                         if(day.second.isNotEmpty()){

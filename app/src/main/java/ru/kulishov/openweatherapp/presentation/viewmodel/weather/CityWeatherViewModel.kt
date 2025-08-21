@@ -154,7 +154,10 @@ class CityWeatherViewModel(
 
                         },
                         onFailure = { e ->
-                            handleApiFailure(weatherFromDb.first(), e)
+                            handleApiFailure(
+                                if(weatherFromDb.isEmpty()) null
+                                        else
+                                weatherFromDb.first(), e)
                         }
                     )
 
