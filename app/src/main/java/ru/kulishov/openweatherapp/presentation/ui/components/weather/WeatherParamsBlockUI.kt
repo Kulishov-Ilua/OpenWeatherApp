@@ -52,17 +52,20 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==0){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Темп: ${weather.main.temp}°С", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Темп: ${weather.main.temp}°С",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
                 Box(
                     Modifier.height(30.dp)
@@ -72,17 +75,20 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==1){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Ветер: ${weather.wind.speed} м/с", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Ветер: ${weather.wind.speed} м/с",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
                 Box(
                     Modifier.height(30.dp)
@@ -92,21 +98,22 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==2){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Давлен: ${weather.main.pressure} мм/рт", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Давлен: ${weather.main.pressure} мм/рт",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
             }
-
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -119,17 +126,20 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==3){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Влажность: ${weather.main.humidity}%", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Влажность: ${weather.main.humidity}%",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
                 Box(
                     Modifier.height(30.dp)
@@ -139,17 +149,20 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==4){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Облака: ${weather.clouds.all}", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Облака: ${weather.clouds.all}",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
                 Box(
                     Modifier.height(30.dp)
@@ -159,21 +172,22 @@ fun WeatherParamsBlockUI(
                     contentAlignment = Alignment.Center
                 ){
                     if(state==5){
-                        Image(painter = painterResource(R.drawable.weather_params_background), contentDescription = "background",
+                        Image(painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
                             contentScale = ContentScale.FillHeight)
                     }
-                    Text("Видимость: ${weather.visibility}м", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    ))
+                    Text("Видимость: ${weather.visibility}м",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
+                    )
                 }
             }
         }
     }
-
-
 }

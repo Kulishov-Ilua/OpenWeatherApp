@@ -57,22 +57,27 @@ class GeoWeatherViewModel(
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 98
     private val _currentForecast = MutableStateFlow<Forecast>(Forecast(0,
-        MainForecast(0.0,
-            0.0,
-            0.0,
-            0.0,
-            0,
-            null,
-            null,
-            0,
-            0.0),
-        Collections.emptyList(),
-        Clouds(0),
-        Wind(0.0,0,null),
-        0,
-        0.0,
-        Sys(""),
-        ""))
+        MainForecast(
+            temp = 0.0,
+            feels_like = 0.0,
+            temp_min = 0.0,
+            temp_max = 0.0,
+            pressure = 0,
+            sea_level = null,
+            grnd_level = null,
+            humidity = 0,
+            temp_kf = 0.0),
+        weather = Collections.emptyList(),
+        clouds = Clouds(0),
+        wind = Wind(
+            speed = 0.0,
+            deg = 0,
+            gust = null),
+        visibility = 0,
+        pop = 0.0,
+        sys = Sys(""),
+        dt_txt = "")
+    )
     val currentForecast:StateFlow<Forecast> = _currentForecast.asStateFlow()
 
     private val _weatherForecat = MutableStateFlow<WeatherForecastResponceWithDateTime>(
@@ -120,6 +125,7 @@ class GeoWeatherViewModel(
 
     private var cancellationTokenSource: CancellationTokenSource? = null
 
+
     init {
         getForecast()
     }
@@ -151,6 +157,7 @@ class GeoWeatherViewModel(
             cancellationTokenSource?.token
         )
             .addOnCompleteListener { data->
+                println("${data.result.latitude} ${data.result.longitude}")
                 loadWeather(data.result.latitude,data.result.latitude)
             }
     }
@@ -169,7 +176,6 @@ class GeoWeatherViewModel(
 
     private fun loadWeather(lat: Double,lon: Double) {
         launch {
-            println("launch geo")
             _uiState.value = UiState.Loading
                 if(!isApiBlocked.value){
                     try {
@@ -212,12 +218,10 @@ class GeoWeatherViewModel(
 
     fun findTodayCurrentHourForecast(forecasts: List<Forecast>): Forecast? {
         val currentTime = LocalDateTime.now()
-
         return forecasts.find { forecast ->
             val forecastDateTime = Instant.ofEpochMilli(forecast.dt*1000-10800000+60000)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
-            println(forecastDateTime)
 
             forecastDateTime.year == currentTime.year &&
                     forecastDateTime.month == currentTime.month &&

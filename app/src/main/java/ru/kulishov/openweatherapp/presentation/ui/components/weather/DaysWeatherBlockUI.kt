@@ -64,25 +64,29 @@ fun DaysWeatherBlockUI(
                 .clickable{
                     onClick(day.first)
                 }
-                .height(60.dp).fillMaxWidth(),
+                .height(60.dp)
+                .fillMaxWidth(),
                 contentAlignment = Alignment.Center){
                 if(selectedDay==day.first){
-                    Image(painter = painterResource(R.drawable.city_card_bacground), contentDescription = "background",
+                    Image(painter = painterResource(R.drawable.city_card_bacground),
+                        contentDescription = "background",
                         modifier = Modifier.fillMaxHeight(),
                         contentScale = ContentScale.FillHeight)
                 }
-                Row(modifier = Modifier.padding(15.dp).fillMaxWidth(),
+                Row(modifier = Modifier.padding(15.dp)
+                    .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(text = if(currentDate==day.first)"Сегодня"
-                    else dayInWeek, style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
-                    )
+                    else dayInWeek,
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            fontStyle = textStyle.fontStyle
                         )
+                    )
                     Text(text = if(day.second.isNotEmpty()){
                         "(${Instant.ofEpochMilli( day.second.first().dt*1000-10800000+60000)
                             .atZone(ZoneId.systemDefault())
@@ -90,34 +94,37 @@ fun DaysWeatherBlockUI(
                             .atZone(ZoneId.systemDefault())
                             .toLocalDateTime().month.ordinal})"
 
-                    } else "", style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
-                        fontStyle = textStyle.fontStyle
-                    )
+                    } else "",
+                        style = TextStyle(
+                            fontFamily = textStyle.fontFamily,
+                            color = primaryColor,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp,
+                            fontStyle = textStyle.fontStyle
+                        )
                     )
                     Box(Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.CenterEnd){
                         if(day.second.isNotEmpty()){
                             Row(verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Text("${day.second[day.second.size/2].main.temp_min}°С", style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = Color(111,121,118),
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
+                                Text("${day.second[day.second.size/2].main.temp_min}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = Color(111,121,118),
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
-                                )
-                                Text("${day.second[day.second.size/2].main.temp_max}°С", style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
-                                )
+                                Text("${day.second[day.second.size/2].main.temp_max}°С",
+                                    style = TextStyle(
+                                        fontFamily = textStyle.fontFamily,
+                                        color = primaryColor,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        fontStyle = textStyle.fontStyle
+                                    )
                                 )
                                 Image(painter = painterResource(
                                     if(day.second[day.second.size/2].main.humidity>80) R.drawable.rain

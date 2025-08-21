@@ -6,7 +6,6 @@ import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
 interface CityWeatherRepository {
     fun getCityWeather(): Flow<List<WeatherForecastResponse>>
-    //suspend fun getCityWeatherOnline(city:String): List<WeatherForecastResponse>
     fun getCityWeatherByName(name:String):Flow<List<WeatherForecastResponceWithDateTime>>
     suspend fun insertWeather(cityWeatherForecastResponse: WeatherForecastResponse)
     suspend fun updateWeather(cityWeatherForecastResponse: WeatherForecastResponse)

@@ -36,45 +36,59 @@ fun CityWeatherUI(
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                ErrorMessageBoxUI("Отсутствует подключение к интернету!\nДанные актуальны на:${currentForecast.value.dt_txt}",textStyle)
-                CurrentWeatherBlockUI(currentForecast.value,primaryColor,textStyle)
+                ErrorMessageBoxUI(
+                    message = "Отсутствует подключение к интернету!\nДанные актуальны на:${currentForecast.value.dt_txt}",
+                    textStyle = textStyle)
+                CurrentWeatherBlockUI(
+                    weather = currentForecast.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle)
             }
 
         }
         is CityWeatherViewModel.UiState.Error -> {
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                ErrorMessageBoxUI("Данные отсутствуют!",textStyle)
+                ErrorMessageBoxUI(
+                    message = "Данные отсутствуют!",
+                    textStyle = textStyle)
             }
         }
         is CityWeatherViewModel.UiState.Success ->{
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                CurrentWeatherBlockUI(currentForecast.value,primaryColor,textStyle)
-                WeatherParamsBlockUI(paramsState.value,
-                    {state->
+                CurrentWeatherBlockUI(
+                    weather = currentForecast.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle)
+                WeatherParamsBlockUI(
+                    state = paramsState.value,
+                    onClick = {state->
                         viewModel.setParamState(state)
-                    }, currentForecast.value,primaryColor,textStyle)
+                    },
+                    weather = currentForecast.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle)
                 HoursWeatherBlock(
-                    paramsState.value,
-                    {
+                    state = paramsState.value,
+                    onClick = {
                         forecast->
                         viewModel.updateCurrentForecast(forecast)
                     },
-                    curentForecastList.value,
-                    selectedHour.value,
-                    primaryColor,
-                    textStyle
+                    listForecast = curentForecastList.value,
+                    selectedHour = selectedHour.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
-                    { day->
+                    onClick = { day->
                         viewModel.setSelectedDay(day)
                     },
-                    forecastList.value,
-                    selectedDay.value,
-                    primaryColor,
-                    textStyle
+                    listForecast = forecastList.value,
+                    selectedDay = selectedDay.value,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle
                 )
             }
         }

@@ -27,7 +27,6 @@ class CitySearchViewModel (
        launch {
            delay(300)
            if(_findName.value==name) {
-
                findCityUseCase(name).catch { e ->
                    _uiState.value = UiState.Error(e.message ?: "Unknow error")
                }

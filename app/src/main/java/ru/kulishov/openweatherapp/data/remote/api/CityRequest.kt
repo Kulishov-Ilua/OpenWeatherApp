@@ -9,7 +9,11 @@ import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.BuildConfig
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 
-fun cityRequest(retrofit: Retrofit, city: String, onSuccess: (WeatherForecastResponse)->Unit, onFailure: (String)->Unit){
+fun cityRequest(
+    retrofit: Retrofit,
+    city: String,
+    onSuccess: (WeatherForecastResponse)->Unit,
+    onFailure: (String)->Unit){
     val openWeatherApi: OpenWeatherApi = retrofit.create(OpenWeatherApi::class.java)
     openWeatherApi.getWeather(city, BuildConfig.OW_API_KEY).enqueue(object:
         Callback<WeatherForecastResponse> {
@@ -32,7 +36,8 @@ fun cityRequest(retrofit: Retrofit, city: String, onSuccess: (WeatherForecastRes
             }
         }
 
-        override fun onFailure(call: Call<WeatherForecastResponse>, t: Throwable) {
+        override fun onFailure(call: Call<WeatherForecastResponse>,
+                               t: Throwable) {
             Log.e(TAG, "Network error ${t.message}")
             onFailure("Network error ${t.message}")
         }

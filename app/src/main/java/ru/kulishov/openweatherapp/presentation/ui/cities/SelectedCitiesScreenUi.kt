@@ -51,42 +51,53 @@ fun SelectedCityScreen(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        FindCitiesField(searchViewModel,primaryColor,primaryColor, TextStyle(),
-            { city->
+        FindCitiesField(
+            viewModel = searchViewModel,
+            textColor = primaryColor,
+            textStyle = TextStyle(),
+            onTap = { city->
                     selectedCityViewModel.insertSelectedCities(city)
             })
-        //CityCardUI(cityWeatherViewModel,Color.White, TextStyle())
-        LazyColumn(modifier = Modifier.padding(bottom = 150.dp).fillMaxWidth(),
+        LazyColumn(modifier = Modifier
+            .padding(bottom = 150.dp)
+            .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp)) {
             items(towns.value){town->
                 val cityWeatherViewModel= CityWeatherViewModel(
-                    getCityWeatherByNameUseCase,
-                    updateCityWeatherUseCase,
-                    insertCityWeatherUseCase,
-                    retrofit
+                    getCityWeatherByNameUseCase = getCityWeatherByNameUseCase,
+                    updateCityWeatherUseCase = updateCityWeatherUseCase,
+                    insertCityWeatherUseCase = insertCityWeatherUseCase,
+                    retrofit = retrofit
                 )
                 cityWeatherViewModel.loadWeather(town)
-                CityCardUI(cityWeatherViewModel,primaryColor, textStyle,{
+                CityCardUI(
+                    viewModel = cityWeatherViewModel,
+                    primaryColor = primaryColor,
+                    textStyle = textStyle,
+                    onTap = {
                         selectedCityViewModel.deleteSelectedCities(town)
                 })
             }
         }
     }
-    Box(Modifier.padding(bottom = 25.dp).fillMaxSize(),
+    Box(Modifier.padding(bottom = 25.dp)
+        .fillMaxSize(),
        contentAlignment = Alignment.BottomCenter ){
         Button(
             onClick = {onExit()},
             modifier = Modifier.fillMaxWidth().height(50.dp),
             shape = RoundedCornerShape(10),
         ) {
-            Text("Готово",  style = TextStyle(
-                fontFamily = textStyle.fontFamily,
-                color = MaterialTheme.colorScheme.surface,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                fontStyle = textStyle.fontStyle
-           ))
+            Text("Готово",
+                style = TextStyle(
+                    fontFamily = textStyle.fontFamily,
+                    color = MaterialTheme.colorScheme.surface,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    fontStyle = textStyle.fontStyle
+                )
+            )
         }
     }
 }

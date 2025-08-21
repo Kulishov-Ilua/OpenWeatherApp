@@ -22,9 +22,10 @@ import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.data.remote.model.Forecast
 
 @Composable
-fun CurrentWeatherBlockUI(weather: Forecast,
-                          primaryColor: Color,
-                          textStyle: TextStyle){
+fun CurrentWeatherBlockUI(
+    weather: Forecast,
+    primaryColor: Color,
+    textStyle: TextStyle){
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,23 +39,28 @@ fun CurrentWeatherBlockUI(weather: Forecast,
             contentDescription = "WeatherIcon",
             modifier = Modifier.height(110.dp),
             contentScale = ContentScale.FillHeight)
+
         Column(modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(5.dp)) {
-            Text("${weather.main.temp}°С", style = TextStyle(
-                fontFamily = textStyle.fontFamily,
-                color = primaryColor,
-                fontWeight = FontWeight.Bold,
-                fontSize = 56.sp,
-                fontStyle = textStyle.fontStyle
-            ))
-            Text("Ощущвется как: ${weather.main.feels_like}°С", style = TextStyle(
-                fontFamily = textStyle.fontFamily,
-                color = primaryColor,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
-                fontStyle = textStyle.fontStyle
-            ))
+            Text("${weather.main.temp}°С",
+                style = TextStyle(
+                    fontFamily = textStyle.fontFamily,
+                    color = primaryColor,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 56.sp,
+                    fontStyle = textStyle.fontStyle
+                )
+            )
+            Text("Ощущается как: ${weather.main.feels_like}°С",
+                style = TextStyle(
+                    fontFamily = textStyle.fontFamily,
+                    color = primaryColor,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp,
+                    fontStyle = textStyle.fontStyle
+                )
+            )
         }
     }
 }
