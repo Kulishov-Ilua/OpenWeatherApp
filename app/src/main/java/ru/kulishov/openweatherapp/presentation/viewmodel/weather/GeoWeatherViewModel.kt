@@ -18,6 +18,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -44,10 +45,12 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Collections
+import javax.inject.Inject
 import kotlin.collections.first
 import kotlin.collections.isNotEmpty
 
-class GeoWeatherViewModel(
+@HiltViewModel
+class GeoWeatherViewModel @Inject constructor(
     private  val retrofit: Retrofit,
     private val context: Context,
     private val locationManager: LocationManager

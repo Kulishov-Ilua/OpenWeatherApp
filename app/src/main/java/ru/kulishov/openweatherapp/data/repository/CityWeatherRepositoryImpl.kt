@@ -7,8 +7,9 @@ import ru.kulishov.openweatherapp.data.local.mapper.CityWeatherMapper
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.domain.repository.CityWeatherRepository
+import javax.inject.Inject
 
-class CityWeatherRepositoryImpl(
+class CityWeatherRepositoryImpl @Inject constructor(
     private val cityWeatherDao: CityWeatherDao
 ): CityWeatherRepository {
     override fun getCityWeather(): Flow<List<WeatherForecastResponse>> = cityWeatherDao.getCityWeather().map { entities -> entities.map { entitity-> CityWeatherMapper.toDomain(entitity) } }

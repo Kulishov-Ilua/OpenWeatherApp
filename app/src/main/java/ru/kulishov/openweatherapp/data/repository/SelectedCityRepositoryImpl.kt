@@ -6,9 +6,10 @@ import ru.kulishov.openweatherapp.data.local.dao.SelectedCityDao
 import ru.kulishov.openweatherapp.data.local.mapper.SelectedCityMapper
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository
+import javax.inject.Inject
 
 
-class SelectedCityRepositoryImpl (
+class SelectedCityRepositoryImpl @Inject constructor(
     private val selectedCityDao: SelectedCityDao,
 ): SelectedCityRepository {
     override fun getSelectedCity(): Flow<List<SelectedCity>>  =selectedCityDao.getSelectedCities().map { entiies -> entiies.map { entity -> SelectedCityMapper.toDomain(entity) } }

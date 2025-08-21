@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository
+import javax.inject.Inject
 
-class GetSelectedCityUseCase(
+class GetSelectedCityUseCase @Inject constructor(
     private val repository: SelectedCityRepository
 ) {
     suspend operator fun invoke(): Flow<List<SelectedCity>> = repository.getSelectedCity()
