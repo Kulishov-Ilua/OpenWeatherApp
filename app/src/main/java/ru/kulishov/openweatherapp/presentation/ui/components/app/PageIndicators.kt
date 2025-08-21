@@ -34,7 +34,7 @@ fun PagerIndicator(pageCount: Int, currentPageIndex: Int,
             horizontalArrangement = Arrangement.Center
         ) {
             repeat(pageCount) { iteration ->
-                val color = if (currentPageIndex == iteration) Color.White else Color.Transparent
+                val color = if (currentPageIndex == iteration) primaryColor else Color.Transparent
                 if(iteration==0){
                     if(currentPageIndex == iteration){
                         Icon(painter = painterResource(R.drawable.location),

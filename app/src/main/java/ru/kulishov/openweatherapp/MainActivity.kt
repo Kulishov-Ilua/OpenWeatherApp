@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -90,36 +91,40 @@ class MainActivity : ComponentActivity() {
             val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
 
             var navState by remember { mutableStateOf(true)  }
-            Box(Modifier.fillMaxSize().background(Color.Black),
-                contentAlignment = Alignment.Center){
-                Column(
-                    modifier = Modifier.padding(top=50.dp,start=25.dp,end=25.dp),
-                    verticalArrangement = Arrangement.spacedBy(25.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
+            OpenWeatherAppTheme {
+                Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+                    contentAlignment = Alignment.Center){
+                    Column(
+                        modifier = Modifier.padding(top=50.dp,start=25.dp,end=25.dp),
+                        verticalArrangement = Arrangement.spacedBy(25.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
-                    //CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
-                    if(navState){
-                        WeatherScreenUi(weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,Color.White,
-                            TextStyle())
-                    }else{
-                        SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
-                            updateCityWeatherUseCase,insertWeatherByNameUseCase,Color.White,
-                            TextStyle(),retrofit,{navState=true})
+                        //Image(painter = painterResource(R.drawable.sun), contentDescription = "")
+                        //CityWeatherUI(cityWeatherViewModel,Color.White, TextStyle())
+                        if(navState){
+                            WeatherScreenUi(weatherNavigationViewModel,weatherScreenWeatherViewModel,retrofit,
+                                MaterialTheme.colorScheme.onSurface,
+                                MaterialTheme.typography.bodyMedium)
+                        }else{
+                            SelectedCityScreen(selectedCityScreenViewModel,searchViewModel,getCityWeatherByNameUseCase,
+                                updateCityWeatherUseCase,insertWeatherByNameUseCase,MaterialTheme.colorScheme.onSurface,
+                                MaterialTheme.typography.bodyMedium,retrofit,{navState=true})
+                        }
+
                     }
 
                 }
-
-            }
-            if(navState){
-                Box(Modifier.padding(top=50.dp,start=25.dp).clickable{
-                    navState=false
-                }){
-                    Icon(painter = painterResource(R.drawable.menu),
-                        contentDescription = "Menu",
-                        tint = Color.White)
+                if(navState){
+                    Box(Modifier.padding(top=50.dp,start=25.dp).clickable{
+                        navState=false
+                    }){
+                        Icon(painter = painterResource(R.drawable.menu),
+                            contentDescription = "Menu",
+                            tint = MaterialTheme.colorScheme.onSurface)
+                    }
                 }
             }
+
 
         }
     }

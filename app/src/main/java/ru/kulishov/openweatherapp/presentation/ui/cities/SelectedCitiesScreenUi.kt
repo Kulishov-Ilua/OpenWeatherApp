@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -50,7 +51,7 @@ fun SelectedCityScreen(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        FindCitiesField(searchViewModel,Color.White,Color.White, TextStyle(),
+        FindCitiesField(searchViewModel,primaryColor,primaryColor, TextStyle(),
             { city->
                     selectedCityViewModel.insertSelectedCities(city)
             })
@@ -81,7 +82,7 @@ fun SelectedCityScreen(
         ) {
             Text("Готово",  style = TextStyle(
                 fontFamily = textStyle.fontFamily,
-                color = primaryColor,
+                color = MaterialTheme.colorScheme.surface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
                 fontStyle = textStyle.fontStyle
