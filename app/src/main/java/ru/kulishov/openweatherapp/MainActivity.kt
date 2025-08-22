@@ -33,6 +33,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -59,47 +61,37 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherView
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.WeatherNavigationViewModel
 import ru.kulishov.openweatherapp.ui.theme.OpenWeatherAppTheme
+import javax.inject.Inject
+
+@AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var retrofit: Retrofit
+    @Inject
+    lateinit var getCityWeatherByNameUseCase:GetCityWeatherByNameUseCase
+    @Inject
+    lateinit var updateCityWeatherUseCase:UpdateCityWeatherUseCase
+    @Inject
+    lateinit var insertWeatherByNameUseCase:InsertCityWeatherUseCase
     @SuppressLint("ViewModelConstructorInComposable")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
-                .client(OkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
 
-            val db = getRoomDatabase(getDatabaseBuilder(this))
             val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             var navState by remember { mutableStateOf(true)  }
 
 
-            val cityRepository= CityRepositoryImpl(db.cityDao())
-            val selectedCityRepository= SelectedCityRepositoryImpl(db.selectedCityDao())
-            val cityWeatherRepository = CityWeatherRepositoryImpl(db.cityWeatherDao())
 
-            val findCityUseCase = FindCityUseCase(cityRepository)
-            val getCityWeatherByNameUseCase = GetCityWeatherByNameUseCase(cityWeatherRepository)
-            val updateCityWeatherUseCase= UpdateCityWeatherUseCase(cityWeatherRepository)
-            val insertWeatherByNameUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
-            val getSelectedCityUseCase= GetSelectedCityUseCase(selectedCityRepository)
-            val insertSelectedCityUseCase = InsertSelectedCityUseCase(selectedCityRepository)
-            val deleteSelectedCityUseCase = DeleteSelectedCityUseCase(selectedCityRepository)
+            val weatherScreenWeatherViewModel:CityWeatherViewModel = hiltViewModel()
+            val searchViewModel:CitySearchViewModel = hiltViewModel()
+            val selectedCityScreenViewModel:CitiesScreenViewModel=hiltViewModel()
+            val weatherNavigationViewModel:WeatherNavigationViewModel = hiltViewModel()
 
-            val weatherScreenWeatherViewModel = CityWeatherViewModel(
-                getCityWeatherByNameUseCase = getCityWeatherByNameUseCase,
-                updateCityWeatherUseCase = updateCityWeatherUseCase,
-                insertCityWeatherUseCase = insertWeatherByNameUseCase,
-                retrofit = retrofit)
-            val searchViewModel= CitySearchViewModel(findCityUseCase)
-            val selectedCityScreenViewModel= CitiesScreenViewModel(
-                getSelectedCityUseCase = getSelectedCityUseCase,
-                insertSelectedCityUseCase = insertSelectedCityUseCase,
-                deleteSelectedCity = deleteSelectedCityUseCase)
-            val weatherNavigationViewModel = WeatherNavigationViewModel(getSelectedCityUseCase)
+
+
             val geoWeatherViewModel = GeoWeatherViewModel(
                 retrofit = retrofit,
                 context = this,

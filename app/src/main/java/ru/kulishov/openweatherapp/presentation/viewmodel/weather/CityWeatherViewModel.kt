@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.presentation.viewmodel.weather
 
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,9 +26,10 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Collections.emptyList
+import javax.inject.Inject
 
-
-class CityWeatherViewModel(
+@HiltViewModel
+class CityWeatherViewModel @Inject constructor(
     val getCityWeatherByNameUseCase: GetCityWeatherByNameUseCase,
     val updateCityWeatherUseCase: UpdateCityWeatherUseCase,
     val insertCityWeatherUseCase: InsertCityWeatherUseCase,

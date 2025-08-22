@@ -1,12 +1,13 @@
 import java.util.Properties
 
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
-    id("com.google.dagger.hilt.android") version "2.57" apply false
+    alias(libs.plugins.hilt.android)
 }
 
 fun getProperty(filename: String, propertyName: String): String {
@@ -50,6 +51,7 @@ android {
         compose = true
         buildConfig = true
     }
+
 }
 
 dependencies {
@@ -82,9 +84,15 @@ dependencies {
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
 
-//    implementation(libs.hilt.android)
-//    ksp(libs.hilt.android.compiler)
-//    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.glance.appwidget)
+
+    implementation(libs.androidx.glance.material3)
+
+    implementation(libs.androidx.glance.material)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
 
 room {
