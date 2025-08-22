@@ -9,9 +9,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
 
@@ -40,7 +42,7 @@ fun CityWeatherUI(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 ErrorMessageBoxUI(
-                    message = "Отсутствует подключение к интернету!\nДанные актуальны на:${currentForecast.value.dt_txt}",
+                    message = stringResource(R.string.there_is_no_internet_connection)+"\n" + stringResource(R.string.the_data_is_current_on)+":${currentForecast.value.dt_txt}",
                     textStyle = textStyle
                 )
                 CurrentWeatherBlockUI(
@@ -58,7 +60,7 @@ fun CityWeatherUI(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
-                    message = "Данные отсутствуют!",
+                    message = stringResource(R.string.data_is_missing),
                     textStyle = textStyle
                 )
             }

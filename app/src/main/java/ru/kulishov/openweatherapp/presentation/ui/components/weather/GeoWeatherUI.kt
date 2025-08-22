@@ -17,11 +17,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 
@@ -46,7 +48,7 @@ fun GeoWeatherUi(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
-                    "Геолокация выключена",
+                    stringResource(R.string.geo_error),
                     textStyle
                 )
                 Box(
@@ -63,7 +65,7 @@ fun GeoWeatherUi(
                         shape = RoundedCornerShape(10),
                     ) {
                         Text(
-                            "Обновить",
+                            stringResource(R.string.update),
                             style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,

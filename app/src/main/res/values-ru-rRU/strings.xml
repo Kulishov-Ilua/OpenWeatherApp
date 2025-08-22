@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Your_location">Ваше местоположение</string>
+    <string name="temp">Темп</string>
+    <string name="wind">Ветер</string>
+    <string name="ms">м/с</string>
+    <string name="press">Давлен</string>
+    <string name="mmHg">мм/рт</string>
+    <string name="hum">Влажность</string>
+    <string name="cloud">Облака</string>
+    <string name="visibl">Видим</string>
+    <string name="m">м</string>
+    <string name="geo_error">Геолокация выключена</string>
+    <string name="update">Обновить</string>
+    <string name="mon">Пн</string>
+    <string name="tue">Вт</string>
+    <string name="wed">Ср</string>
+    <string name="thu">Чт</string>
+    <string name="fri">Пт</string>
+    <string name="sat">Сб</string>
+    <string name="sun">Вс</string>
+    <string name="today">Сегодня</string>
+    <string name="it_feels_like">Ощущается как</string>
+    <string name="there_is_no_internet_connection">Отсутствует подключение к интернету!</string>
+    <string name="the_data_is_current_on">Данные актуальны на</string>
+    <string name="data_is_missing">Данные отсутствуют!</string>
+    <string name="not_data">Нет данных</string>
+    <string name="ok">Готово</string>
+</resources>

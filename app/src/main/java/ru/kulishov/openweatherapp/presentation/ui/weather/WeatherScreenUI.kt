@@ -13,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import retrofit2.Retrofit
+import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.presentation.ui.components.app.PagerIndicator
 import ru.kulishov.openweatherapp.presentation.ui.components.weather.CityWeatherUI
 import ru.kulishov.openweatherapp.presentation.ui.components.weather.GeoWeatherUi
@@ -73,7 +75,7 @@ fun WeatherScreenUi(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Text(
-                    if (currentPage.value == 0) "Ваше местоположение"
+                    if (currentPage.value == 0) stringResource(R.string.Your_location)
                     else selectedCities.value[currentPage.value - 1].localName,
                     style = TextStyle(
                         fontFamily = textStyle.fontFamily,

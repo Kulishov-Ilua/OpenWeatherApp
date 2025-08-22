@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -164,7 +165,7 @@ fun HoursWeatherBlock(
                     when (state) {
                         1 -> {
                             Text(
-                                "${forecast.wind.speed} м/с",
+                                "${forecast.wind.speed} " + stringResource(R.string.ms),
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -177,7 +178,7 @@ fun HoursWeatherBlock(
 
                         2 -> {
                             Text(
-                                "мм/рт",
+                                stringResource(R.string.mmHg),
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -216,7 +217,7 @@ fun HoursWeatherBlock(
 
                         5 -> {
                             Text(
-                                "м",
+                                stringResource(R.string.m),
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,

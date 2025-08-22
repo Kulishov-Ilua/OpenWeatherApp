@@ -18,11 +18,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import retrofit2.Retrofit
+import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
@@ -97,7 +99,7 @@ fun SelectedCityScreen(
             shape = RoundedCornerShape(10),
         ) {
             Text(
-                "Готово",
+                stringResource(R.string.ok),
                 style = TextStyle(
                     fontFamily = textStyle.fontFamily,
                     color = MaterialTheme.colorScheme.surface,

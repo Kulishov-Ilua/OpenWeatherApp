@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">OpenWeatherApp</string>
+    <string name="app_name" translatable="false">OpenWeatherApp</string>
+    <string name="Your_location">Your location</string>
+    <string name="temp">Temp</string>
+    <string name="wind">Wind</string>
+    <string name="ms">m/s</string>
+    <string name="press">Press</string>
+    <string name="mmHg">mmHg</string>
+    <string name="hum">Hum</string>
+    <string name="cloud">Cloud</string>
+    <string name="visibl">Visibil</string>
+    <string name="m">m</string>
+    <string name="geo_error">Geolocation is disabled</string>
+    <string name="update">Update</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+    <string name="today">Today</string>
+    <string name="it_feels_like">It feels like</string>
+    <string name="there_is_no_internet_connection">There is no internet connection!</string>
+    <string name="the_data_is_current_on">The data is current on</string>
+    <string name="data_is_missing">Data is missing!</string>
+    <string name="not_data">Not data</string>
+    <string name="ok">Ok</string>
+
 </resources>

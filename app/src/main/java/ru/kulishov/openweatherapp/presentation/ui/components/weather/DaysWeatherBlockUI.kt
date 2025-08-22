@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,13 +52,13 @@ fun DaysWeatherBlockUI(
                         .atZone(ZoneId.systemDefault())
                         .toLocalDateTime()
                 dayInWeek = when (forecastDateTime.dayOfWeek.value) {
-                    1 -> "Пн"
-                    2 -> "Вт"
-                    3 -> "Ср"
-                    4 -> "Чт"
-                    5 -> "Пт"
-                    6 -> "Сб"
-                    else -> "Вс"
+                    1 -> stringResource(R.string.mon)
+                    2 -> stringResource(R.string.tue)
+                    3 -> stringResource(R.string.wed)
+                    4 -> stringResource(R.string.thu)
+                    5 -> stringResource(R.string.fri)
+                    6 -> stringResource(R.string.sat)
+                    else -> stringResource(R.string.sun)
                 }
             }
             Box(
@@ -84,7 +85,7 @@ fun DaysWeatherBlockUI(
                     horizontalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     Text(
-                        text = if (currentDate == day.first) "Сегодня"
+                        text = if (currentDate == day.first) stringResource(R.string.today)
                         else dayInWeek,
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -59,7 +60,7 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Темп: ${weather.main.temp}°С",
+                        stringResource(R.string.temp) + ": ${weather.main.temp}°С",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -86,7 +87,9 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Ветер: ${weather.wind.speed} м/с",
+                        stringResource(R.string.wind) + ": ${weather.wind.speed} " + stringResource(
+                            R.string.ms
+                        ),
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -113,7 +116,9 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Давлен: ${weather.main.pressure} мм/рт",
+                        stringResource(R.string.press) + ": ${weather.main.pressure} " + stringResource(
+                            R.string.mmHg
+                        ),
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -145,7 +150,7 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Влажность: ${weather.main.humidity}%",
+                        stringResource(R.string.hum) + ": ${weather.main.humidity}%",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -172,7 +177,7 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Облака: ${weather.clouds.all}",
+                        stringResource(R.string.cloud) + ": ${weather.clouds.all}",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -199,7 +204,7 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        "Видимость: ${weather.visibility}м",
+                        stringResource(R.string.visibl) + ": ${weather.visibility}" + stringResource(R.string.m),
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
