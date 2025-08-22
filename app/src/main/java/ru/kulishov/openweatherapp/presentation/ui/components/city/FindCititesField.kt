@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,36 +37,46 @@ fun FindCitiesField(
     viewModel: CitySearchViewModel,
     textColor: Color,
     textStyle: TextStyle,
-    onTap:(SelectedCity)-> Unit
-){
+    onTap: (SelectedCity) -> Unit
+) {
     val text = viewModel.findName.collectAsState()
     val cities = viewModel.findCities.collectAsState()
-    val boxHeight = animateDpAsState(targetValue = if(cities.value.isNotEmpty()) 200.dp
-    else 70.dp)
+    val boxHeight = animateDpAsState(
+        targetValue = if (cities.value.isNotEmpty()) 200.dp
+        else 70.dp
+    )
 
-    Box(Modifier.fillMaxWidth()
-        .height(boxHeight.value)
-        .clip(RoundedCornerShape(10))
-        , contentAlignment = Alignment.Center){
-        if(boxHeight.value==200.dp){
-            Image(painter = painterResource(R.drawable.find_background),
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .height(boxHeight.value)
+            .clip(RoundedCornerShape(10)), contentAlignment = Alignment.Center
+    ) {
+        if (boxHeight.value == 200.dp) {
+            Image(
+                painter = painterResource(R.drawable.find_background),
                 contentDescription = "backgroung",
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
                     .height(boxHeight.value),
 
-            )
-        }else {
+                )
+        } else {
             Image(
                 painter = painterResource(R.drawable.city_card_bacground),
                 contentDescription = "backgroung",
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
                     .height(boxHeight.value),
                 contentScale = ContentScale.Crop
             )
         }
-        Column(Modifier.padding(top=5.dp, bottom = 15.dp, start = 25.dp, end = 25.dp)
-            .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            Modifier
+                .padding(top = 5.dp, bottom = 15.dp, start = 25.dp, end = 25.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             TextFieldCustom(
                 inpText = text.value,
                 onUpdate = { inp -> viewModel.setName(inp) },
@@ -76,20 +85,24 @@ fun FindCitiesField(
             )
 
             LazyColumn {
-                items(cities.value){
-                    city->
-                    Column(modifier = Modifier
-                        .clickable{
-                        onTap(city)
-                    }
-                        .padding(bottom = 5.dp),
+                items(cities.value) { city ->
+                    Column(
+                        modifier = Modifier
+                            .clickable {
+                                onTap(city)
+                            }
+                            .padding(bottom = 5.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(25.dp)) {
-                        Box(modifier = Modifier.padding(start=5.dp,end=5.dp)
-                            .fillMaxWidth()
-                            .height(1.dp)
-                            .background(textColor, CircleShape))
-                        Text(city.localName,
+                        Box(
+                            modifier = Modifier
+                                .padding(start = 5.dp, end = 5.dp)
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(textColor, CircleShape)
+                        )
+                        Text(
+                            city.localName,
                             style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = textColor,

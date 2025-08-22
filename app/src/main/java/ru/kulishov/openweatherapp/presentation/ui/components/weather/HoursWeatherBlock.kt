@@ -1,13 +1,11 @@
 package ru.kulishov.openweatherapp.presentation.ui.components.weather
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -31,45 +29,50 @@ import androidx.compose.ui.unit.sp
 import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.data.remote.model.Forecast
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.ZoneId
 
 @Composable
 fun HoursWeatherBlock(
-    state:Int,
-    onClick:(forecast: Forecast)->Unit,
-    listForecast:List<Forecast>,
-    selectedHour:Int,
+    state: Int,
+    onClick: (forecast: Forecast) -> Unit,
+    listForecast: List<Forecast>,
+    selectedHour: Int,
     primaryColor: Color,
     textStyle: TextStyle
-){
-    LazyRow(verticalAlignment = Alignment.CenterVertically,
+) {
+    LazyRow(
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(3.dp),
-        modifier = Modifier.fillMaxWidth()) {
-        items(listForecast){
-            forecast->
-            val forecastTime =   Instant.ofEpochMilli(forecast.dt*1000-10800000+60000)
-            .atZone(ZoneId.systemDefault())
-            .toLocalDateTime()
-            Box(Modifier
-                .clickable {
-                    onClick(forecast)
-                }
-                .width(70.dp).height(80.dp)
-                .clip(RoundedCornerShape(10)),
-                contentAlignment = Alignment.Center){
-                if((selectedHour-forecastTime.hour)<3&&(selectedHour-forecastTime.hour)>=0){
-                    Image(painter = painterResource(R.drawable.weather_params_background),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        items(listForecast) { forecast ->
+            val forecastTime = Instant.ofEpochMilli(forecast.dt * 1000 - 10800000 + 60000)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+            Box(
+                Modifier
+                    .clickable {
+                        onClick(forecast)
+                    }
+                    .width(70.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(10)),
+                contentAlignment = Alignment.Center) {
+                if ((selectedHour - forecastTime.hour) < 3 && (selectedHour - forecastTime.hour) >= 0) {
+                    Image(
+                        painter = painterResource(R.drawable.weather_params_background),
                         contentDescription = "background",
                         modifier = Modifier.fillMaxHeight(),
-                        contentScale = ContentScale.FillHeight)
+                        contentScale = ContentScale.FillHeight
+                    )
                 }
                 Column(
-                   modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
-                    Text(forecastTime.hour.toString(),
+                    Text(
+                        forecastTime.hour.toString(),
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -78,51 +81,63 @@ fun HoursWeatherBlock(
                             fontStyle = textStyle.fontStyle
                         )
                     )
-                    when(state){
-                        1->{
-                            Icon(painter = painterResource(R.drawable.outline_air_24),
+                    when (state) {
+                        1 -> {
+                            Icon(
+                                painter = painterResource(R.drawable.outline_air_24),
                                 contentDescription = "wind",
                                 tint = primaryColor,
-                                modifier = Modifier.size(20.dp))
-                        }
-                        2->{
-                            Text(forecast.main.pressure.toString(),
-                                    style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
-                                        color = primaryColor,
-                                        fontWeight = FontWeight.Medium,
-                                        fontSize = 14.sp,
-                                        fontStyle = textStyle.fontStyle
-                                    )
+                                modifier = Modifier.size(20.dp)
                             )
                         }
-                        3->{
-                            Icon(painter = painterResource(
-                                if(forecast.main.humidity<50){
-                                    R.drawable.outline_humidity_low_24
-                                }else if(forecast.main.humidity<80){
-                                    R.drawable.outline_humidity_mid_24
-                                }else{
-                                    R.drawable.outline_humidity_high_24
-                                }
+
+                        2 -> {
+                            Text(
+                                forecast.main.pressure.toString(),
+                                style = TextStyle(
+                                    fontFamily = textStyle.fontFamily,
+                                    color = primaryColor,
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontStyle = textStyle.fontStyle
+                                )
+                            )
+                        }
+
+                        3 -> {
+                            Icon(
+                                painter = painterResource(
+                                    if (forecast.main.humidity < 50) {
+                                        R.drawable.outline_humidity_low_24
+                                    } else if (forecast.main.humidity < 80) {
+                                        R.drawable.outline_humidity_mid_24
+                                    } else {
+                                        R.drawable.outline_humidity_high_24
+                                    }
                                 ),
                                 contentDescription = "humidity",
                                 tint = primaryColor,
-                                modifier = Modifier.size(20.dp))
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
-                        4->{
-                            Image(painter = painterResource(
-                                if(forecast.clouds.all<20){
-                                    R.drawable.sun
-                                }else{
-                                    R.drawable.cloud
-                                }
-                            ),
+
+                        4 -> {
+                            Image(
+                                painter = painterResource(
+                                    if (forecast.clouds.all < 20) {
+                                        R.drawable.sun
+                                    } else {
+                                        R.drawable.cloud
+                                    }
+                                ),
                                 contentDescription = "cloud",
-                                modifier = Modifier.size(20.dp))
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
-                        5->{
-                            Text(forecast.visibility.toString(),
+
+                        5 -> {
+                            Text(
+                                forecast.visibility.toString(),
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -132,20 +147,24 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        else->{
-                            Image(painter = painterResource(
-                                if(forecast.main.humidity>80) R.drawable.rain
-                                else if (forecast.clouds.all>10) R.drawable.cloud
-                                else R.drawable.sunpng
-                            ),
+
+                        else -> {
+                            Image(
+                                painter = painterResource(
+                                    if (forecast.main.humidity > 80) R.drawable.rain
+                                    else if (forecast.clouds.all > 10) R.drawable.cloud
+                                    else R.drawable.sunpng
+                                ),
                                 contentDescription = "cloud",
-                                modifier = Modifier.size(20.dp))
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
                     }
 
-                    when(state){
-                        1->{
-                            Text("${forecast.wind.speed} м/с",
+                    when (state) {
+                        1 -> {
+                            Text(
+                                "${forecast.wind.speed} м/с",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -155,8 +174,10 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        2->{
-                            Text("мм/рт",
+
+                        2 -> {
+                            Text(
+                                "мм/рт",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -166,8 +187,10 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        3->{
-                            Text("${forecast.main.humidity}%",
+
+                        3 -> {
+                            Text(
+                                "${forecast.main.humidity}%",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -177,8 +200,10 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        4->{
-                            Text("${forecast.clouds.all}",
+
+                        4 -> {
+                            Text(
+                                "${forecast.clouds.all}",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -188,8 +213,10 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        5->{
-                            Text("м",
+
+                        5 -> {
+                            Text(
+                                "м",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,
@@ -199,8 +226,10 @@ fun HoursWeatherBlock(
                                 )
                             )
                         }
-                        else->{
-                            Text("${forecast.main.temp}°С",
+
+                        else -> {
+                            Text(
+                                "${forecast.main.temp}°С",
                                 style = TextStyle(
                                     fontFamily = textStyle.fontFamily,
                                     color = primaryColor,

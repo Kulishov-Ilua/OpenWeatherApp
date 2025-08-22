@@ -12,13 +12,13 @@ import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.data.remote.model.Wind
 
 object CityWeatherMapper {
-    fun toDomain(entity: CityWeatherEntity): WeatherForecastResponse{
+    fun toDomain(entity: CityWeatherEntity): WeatherForecastResponse {
         val forecastList = mutableListOf<Forecast>()
-        val toForecast = entity.forecast.split("][").map { forecast->
-            if(forecast.length>5){
+        val toForecast = entity.forecast.split("][").map { forecast ->
+            if (forecast.length > 5) {
                 val params = forecast.split('#')
-                forecastList+= Forecast(
-                    dt= params[0].toLong(),
+                forecastList += Forecast(
+                    dt = params[0].toLong(),
                     main = MainForecast(
                         temp = params[1].toDouble(),
                         feels_like = params[2].toDouble(),
@@ -36,7 +36,7 @@ object CityWeatherMapper {
                     ),
                     wind = Wind(
                         params[8].toDouble(),
-                        deg=0,
+                        deg = 0,
                         gust = null
                     ),
                     visibility = params[9].toInt(),
@@ -48,14 +48,14 @@ object CityWeatherMapper {
         }
 
         return WeatherForecastResponse(
-            cod="200 db_data",
+            cod = "200 db_data",
             message = 0,
             cnt = 40,
             list = forecastList,
-            city= City(
-                id= entity.cityId,
+            city = City(
+                id = entity.cityId,
                 name = entity.cityName,
-                coord = Coord(0.0,0.0),
+                coord = Coord(0.0, 0.0),
                 country = "",
                 population = 0,
                 timezone = 0,
@@ -65,13 +65,13 @@ object CityWeatherMapper {
         )
     }
 
-    fun toDomainWithTime(entity: CityWeatherEntity): WeatherForecastResponceWithDateTime{
+    fun toDomainWithTime(entity: CityWeatherEntity): WeatherForecastResponceWithDateTime {
         val forecastList = mutableListOf<Forecast>()
-        val toForecast = entity.forecast.split("][").map { forecast->
-            if(forecast.length>5){
+        val toForecast = entity.forecast.split("][").map { forecast ->
+            if (forecast.length > 5) {
                 val params = forecast.split('#')
-                forecastList+= Forecast(
-                    dt= params[0].toLong(),
+                forecastList += Forecast(
+                    dt = params[0].toLong(),
                     main = MainForecast(
                         temp = params[1].toDouble(),
                         feels_like = params[2].toDouble(),
@@ -89,7 +89,7 @@ object CityWeatherMapper {
                     ),
                     wind = Wind(
                         params[8].toDouble(),
-                        deg=0,
+                        deg = 0,
                         gust = null
                     ),
                     visibility = params[9].toInt(),
@@ -101,14 +101,14 @@ object CityWeatherMapper {
         }
 
         return WeatherForecastResponceWithDateTime(
-            cod="200 db_data",
+            cod = "200 db_data",
             message = 0,
             cnt = 40,
             list = forecastList,
-            city= City(
-                id= entity.cityId,
+            city = City(
+                id = entity.cityId,
                 name = entity.cityName,
-                coord = Coord(0.0,0.0),
+                coord = Coord(0.0, 0.0),
                 country = "",
                 population = 0,
                 timezone = 0,
@@ -118,10 +118,11 @@ object CityWeatherMapper {
             update = entity.forecastTime
         )
     }
-    fun toEntity(domain: WeatherForecastResponse): CityWeatherEntity{
-        var forecastList =""
-        for(forecast in domain.list){
-            forecastList+="${forecast.dt}#${forecast.main.temp}#${forecast.main.feels_like}#${forecast.main.temp_min}#"+
+
+    fun toEntity(domain: WeatherForecastResponse): CityWeatherEntity {
+        var forecastList = ""
+        for (forecast in domain.list) {
+            forecastList += "${forecast.dt}#${forecast.main.temp}#${forecast.main.feels_like}#${forecast.main.temp_min}#" +
                     "${forecast.main.temp_max}#${forecast.main.pressure}#${forecast.main.humidity}#${forecast.clouds.all}#" +
                     "${forecast.wind.speed}#${forecast.visibility}#${forecast.pop}#${forecast.dt_txt}]["
         }

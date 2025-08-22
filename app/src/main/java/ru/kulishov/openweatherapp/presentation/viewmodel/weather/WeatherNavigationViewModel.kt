@@ -15,10 +15,11 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherNavigationViewModel @Inject constructor(
     private val getSelectedCityUseCase: GetSelectedCityUseCase
-): BaseViewModel() {
-    private val _uiState = MutableStateFlow<CitiesScreenViewModel.UiState>(CitiesScreenViewModel.UiState.Loading)
+) : BaseViewModel() {
+    private val _uiState =
+        MutableStateFlow<CitiesScreenViewModel.UiState>(CitiesScreenViewModel.UiState.Loading)
     val uiState: StateFlow<CitiesScreenViewModel.UiState> = _uiState.asStateFlow()
-    private val _selectedCities= MutableStateFlow<List<SelectedCity>>(emptyList())
+    private val _selectedCities = MutableStateFlow<List<SelectedCity>>(emptyList())
     val selectedCities: StateFlow<List<SelectedCity>> = _selectedCities.asStateFlow()
 
     private val _currentPage = MutableStateFlow<Int>(0)
@@ -28,35 +29,40 @@ class WeatherNavigationViewModel @Inject constructor(
     val isSwipeBlocked: StateFlow<Boolean> = _isSwipeBlocked.asStateFlow()
 
 
-    init{
+    init {
         loadSelectedCities()
     }
-    private fun loadSelectedCities(){
+
+    private fun loadSelectedCities() {
         launch {
             getSelectedCityUseCase()
-                .catch { e->
-                    _uiState.value = CitiesScreenViewModel.UiState.Error(e.message ?: "Unknow error")
+                .catch { e ->
+                    _uiState.value =
+                        CitiesScreenViewModel.UiState.Error(e.message ?: "Unknow error")
                 }
-                .collect { cities-> _selectedCities.value=cities
-                    _uiState.value= CitiesScreenViewModel.UiState.Success
+                .collect { cities ->
+                    _selectedCities.value = cities
+                    _uiState.value = CitiesScreenViewModel.UiState.Success
                 }
         }
     }
 
-    fun pageChanged(id:Int){
-        _currentPage.value=id
+    fun pageChanged(id: Int) {
+        _currentPage.value = id
 
     }
-    fun blockedSwipe(){
+
+    fun blockedSwipe() {
         launch {
-            _isSwipeBlocked.value=true
+            _isSwipeBlocked.value = true
             delay(300)
-            _isSwipeBlocked.value=false
+            _isSwipeBlocked.value = false
         }
     }
-    sealed class UiState{
-        object Loading: UiState()
-        object Success: UiState()
+
+    sealed class UiState {
+        object Loading : UiState()
+        object Success : UiState()
         data class Error(val message: String) : UiState()
     }
 }

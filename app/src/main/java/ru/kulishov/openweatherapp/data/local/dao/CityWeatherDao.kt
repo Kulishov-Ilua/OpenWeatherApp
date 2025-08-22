@@ -14,7 +14,7 @@ interface CityWeatherDao {
     fun getCityWeather(): Flow<List<CityWeatherEntity>>
 
     @Query("Select * from cityWeather where cityName = :name")
-    fun getCityWeatherByName(name:String): Flow<List<CityWeatherEntity>>
+    fun getCityWeatherByName(name: String): Flow<List<CityWeatherEntity>>
 
     @Insert
     suspend fun insertCityWeather(forecast: CityWeatherEntity)

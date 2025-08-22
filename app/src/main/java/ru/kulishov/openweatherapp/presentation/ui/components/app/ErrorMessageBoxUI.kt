@@ -17,19 +17,22 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ErrorMessageBoxUI(
     message: String,
-    textStyle: TextStyle){
+    textStyle: TextStyle
+) {
     Box(
-        Modifier.background(Color(105,0,5), RoundedCornerShape(5)),
+        Modifier.background(Color(105, 0, 5), RoundedCornerShape(5)),
         contentAlignment = Alignment.Center
-    ){
-        Text(message,
-             style = TextStyle(
+    ) {
+        Text(
+            message,
+            style = TextStyle(
                 fontFamily = textStyle.fontFamily,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
                 fontStyle = textStyle.fontStyle
             ),
-            modifier = Modifier.padding(15.dp))
+            modifier = Modifier.padding(15.dp)
+        )
     }
 }

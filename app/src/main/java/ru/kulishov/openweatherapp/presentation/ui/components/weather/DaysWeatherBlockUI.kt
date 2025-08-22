@@ -31,54 +31,61 @@ import java.time.ZoneId
 
 @Composable
 fun DaysWeatherBlockUI(
-    onClick:(day: Int)->Unit,
-    listForecast:List<Pair<Int, List<Forecast>>>,
-    selectedDay:Int,
+    onClick: (day: Int) -> Unit,
+    listForecast: List<Pair<Int, List<Forecast>>>,
+    selectedDay: Int,
     primaryColor: Color,
     textStyle: TextStyle
-){
+) {
     val currentDate = LocalDateTime.now().dayOfMonth
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
-    ){
-        items(listForecast){
-            day->
+    ) {
+        items(listForecast) { day ->
             var dayInWeek = ""
-            if(day.second.isNotEmpty()){
-                val forecastDateTime = Instant.ofEpochMilli(day.second.first().dt*1000-10800000+60000)
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDateTime()
-                dayInWeek=when(forecastDateTime.dayOfWeek.value){
-                    1->"Пн"
-                    2-> "Вт"
-                    3-> "Ср"
-                    4-> "Чт"
-                    5->"Пт"
-                    6->"Сб"
+            if (day.second.isNotEmpty()) {
+                val forecastDateTime =
+                    Instant.ofEpochMilli(day.second.first().dt * 1000 - 10800000 + 60000)
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime()
+                dayInWeek = when (forecastDateTime.dayOfWeek.value) {
+                    1 -> "Пн"
+                    2 -> "Вт"
+                    3 -> "Ср"
+                    4 -> "Чт"
+                    5 -> "Пт"
+                    6 -> "Сб"
                     else -> "Вс"
                 }
             }
-            Box(modifier = Modifier
-                .clickable{
-                    onClick(day.first)
-                }
-                .height(60.dp)
-                .fillMaxWidth(),
-                contentAlignment = Alignment.Center){
-                if(selectedDay==day.first){
-                    Image(painter = painterResource(R.drawable.city_card_bacground),
+            Box(
+                modifier = Modifier
+                    .clickable {
+                        onClick(day.first)
+                    }
+                    .height(60.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center) {
+                if (selectedDay == day.first) {
+                    Image(
+                        painter = painterResource(R.drawable.city_card_bacground),
                         contentDescription = "background",
                         modifier = Modifier.fillMaxHeight(),
-                        contentScale = ContentScale.FillHeight)
+                        contentScale = ContentScale.FillHeight
+                    )
                 }
-                Row(modifier = Modifier.padding(15.dp)
-                    .fillMaxWidth(),
+                Row(
+                    modifier = Modifier
+                        .padding(15.dp)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text(text = if(currentDate==day.first)"Сегодня"
-                    else dayInWeek,
+                    horizontalArrangement = Arrangement.spacedBy(5.dp)
+                ) {
+                    Text(
+                        text = if (currentDate == day.first) "Сегодня"
+                        else dayInWeek,
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -87,14 +94,19 @@ fun DaysWeatherBlockUI(
                             fontStyle = textStyle.fontStyle
                         )
                     )
-                    Text(text = if(day.second.isNotEmpty()){
-                        "(${Instant.ofEpochMilli( day.second.first().dt*1000-10800000+60000)
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDateTime().dayOfMonth}.${Instant.ofEpochMilli( day.second.first().dt*1000-10800000+60000)
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDateTime().month.ordinal})"
+                    Text(
+                        text = if (day.second.isNotEmpty()) {
+                            "(${
+                                Instant.ofEpochMilli(day.second.first().dt * 1000 - 10800000 + 60000)
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime().dayOfMonth
+                            }.${
+                                Instant.ofEpochMilli(day.second.first().dt * 1000 - 10800000 + 60000)
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDateTime().month.ordinal
+                            })"
 
-                    } else "",
+                        } else "",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -103,21 +115,27 @@ fun DaysWeatherBlockUI(
                             fontStyle = textStyle.fontStyle
                         )
                     )
-                    Box(Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterEnd){
-                        if(day.second.isNotEmpty()){
-                            Row(verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                Text("${day.second[day.second.size/2].main.temp_min}°С",
+                    Box(
+                        Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        if (day.second.isNotEmpty()) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(5.dp)
+                            ) {
+                                Text(
+                                    "${day.second[day.second.size / 2].main.temp_min}°С",
                                     style = TextStyle(
                                         fontFamily = textStyle.fontFamily,
-                                        color = Color(111,121,118),
+                                        color = Color(111, 121, 118),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
                                         fontStyle = textStyle.fontStyle
                                     )
                                 )
-                                Text("${day.second[day.second.size/2].main.temp_max}°С",
+                                Text(
+                                    "${day.second[day.second.size / 2].main.temp_max}°С",
                                     style = TextStyle(
                                         fontFamily = textStyle.fontFamily,
                                         color = primaryColor,
@@ -126,13 +144,15 @@ fun DaysWeatherBlockUI(
                                         fontStyle = textStyle.fontStyle
                                     )
                                 )
-                                Image(painter = painterResource(
-                                    if(day.second[day.second.size/2].main.humidity>80) R.drawable.rain
-                                    else if (day.second[day.second.size/2].clouds.all>10) R.drawable.cloud
-                                    else R.drawable.sunpng
-                                ),
+                                Image(
+                                    painter = painterResource(
+                                        if (day.second[day.second.size / 2].main.humidity > 80) R.drawable.rain
+                                        else if (day.second[day.second.size / 2].clouds.all > 10) R.drawable.cloud
+                                        else R.drawable.sunpng
+                                    ),
                                     contentDescription = "cloud",
-                                    modifier = Modifier.size(20.dp))
+                                    modifier = Modifier.size(20.dp)
+                                )
                             }
                         }
                     }

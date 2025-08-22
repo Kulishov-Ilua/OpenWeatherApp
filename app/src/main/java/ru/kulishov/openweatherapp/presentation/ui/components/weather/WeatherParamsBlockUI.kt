@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,14 +25,14 @@ import ru.kulishov.openweatherapp.data.remote.model.Forecast
 
 @Composable
 fun WeatherParamsBlockUI(
-    state:Int,
-    onClick:(Int)->Unit,
+    state: Int,
+    onClick: (Int) -> Unit,
     weather: Forecast,
     primaryColor: Color,
     textStyle: TextStyle
-){
+) {
     println(state)
-    Box(Modifier.fillMaxWidth()){
+    Box(Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -45,19 +43,23 @@ fun WeatherParamsBlockUI(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(0)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==0){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 0) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Темп: ${weather.main.temp}°С",
+                    Text(
+                        "Темп: ${weather.main.temp}°С",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -68,19 +70,23 @@ fun WeatherParamsBlockUI(
                     )
                 }
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(1)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==1){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 1) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Ветер: ${weather.wind.speed} м/с",
+                    Text(
+                        "Ветер: ${weather.wind.speed} м/с",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -91,19 +97,23 @@ fun WeatherParamsBlockUI(
                     )
                 }
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(2)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==2){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 2) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Давлен: ${weather.main.pressure} мм/рт",
+                    Text(
+                        "Давлен: ${weather.main.pressure} мм/рт",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -119,19 +129,23 @@ fun WeatherParamsBlockUI(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(3)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==3){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 3) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Влажность: ${weather.main.humidity}%",
+                    Text(
+                        "Влажность: ${weather.main.humidity}%",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -142,19 +156,23 @@ fun WeatherParamsBlockUI(
                     )
                 }
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(4)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==4){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 4) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Облака: ${weather.clouds.all}",
+                    Text(
+                        "Облака: ${weather.clouds.all}",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,
@@ -165,19 +183,23 @@ fun WeatherParamsBlockUI(
                     )
                 }
                 Box(
-                    Modifier.height(30.dp)
-                        .clickable{
+                    Modifier
+                        .height(30.dp)
+                        .clickable {
                             onClick(5)
                         },
                     contentAlignment = Alignment.Center
-                ){
-                    if(state==5){
-                        Image(painter = painterResource(R.drawable.weather_params_background),
+                ) {
+                    if (state == 5) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
                             contentDescription = "background",
                             modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight)
+                            contentScale = ContentScale.FillHeight
+                        )
                     }
-                    Text("Видимость: ${weather.visibility}м",
+                    Text(
+                        "Видимость: ${weather.visibility}м",
                         style = TextStyle(
                             fontFamily = textStyle.fontFamily,
                             color = primaryColor,

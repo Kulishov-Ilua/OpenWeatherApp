@@ -8,5 +8,6 @@ import javax.inject.Inject
 class FindCityUseCase @Inject constructor(
     private val repository: CityRepository
 ) {
-    suspend operator fun invoke(name:String): Flow<List<SelectedCity>> = repository.findCities(name)
+    suspend operator fun invoke(name: String): Flow<List<SelectedCity>> =
+        repository.findCities(name)
 }

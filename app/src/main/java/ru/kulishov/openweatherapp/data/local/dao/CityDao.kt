@@ -7,14 +7,16 @@ import ru.kulishov.openweatherapp.data.local.entity.CityEntity
 
 @Dao
 interface CityDao {
-    @Query("""
+    @Query(
+        """
         SELECT * FROM cities 
         WHERE id IN (
             SELECT rowid FROM cities_fts 
             WHERE cities_fts MATCH :query || '*'
         )
         LIMIT 20
-    """)
+    """
+    )
     fun searchCities(query: String): Flow<List<CityEntity>>
 
 

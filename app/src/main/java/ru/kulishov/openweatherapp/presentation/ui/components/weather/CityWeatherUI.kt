@@ -20,7 +20,7 @@ fun CityWeatherUI(
     viewModel: CityWeatherViewModel,
     primaryColor: Color,
     textStyle: TextStyle
-){
+) {
     val currentForecast = viewModel.currentForecast.collectAsState()
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
     val forecastList = viewModel.weatherListWithDate.collectAsState()
@@ -29,51 +29,64 @@ fun CityWeatherUI(
     val paramsState = viewModel.paramState.collectAsState()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     when (uiState.value) {
-        is CityWeatherViewModel.UiState.Loading ->{
+        is CityWeatherViewModel.UiState.Loading -> {
             CircularProgressIndicator()
         }
+
         is CityWeatherViewModel.UiState.EnternetError -> {
-            Column(modifier = Modifier.fillMaxWidth(),
+            Column(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(25.dp)) {
+                verticalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
                 ErrorMessageBoxUI(
                     message = "Отсутствует подключение к интернету!\nДанные актуальны на:${currentForecast.value.dt_txt}",
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
                     primaryColor = primaryColor,
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
             }
 
         }
+
         is CityWeatherViewModel.UiState.Error -> {
-            Column(modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 ErrorMessageBoxUI(
                     message = "Данные отсутствуют!",
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
             }
         }
-        is CityWeatherViewModel.UiState.Success ->{
-            Column(modifier = Modifier.fillMaxWidth(),
+
+        is CityWeatherViewModel.UiState.Success -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(25.dp)) {
+                verticalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
                     primaryColor = primaryColor,
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
                 WeatherParamsBlockUI(
                     state = paramsState.value,
-                    onClick = {state->
+                    onClick = { state ->
                         viewModel.setParamState(state)
                     },
                     weather = currentForecast.value,
                     primaryColor = primaryColor,
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
                 HoursWeatherBlock(
                     state = paramsState.value,
-                    onClick = {
-                        forecast->
+                    onClick = { forecast ->
                         viewModel.updateCurrentForecast(forecast)
                     },
                     listForecast = curentForecastList.value,
@@ -82,7 +95,7 @@ fun CityWeatherUI(
                     textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
-                    onClick = { day->
+                    onClick = { day ->
                         viewModel.setSelectedDay(day)
                     },
                     listForecast = forecastList.value,
@@ -93,7 +106,6 @@ fun CityWeatherUI(
             }
         }
     }
-
 
 
 }

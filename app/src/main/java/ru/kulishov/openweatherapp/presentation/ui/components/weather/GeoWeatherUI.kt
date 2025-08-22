@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
-import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 
 @Composable
@@ -31,7 +30,7 @@ fun GeoWeatherUi(
     viewModel: GeoWeatherViewModel,
     primaryColor: Color,
     textStyle: TextStyle
-){
+) {
     val currentForecast = viewModel.currentForecast.collectAsState()
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
     val forecastList = viewModel.weatherListWithDate.collectAsState()
@@ -41,20 +40,30 @@ fun GeoWeatherUi(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val weatherResponse = viewModel.weatherForecast.collectAsState()
     when (uiState.value) {
-        is GeoWeatherViewModel.UiState.locationEnabled->{
-            Column(modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                ErrorMessageBoxUI("Геолокация выключена",
-                    textStyle)
-                Box(Modifier.padding(bottom = 25.dp).fillMaxSize(),
-                    contentAlignment = Alignment.BottomCenter ){
+        is GeoWeatherViewModel.UiState.locationEnabled -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ErrorMessageBoxUI(
+                    "Геолокация выключена",
+                    textStyle
+                )
+                Box(
+                    Modifier
+                        .padding(bottom = 25.dp)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.BottomCenter
+                ) {
                     Button(
-                        onClick = {viewModel.getForecast()},
-                        modifier = Modifier.fillMaxWidth()
+                        onClick = { viewModel.getForecast() },
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(10),
                     ) {
-                        Text("Обновить",
+                        Text(
+                            "Обновить",
                             style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,
@@ -67,22 +76,31 @@ fun GeoWeatherUi(
                 }
             }
         }
-        is GeoWeatherViewModel.UiState.NotPermission ->{
-            Column(modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
+
+        is GeoWeatherViewModel.UiState.NotPermission -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 ErrorMessageBoxUI(
                     message = "Нет разрешения на использование геолокации",
-                    textStyle = textStyle)
-                Box(Modifier.padding(bottom = 25.dp)
-                    .fillMaxSize(),
-                    contentAlignment = Alignment.BottomCenter ){
+                    textStyle = textStyle
+                )
+                Box(
+                    Modifier
+                        .padding(bottom = 25.dp)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.BottomCenter
+                ) {
                     Button(
-                        onClick = {viewModel.getForecast()},
-                        modifier = Modifier.fillMaxWidth()
+                        onClick = { viewModel.getForecast() },
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(10),
                     ) {
-                        Text("Обновить",
+                        Text(
+                            "Обновить",
                             style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,
@@ -95,47 +113,60 @@ fun GeoWeatherUi(
                 }
             }
         }
-        is GeoWeatherViewModel.UiState.Loading ->{
+
+        is GeoWeatherViewModel.UiState.Loading -> {
             CircularProgressIndicator()
         }
+
         is GeoWeatherViewModel.UiState.InternetError -> {
-            Column(modifier = Modifier.fillMaxWidth(),
+            Column(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(25.dp)) {
+                verticalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
                 ErrorMessageBoxUI(
                     message = "Отсутствует подключение к интернету!",
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
             }
 
         }
+
         is GeoWeatherViewModel.UiState.Error -> {
-            Column(modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 ErrorMessageBoxUI(
                     message = "Данные отсутствуют!",
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
             }
         }
-        is GeoWeatherViewModel.UiState.Success ->{
-            Column(modifier = Modifier.fillMaxWidth(),
+
+        is GeoWeatherViewModel.UiState.Success -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(25.dp)) {
+                verticalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
                     primaryColor = primaryColor,
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
                 WeatherParamsBlockUI(
                     state = paramsState.value,
-                    onClick = {state->
+                    onClick = { state ->
                         viewModel.setParamState(state)
                     },
                     weather = currentForecast.value,
                     primaryColor = primaryColor,
-                    textStyle = textStyle)
+                    textStyle = textStyle
+                )
                 HoursWeatherBlock(
                     state = paramsState.value,
-                    onClick = {
-                            forecast->
+                    onClick = { forecast ->
                         viewModel.updateCurrentForecast(forecast)
                     },
                     listForecast = curentForecastList.value,
@@ -144,7 +175,7 @@ fun GeoWeatherUi(
                     textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
-                    onClick = { day->
+                    onClick = { day ->
                         viewModel.setSelectedDay(day)
                     },
                     listForecast = forecastList.value,

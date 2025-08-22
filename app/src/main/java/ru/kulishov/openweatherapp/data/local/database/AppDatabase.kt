@@ -14,11 +14,13 @@ import ru.kulishov.openweatherapp.data.local.entity.CityFtsEntity
 import ru.kulishov.openweatherapp.data.local.entity.CityWeatherEntity
 import ru.kulishov.openweatherapp.data.local.entity.SelectedCityEntity
 
-@Database(entities = [CityWeatherEntity::class,
-    CityEntity::class,
-    CityFtsEntity::class,
-    SelectedCityEntity::class], version = 1)
-abstract class AppDatabase: RoomDatabase() {
+@Database(
+    entities = [CityWeatherEntity::class,
+        CityEntity::class,
+        CityFtsEntity::class,
+        SelectedCityEntity::class], version = 1
+)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun cityWeatherDao(): CityWeatherDao
     abstract fun cityDao(): CityDao
     abstract fun selectedCityDao(): SelectedCityDao
@@ -36,6 +38,7 @@ fun getRoomDatabase(
         .createFromAsset("databases/cities.db")
         .build()
 }
+
 fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<AppDatabase> {
     val appContext = ctx.applicationContext
     val dbFile = appContext.getDatabasePath("my_room.db")

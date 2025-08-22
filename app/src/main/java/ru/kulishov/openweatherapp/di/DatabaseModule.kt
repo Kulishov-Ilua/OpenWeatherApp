@@ -38,7 +38,7 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): AppDatabase{
+    ): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
@@ -50,27 +50,27 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideCityWeatherDao(db: AppDatabase): CityWeatherDao{
+    fun provideCityWeatherDao(db: AppDatabase): CityWeatherDao {
         return db.cityWeatherDao()
     }
 
     @Provides
     @Singleton
-    fun provideCityDao(db: AppDatabase): CityDao{
+    fun provideCityDao(db: AppDatabase): CityDao {
         return db.cityDao()
     }
 
     @Provides
     @Singleton
-    fun provideSelectedCityDao(db: AppDatabase): SelectedCityDao{
+    fun provideSelectedCityDao(db: AppDatabase): SelectedCityDao {
         return db.selectedCityDao()
     }
 
     @Provides
     @Singleton
-    fun provideCityRepository (
+    fun provideCityRepository(
         cityDao: CityDao
-    ): CityRepository{
+    ): CityRepository {
         return CityRepositoryImpl(cityDao)
     }
 
@@ -90,48 +90,50 @@ object DatabaseModule {
     @Singleton
     fun provideFindCityUseCase(
         cityRepository: CityRepository
-    ):FindCityUseCase =FindCityUseCase(cityRepository)
+    ): FindCityUseCase = FindCityUseCase(cityRepository)
 
     @Provides
     @Singleton
     fun provideGetCityWeatherByNameUseCase(
         cityWeatherRepository: CityWeatherRepository
-    ):GetCityWeatherByNameUseCase =GetCityWeatherByNameUseCase(cityWeatherRepository)
+    ): GetCityWeatherByNameUseCase = GetCityWeatherByNameUseCase(cityWeatherRepository)
 
     @Provides
     @Singleton
     fun provideUpdateCityWeatherUseCase(
         cityWeatherRepository: CityWeatherRepository
-    ):UpdateCityWeatherUseCase =UpdateCityWeatherUseCase(cityWeatherRepository)
+    ): UpdateCityWeatherUseCase = UpdateCityWeatherUseCase(cityWeatherRepository)
 
     @Provides
     @Singleton
     fun provideInsertCityWeatherUseCase(
         cityWeatherRepository: CityWeatherRepository
-    ):InsertCityWeatherUseCase =InsertCityWeatherUseCase(cityWeatherRepository)
+    ): InsertCityWeatherUseCase = InsertCityWeatherUseCase(cityWeatherRepository)
 
     @Provides
     @Singleton
     fun provideGetSelectedCityUseCase(
         selectedCityRepository: SelectedCityRepository
-    ):GetSelectedCityUseCase =GetSelectedCityUseCase(selectedCityRepository)
+    ): GetSelectedCityUseCase = GetSelectedCityUseCase(selectedCityRepository)
 
     @Provides
     @Singleton
     fun provideInsertSelectedCityUseCase(
         selectedCityRepository: SelectedCityRepository
-    ):InsertSelectedCityUseCase = InsertSelectedCityUseCase(selectedCityRepository)
+    ): InsertSelectedCityUseCase = InsertSelectedCityUseCase(selectedCityRepository)
 
     @Provides
     @Singleton
     fun provideDeleteSelectedCityUseCase(
         selectedCityRepository: SelectedCityRepository
-    ):DeleteSelectedCityUseCase =DeleteSelectedCityUseCase(selectedCityRepository)
+    ): DeleteSelectedCityUseCase = DeleteSelectedCityUseCase(selectedCityRepository)
+
     @Provides
     @Singleton
     fun provideApplicationContext(@ApplicationContext context: Context): Context {
         return context
     }
+
     @Provides
     @Singleton
     fun provideLocationManager(@ApplicationContext context: Context): LocationManager {

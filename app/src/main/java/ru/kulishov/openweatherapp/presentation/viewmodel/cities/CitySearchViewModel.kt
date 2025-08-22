@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CitySearchViewModel @Inject constructor(
     val findCityUseCase: FindCityUseCase
-): BaseViewModel() {
+) : BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
@@ -25,25 +25,25 @@ class CitySearchViewModel @Inject constructor(
     private val _findCities = MutableStateFlow<List<SelectedCity>>(emptyList())
     val findCities: StateFlow<List<SelectedCity>> = _findCities.asStateFlow()
 
-    fun setName(name:String){
-        _findName.value=name
-       launch {
-           delay(300)
-           if(_findName.value==name) {
-               findCityUseCase(name).catch { e ->
-                   _uiState.value = UiState.Error(e.message ?: "Unknow error")
-               }
-                   .collect { cities ->
-                       _findCities.value = cities
-                       _uiState.value = UiState.Success
-                   }
-           }
-       }
-
+    fun setName(name: String) {
+        _findName.value = name
+        launch {
+            delay(300)
+            if (_findName.value == name) {
+                findCityUseCase(name).catch { e ->
+                    _uiState.value = UiState.Error(e.message ?: "Unknow error")
+                }
+                    .collect { cities ->
+                        _findCities.value = cities
+                        _uiState.value = UiState.Success
+                    }
+            }
+        }
 
 
     }
-    fun search(name:String) {
+
+    fun search(name: String) {
         launch {
             delay(300)
             if (_findName.value == name) {
@@ -60,11 +60,9 @@ class CitySearchViewModel @Inject constructor(
     }
 
 
-
-
-    sealed class UiState{
-        object Loading: UiState()
-        object Success: UiState()
+    sealed class UiState {
+        object Loading : UiState()
+        object Success : UiState()
         data class Error(val message: String) : UiState()
     }
 }

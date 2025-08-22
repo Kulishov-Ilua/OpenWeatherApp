@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import retrofit2.Retrofit
-import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
@@ -43,28 +42,31 @@ fun SelectedCityScreen(
     primaryColor: Color,
     textStyle: TextStyle,
     retrofit: Retrofit,
-    onExit:()->Unit
+    onExit: () -> Unit
 
-){
+) {
     val towns = selectedCityViewModel.selectedCities.collectAsState()
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         FindCitiesField(
             viewModel = searchViewModel,
             textColor = primaryColor,
             textStyle = TextStyle(),
-            onTap = { city->
-                    selectedCityViewModel.insertSelectedCities(city)
+            onTap = { city ->
+                selectedCityViewModel.insertSelectedCities(city)
             })
-        LazyColumn(modifier = Modifier
-            .padding(bottom = 150.dp)
-            .fillMaxWidth(),
+        LazyColumn(
+            modifier = Modifier
+                .padding(bottom = 150.dp)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(15.dp)) {
-            items(towns.value){town->
-                val cityWeatherViewModel= CityWeatherViewModel(
+            verticalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            items(towns.value) { town ->
+                val cityWeatherViewModel = CityWeatherViewModel(
                     getCityWeatherByNameUseCase = getCityWeatherByNameUseCase,
                     updateCityWeatherUseCase = updateCityWeatherUseCase,
                     insertCityWeatherUseCase = insertCityWeatherUseCase,
@@ -77,19 +79,25 @@ fun SelectedCityScreen(
                     textStyle = textStyle,
                     onTap = {
                         selectedCityViewModel.deleteSelectedCities(town)
-                })
+                    })
             }
         }
     }
-    Box(Modifier.padding(bottom = 25.dp)
-        .fillMaxSize(),
-       contentAlignment = Alignment.BottomCenter ){
+    Box(
+        Modifier
+            .padding(bottom = 25.dp)
+            .fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
+    ) {
         Button(
-            onClick = {onExit()},
-            modifier = Modifier.fillMaxWidth().height(50.dp),
+            onClick = { onExit() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
             shape = RoundedCornerShape(10),
         ) {
-            Text("Готово",
+            Text(
+                "Готово",
                 style = TextStyle(
                     fontFamily = textStyle.fontFamily,
                     color = MaterialTheme.colorScheme.surface,

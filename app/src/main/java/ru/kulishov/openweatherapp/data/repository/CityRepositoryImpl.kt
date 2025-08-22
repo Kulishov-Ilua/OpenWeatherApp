@@ -11,10 +11,12 @@ import javax.inject.Inject
 
 class CityRepositoryImpl @Inject constructor(
     private val cityDao: CityDao
-): CityRepository {
+) : CityRepository {
     override suspend fun findCities(name: String): Flow<List<SelectedCity>> {
-    return cityDao.searchCities('*' +name+'*').map { entities->
-        entities.map { entity ->
-        CityMapper.toDomain(entity) } }
-}
+        return cityDao.searchCities('*' + name + '*').map { entities ->
+            entities.map { entity ->
+                CityMapper.toDomain(entity)
+            }
+        }
+    }
 }

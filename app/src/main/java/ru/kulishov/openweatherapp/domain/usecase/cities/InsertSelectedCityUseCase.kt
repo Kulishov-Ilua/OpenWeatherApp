@@ -1,6 +1,5 @@
 package ru.kulishov.openweatherapp.domain.usecase.cities
 
-import kotlinx.coroutines.flow.Flow
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository
 import javax.inject.Inject

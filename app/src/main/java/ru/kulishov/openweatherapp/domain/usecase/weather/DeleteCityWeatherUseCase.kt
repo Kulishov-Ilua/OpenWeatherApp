@@ -7,5 +7,6 @@ import javax.inject.Inject
 class DeleteCityWeatherUseCase @Inject constructor(
     private val repository: CityWeatherRepository
 ) {
-    suspend operator fun invoke(weatherForecastResponse: WeatherForecastResponse) = repository.deleteWeather(weatherForecastResponse)
+    suspend operator fun invoke(weatherForecastResponse: WeatherForecastResponse) =
+        repository.deleteWeather(weatherForecastResponse)
 }

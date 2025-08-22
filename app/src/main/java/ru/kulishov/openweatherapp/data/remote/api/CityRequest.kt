@@ -12,57 +12,66 @@ import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 fun cityRequest(
     retrofit: Retrofit,
     city: String,
-    onSuccess: (WeatherForecastResponse)->Unit,
-    onFailure: (String)->Unit){
+    onSuccess: (WeatherForecastResponse) -> Unit,
+    onFailure: (String) -> Unit
+) {
     val openWeatherApi: OpenWeatherApi = retrofit.create(OpenWeatherApi::class.java)
-    openWeatherApi.getWeather(city, BuildConfig.OW_API_KEY).enqueue(object:
+    openWeatherApi.getWeather(city, BuildConfig.OW_API_KEY).enqueue(object :
         Callback<WeatherForecastResponse> {
         override fun onResponse(
             call: Call<WeatherForecastResponse>,
             response: Response<WeatherForecastResponse>
         ) {
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 val weather = response.body()
                 println("data: $weather")
-                if(weather !=null){
+                if (weather != null) {
                     Log.d(TAG, "Responce body: $weather")
                     onSuccess(weather)
-                }else{
+                } else {
                     Log.e(TAG, "Failed ${response.message()}")
                     onFailure("Request failed: ${response.message()}")
                 }
-            }else{
+            } else {
                 println("Error: ${response.code()} - ${response.errorBody()?.string()}")
             }
         }
 
-        override fun onFailure(call: Call<WeatherForecastResponse>,
-                               t: Throwable) {
+        override fun onFailure(
+            call: Call<WeatherForecastResponse>,
+            t: Throwable
+        ) {
             Log.e(TAG, "Network error ${t.message}")
             onFailure("Network error ${t.message}")
         }
     })
 }
 
-fun geoRequest(retrofit: Retrofit, lat:Double,lon:Double, onSuccess: (WeatherForecastResponse)->Unit, onFailure: (String)->Unit){
+fun geoRequest(
+    retrofit: Retrofit,
+    lat: Double,
+    lon: Double,
+    onSuccess: (WeatherForecastResponse) -> Unit,
+    onFailure: (String) -> Unit
+) {
     val openWeatherApi: OpenWeatherApi = retrofit.create(OpenWeatherApi::class.java)
-    openWeatherApi.getWeatherByGeo(lat,lon, BuildConfig.OW_API_KEY).enqueue(object:
+    openWeatherApi.getWeatherByGeo(lat, lon, BuildConfig.OW_API_KEY).enqueue(object :
         Callback<WeatherForecastResponse> {
         override fun onResponse(
             call: Call<WeatherForecastResponse>,
             response: Response<WeatherForecastResponse>
         ) {
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 val weather = response.body()
                 println("data: $weather")
-                if(weather !=null){
+                if (weather != null) {
                     Log.d(TAG, "Responce body: $weather")
                     onSuccess(weather)
-                }else{
+                } else {
                     Log.e(TAG, "Failed ${response.message()}")
                     onFailure("Request failed: ${response.message()}")
                 }
-            }else{
+            } else {
                 println("Error: ${response.code()} - ${response.errorBody()?.string()}")
             }
         }

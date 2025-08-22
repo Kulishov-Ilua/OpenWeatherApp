@@ -16,7 +16,7 @@ import javax.inject.Singleton
 object OpenWeatherApiModule {
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit{
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
             .client(OkHttpClient())
@@ -26,7 +26,7 @@ object OpenWeatherApiModule {
 
     @Provides
     @Singleton
-    fun provideOpenWeatherApi(retrofit: Retrofit): OpenWeatherApi{
+    fun provideOpenWeatherApi(retrofit: Retrofit): OpenWeatherApi {
         return retrofit.create(OpenWeatherApi::class.java)
     }
 }

@@ -17,64 +17,68 @@ class CitiesScreenViewModel @Inject constructor(
     private val getSelectedCityUseCase: GetSelectedCityUseCase,
     private val insertSelectedCityUseCase: InsertSelectedCityUseCase,
     private val deleteSelectedCity: DeleteSelectedCityUseCase
-): BaseViewModel() {
+) : BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    private val _selectedCities= MutableStateFlow<List<SelectedCity>>(emptyList())
+    private val _selectedCities = MutableStateFlow<List<SelectedCity>>(emptyList())
     val selectedCities: StateFlow<List<SelectedCity>> = _selectedCities.asStateFlow()
 
-    init{
+    init {
         loadSelectedCities()
     }
-    private fun loadSelectedCities(){
+
+    private fun loadSelectedCities() {
         launch {
             getSelectedCityUseCase()
-                .catch { e->
+                .catch { e ->
                     _uiState.value = UiState.Error(e.message ?: "Unknow error")
                 }
-                .collect { cities-> _selectedCities.value=cities
-                _uiState.value= UiState.Success
+                .collect { cities ->
+                    _selectedCities.value = cities
+                    _uiState.value = UiState.Success
                 }
         }
     }
 
-    fun deleteSelectedCities(city: SelectedCity){
+    fun deleteSelectedCities(city: SelectedCity) {
         launch {
-            _uiState.value= UiState.Loading
+            _uiState.value = UiState.Loading
             try {
                 val containsCity = selectedCities.value.any { it.enName == city.enName }
-                if(containsCity){
+                if (containsCity) {
                     deleteSelectedCity(city)
-                    _selectedCities.value= selectedCities.value - city
+                    _selectedCities.value = selectedCities.value - city
                 }
-                _uiState.value= UiState.Success
-            } catch (e: Exception){
+                _uiState.value = UiState.Success
+            } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.message ?: "Failed to add event")
             }
         }
     }
-    fun insertSelectedCities(city: SelectedCity){
+
+    fun insertSelectedCities(city: SelectedCity) {
         launch {
-            _uiState.value= UiState.Loading
+            _uiState.value = UiState.Loading
             try {
                 val containsCity = selectedCities.value.any { it.enName == city.enName }
 
-                if(!containsCity){
+                if (!containsCity) {
                     println("insert")
                     val a = insertSelectedCityUseCase(city)
                     println("tag:$a")
                     _selectedCities.value = selectedCities.value + city
                 }
-                _uiState.value= UiState.Success
-            } catch (e: Exception){
+                _uiState.value = UiState.Success
+            } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.message ?: "Failed to add event")
             }
         }
     }
-    sealed class UiState{
-        object Loading: UiState()
-        object Success: UiState()
+
+    sealed class UiState {
+        object Loading : UiState()
+        object Success : UiState()
         data class Error(val message: String) : UiState()
     }
 }

@@ -7,13 +7,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel(): ViewModel() {
+abstract class BaseViewModel() : ViewModel() {
     val coroutineScope: CoroutineScope = viewModelScope
 
-    override fun onCleared(){
+    override fun onCleared() {
         coroutineScope.cancel()
         super.onCleared()
     }
 
-    fun launch(block: suspend CoroutineScope.()->Unit): Job = coroutineScope.launch {  block()}
+    fun launch(block: suspend CoroutineScope.() -> Unit): Job = coroutineScope.launch { block() }
 }

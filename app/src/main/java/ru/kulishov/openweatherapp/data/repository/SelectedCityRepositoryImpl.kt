@@ -11,8 +11,9 @@ import javax.inject.Inject
 
 class SelectedCityRepositoryImpl @Inject constructor(
     private val selectedCityDao: SelectedCityDao,
-): SelectedCityRepository {
-    override fun getSelectedCity(): Flow<List<SelectedCity>>  =selectedCityDao.getSelectedCities().map { entiies -> entiies.map { entity -> SelectedCityMapper.toDomain(entity) } }
+) : SelectedCityRepository {
+    override fun getSelectedCity(): Flow<List<SelectedCity>> = selectedCityDao.getSelectedCities()
+        .map { entiies -> entiies.map { entity -> SelectedCityMapper.toDomain(entity) } }
 
     override suspend fun insertSelectedCity(city: SelectedCity): Long {
         return selectedCityDao.insertSelectedCities(SelectedCityMapper.toEntity(city))

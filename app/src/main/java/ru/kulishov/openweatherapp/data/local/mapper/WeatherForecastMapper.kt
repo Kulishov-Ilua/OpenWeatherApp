@@ -12,6 +12,7 @@ object WeatherForecastMapper {
             list = forecast.list,
             city = forecast.city
         )
+
     fun toForecastWithDate(forecast: WeatherForecastResponse): WeatherForecastResponceWithDateTime =
         WeatherForecastResponceWithDateTime(
             cod = forecast.cod,
