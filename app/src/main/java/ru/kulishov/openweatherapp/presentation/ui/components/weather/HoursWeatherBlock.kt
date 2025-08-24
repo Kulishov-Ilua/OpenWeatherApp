@@ -50,13 +50,14 @@ fun HoursWeatherBlock(
                 .toLocalDateTime()
             Box(
                 Modifier
-                    .clickable {
-                        onClick(forecast)
-                    }
                     .width(70.dp)
                     .height(80.dp)
-                    .clip(RoundedCornerShape(10)),
-                contentAlignment = Alignment.Center) {
+                    .clip(RoundedCornerShape(10.dp))
+                    .clickable {
+                        onClick(forecast)
+                    },
+                contentAlignment = Alignment.Center
+            ) {
                 if ((selectedHour - forecastTime.hour) < 3 && (selectedHour - forecastTime.hour) >= 0) {
                     Image(
                         painter = painterResource(R.drawable.weather_params_background),
@@ -66,7 +67,9 @@ fun HoursWeatherBlock(
                     )
                 }
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(5.dp)),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
