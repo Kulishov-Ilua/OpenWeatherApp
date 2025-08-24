@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
 import ru.kulishov.openweatherapp.data.local.dao.CityDao
 import ru.kulishov.openweatherapp.data.local.dao.CityWeatherDao
@@ -25,7 +24,21 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cityDao(): CityDao
     abstract fun selectedCityDao(): SelectedCityDao
 
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+        private val lock = Any()
 
+        fun getInstance(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(lock) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
+        }
+
+        private fun buildDatabase(context: Context): AppDatabase {
+            return getRoomDatabase(getDatabaseBuilder(context))
+        }
+    }
 }
 
 fun getRoomDatabase(
