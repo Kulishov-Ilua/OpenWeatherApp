@@ -7,18 +7,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import retrofit2.Retrofit
 import ru.kulishov.openweatherapp.R
 import ru.kulishov.openweatherapp.presentation.ui.components.app.PagerIndicator
 import ru.kulishov.openweatherapp.presentation.ui.components.weather.CityWeatherUI
@@ -31,10 +30,7 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.WeatherNavigati
 fun WeatherScreenUi(
     geoWeatherViewModel: GeoWeatherViewModel,
     weatherNavigationViewModel: WeatherNavigationViewModel,
-    cityWeatherViewModel: CityWeatherViewModel,
-    retrofit: Retrofit,
-    primaryColor: Color,
-    textStyle: TextStyle
+    cityWeatherViewModel: CityWeatherViewModel
 ) {
     val selectedCities = weatherNavigationViewModel.selectedCities.collectAsState()
     val currentPage = weatherNavigationViewModel.currentPage.collectAsState()
@@ -78,29 +74,24 @@ fun WeatherScreenUi(
                     if (currentPage.value == 0) stringResource(R.string.Your_location)
                     else selectedCities.value[currentPage.value - 1].localName,
                     style = TextStyle(
-                        fontFamily = textStyle.fontFamily,
-                        color = primaryColor,
+                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
-                        fontStyle = textStyle.fontStyle
+                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                     )
                 )
                 PagerIndicator(
                     pageCount = selectedCities.value.size + 1,
                     currentPageIndex = currentPage.value,
-                    primaryColor = primaryColor
                 )
                 if (currentPage.value == 0) {
                     GeoWeatherUi(
                         viewModel = geoWeatherViewModel,
-                        primaryColor = primaryColor,
-                        textStyle = textStyle
                     )
                 } else {
                     CityWeatherUI(
                         viewModel = cityWeatherViewModel,
-                        primaryColor = primaryColor,
-                        textStyle = textStyle
                     )
                 }
             }

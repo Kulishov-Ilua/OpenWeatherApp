@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,8 +32,6 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherView
 @Composable
 fun CityCardUI(
     viewModel: CityWeatherViewModel,
-    primaryColor: Color,
-    textStyle: TextStyle,
     onTap: () -> Unit
 ) {
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
@@ -60,18 +59,18 @@ fun CityCardUI(
             Icon(
                 painter = painterResource(R.drawable.exit),
                 contentDescription = "delete",
-                tint = primaryColor,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.clickable {
                     onTap()
                 })
             Text(
                 cityName.value.localName,
                 style = TextStyle(
-                    fontFamily = textStyle.fontFamily,
-                    color = primaryColor,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    fontStyle = textStyle.fontStyle
+                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                 ),
                 modifier = Modifier.padding(start = 15.dp)
             )
@@ -96,21 +95,21 @@ fun CityCardUI(
                                 Text(
                                     "${curentForecastList.value[curentForecastList.value.size / 2].main.temp_min}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                         color = Color(111, 121, 118),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                                 Text(
                                     "${curentForecastList.value[curentForecastList.value.size / 2].main.temp_max}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
-                                        color = primaryColor,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                             }
@@ -124,21 +123,21 @@ fun CityCardUI(
                                 Text(
                                     "${curentForecastList.value[curentForecastList.value.size / 2].main.temp_min}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                         color = Color(111, 121, 118),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                                 Text(
                                     "${curentForecastList.value[curentForecastList.value.size / 2].main.temp_max}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
-                                        color = primaryColor,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                             }
@@ -148,11 +147,11 @@ fun CityCardUI(
                             Text(
                                 stringResource(R.string.not_data),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 16.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }

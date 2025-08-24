@@ -14,12 +14,12 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,9 +37,7 @@ fun HoursWeatherBlock(
     state: Int,
     onClick: (forecast: Forecast) -> Unit,
     listForecast: List<Forecast>,
-    selectedHour: Int,
-    primaryColor: Color,
-    textStyle: TextStyle
+    selectedHour: Int
 ) {
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
@@ -75,11 +73,11 @@ fun HoursWeatherBlock(
                     Text(
                         forecastTime.hour.toString(),
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 14.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                     when (state) {
@@ -87,7 +85,7 @@ fun HoursWeatherBlock(
                             Icon(
                                 painter = painterResource(R.drawable.outline_air_24),
                                 contentDescription = "wind",
-                                tint = primaryColor,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
@@ -96,11 +94,11 @@ fun HoursWeatherBlock(
                             Text(
                                 forecast.main.pressure.toString(),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -117,7 +115,7 @@ fun HoursWeatherBlock(
                                     }
                                 ),
                                 contentDescription = "humidity",
-                                tint = primaryColor,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
@@ -140,11 +138,11 @@ fun HoursWeatherBlock(
                             Text(
                                 forecast.visibility.toString(),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -167,11 +165,11 @@ fun HoursWeatherBlock(
                             Text(
                                 "${forecast.wind.speed} " + stringResource(R.string.ms),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -180,11 +178,11 @@ fun HoursWeatherBlock(
                             Text(
                                 stringResource(R.string.mmHg),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -193,11 +191,11 @@ fun HoursWeatherBlock(
                             Text(
                                 "${forecast.main.humidity}%",
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -206,11 +204,11 @@ fun HoursWeatherBlock(
                             Text(
                                 "${forecast.clouds.all}",
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -219,11 +217,11 @@ fun HoursWeatherBlock(
                             Text(
                                 stringResource(R.string.m),
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }
@@ -232,11 +230,11 @@ fun HoursWeatherBlock(
                             Text(
                                 "${forecast.main.temp}°С",
                                 style = TextStyle(
-                                    fontFamily = textStyle.fontFamily,
-                                    color = primaryColor,
+                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 14.sp,
-                                    fontStyle = textStyle.fontStyle
+                                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                 )
                             )
                         }

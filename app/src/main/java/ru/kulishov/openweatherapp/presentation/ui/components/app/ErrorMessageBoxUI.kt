@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +18,6 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ErrorMessageBoxUI(
     message: String,
-    textStyle: TextStyle
 ) {
     Box(
         Modifier.background(Color(105, 0, 5), RoundedCornerShape(5)),
@@ -26,11 +26,11 @@ fun ErrorMessageBoxUI(
         Text(
             message,
             style = TextStyle(
-                fontFamily = textStyle.fontFamily,
+                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
-                fontStyle = textStyle.fontStyle
+                fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
             ),
             modifier = Modifier.padding(15.dp)
         )

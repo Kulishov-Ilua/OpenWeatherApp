@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,9 +35,7 @@ import java.time.ZoneId
 fun DaysWeatherBlockUI(
     onClick: (day: Int) -> Unit,
     listForecast: List<Pair<Int, List<Forecast>>>,
-    selectedDay: Int,
-    primaryColor: Color,
-    textStyle: TextStyle
+    selectedDay: Int
 ) {
     val currentDate = LocalDateTime.now().dayOfMonth
     LazyColumn(
@@ -88,11 +87,11 @@ fun DaysWeatherBlockUI(
                         text = if (currentDate == day.first) stringResource(R.string.today)
                         else dayInWeek,
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                     Text(
@@ -109,11 +108,11 @@ fun DaysWeatherBlockUI(
 
                         } else "",
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 14.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                     Box(
@@ -128,21 +127,21 @@ fun DaysWeatherBlockUI(
                                 Text(
                                     "${day.second[day.second.size / 2].main.temp_min}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                         color = Color(111, 121, 118),
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                                 Text(
                                     "${day.second[day.second.size / 2].main.temp_max}°С",
                                     style = TextStyle(
-                                        fontFamily = textStyle.fontFamily,
-                                        color = primaryColor,
+                                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        fontStyle = textStyle.fontStyle
+                                        fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                                     )
                                 )
                                 Image(

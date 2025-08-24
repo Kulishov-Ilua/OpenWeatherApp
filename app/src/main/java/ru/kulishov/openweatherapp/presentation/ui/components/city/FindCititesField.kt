@@ -22,7 +22,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -37,8 +36,6 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewMo
 @Composable
 fun FindCitiesField(
     viewModel: CitySearchViewModel,
-    textColor: Color,
-    textStyle: TextStyle,
     onTap: (SelectedCity) -> Unit
 ) {
     val text = viewModel.findName.collectAsState()
@@ -83,11 +80,12 @@ fun FindCitiesField(
                 inpText = text.value,
                 onUpdate = { inp -> viewModel.setName(inp) },
                 modifier = Modifier.fillMaxWidth(),
-                primaryColor = textColor,
                 leadingIcon = {
-                    Icon(painter = painterResource(R.drawable.outline_search_24),
+                    Icon(
+                        painter = painterResource(R.drawable.outline_search_24),
                         contentDescription = "search",
-                        tint = MaterialTheme.colorScheme.onSurface)
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
             )
 
@@ -106,16 +104,16 @@ fun FindCitiesField(
                                 .padding(start = 5.dp, end = 5.dp)
                                 .fillMaxWidth()
                                 .height(1.dp)
-                                .background(textColor, CircleShape)
+                                .background(MaterialTheme.colorScheme.onSurface, CircleShape)
                         )
                         Text(
                             city.localName,
                             style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
-                                color = textColor,
+                                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 16.sp,
-                                fontStyle = textStyle.fontStyle
+                                fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                             )
                         )
                     }

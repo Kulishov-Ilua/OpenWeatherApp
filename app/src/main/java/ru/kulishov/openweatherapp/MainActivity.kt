@@ -103,9 +103,6 @@ class MainActivity : ComponentActivity() {
                                         geoWeatherViewModel = geoWeatherViewModel,
                                         weatherNavigationViewModel = weatherNavigationViewModel,
                                         cityWeatherViewModel = weatherScreenWeatherViewModel,
-                                        retrofit = retrofit,
-                                        primaryColor = MaterialTheme.colorScheme.onSurface,
-                                        textStyle = MaterialTheme.typography.bodyMedium
                                     )
                                 } else {
                                     SelectedCityScreen(
@@ -114,8 +111,6 @@ class MainActivity : ComponentActivity() {
                                         getCityWeatherByNameUseCase,
                                         updateCityWeatherUseCase = updateCityWeatherUseCase,
                                         insertCityWeatherUseCase = insertWeatherByNameUseCase,
-                                        primaryColor = MaterialTheme.colorScheme.onSurface,
-                                        textStyle = MaterialTheme.typography.bodyMedium,
                                         retrofit = retrofit,
                                         onExit = { navState = true })
                                 }

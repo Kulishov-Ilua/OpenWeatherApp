@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -38,35 +39,34 @@ fun TextFieldCustom(
     interactionSource: MutableInteractionSource? = null,
     shape: Shape = TextFieldDefaults.shape,
     textStyle: TextStyle = LocalTextStyle.current,
-    primaryColor: Color = Color.White,
     onUpdate: (String) -> Unit
 ) {
     TextField(
         value = inpText,
         onValueChange = { it -> onUpdate(it) },
         colors = TextFieldColors(
-            focusedTextColor = primaryColor,
-            unfocusedTextColor = primaryColor,
-            disabledTextColor = primaryColor,
+            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+            disabledTextColor = MaterialTheme.colorScheme.onSurface,
             errorTextColor = Color.Red,
             focusedSupportingTextColor = Color.Yellow,
-            focusedLabelColor = primaryColor,
-            focusedPrefixColor = primaryColor,
-            focusedSuffixColor = primaryColor,
+            focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+            focusedPrefixColor = MaterialTheme.colorScheme.onSurface,
+            focusedSuffixColor = MaterialTheme.colorScheme.onSurface,
             focusedContainerColor = Color.Transparent, // background
             focusedIndicatorColor = Color.Transparent, //подчеркивание
             focusedPlaceholderColor = Color.Cyan,
             focusedTrailingIconColor = Color.Cyan,
             focusedLeadingIconColor = Color.Cyan,
             unfocusedSupportingTextColor = Color.Cyan,
-            unfocusedLabelColor = primaryColor,
-            unfocusedPrefixColor = primaryColor,
-            unfocusedSuffixColor = primaryColor,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedPrefixColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedSuffixColor = MaterialTheme.colorScheme.onSurface,
             unfocusedContainerColor = Color.Transparent,
-            unfocusedIndicatorColor = primaryColor, //подчеркивание
-            unfocusedPlaceholderColor = primaryColor,
-            unfocusedLeadingIconColor = primaryColor,
-            unfocusedTrailingIconColor = primaryColor,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface, //подчеркивание
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedLeadingIconColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedTrailingIconColor = MaterialTheme.colorScheme.onSurface,
             errorSupportingTextColor = Color.Red,
             errorLabelColor = Color.Red,
             errorCursorColor = Color.Red,
@@ -79,16 +79,16 @@ fun TextFieldCustom(
             errorTrailingIconColor = Color.Red,
             disabledContainerColor = Color.Transparent,
             disabledSupportingTextColor = Color.Yellow,
-            disabledLabelColor = primaryColor,
-            disabledPrefixColor = primaryColor,
-            disabledSuffixColor = primaryColor,
+            disabledLabelColor = MaterialTheme.colorScheme.onSurface,
+            disabledPrefixColor = MaterialTheme.colorScheme.onSurface,
+            disabledSuffixColor = MaterialTheme.colorScheme.onSurface,
             disabledIndicatorColor = Color.Transparent,
-            disabledPlaceholderColor = primaryColor,
-            disabledLeadingIconColor = primaryColor,
-            disabledTrailingIconColor = primaryColor,
-            cursorColor = primaryColor,
+            disabledPlaceholderColor = MaterialTheme.colorScheme.onSurface,
+            disabledLeadingIconColor = MaterialTheme.colorScheme.onSurface,
+            disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface,
+            cursorColor = MaterialTheme.colorScheme.onSurface,
             textSelectionColors = TextSelectionColors(
-                handleColor = primaryColor,
+                handleColor = MaterialTheme.colorScheme.onSurface,
                 backgroundColor = Color.Transparent
             )
         ),

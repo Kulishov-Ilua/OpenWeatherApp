@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +24,6 @@ import ru.kulishov.openweatherapp.R
 fun PagerIndicator(
     pageCount: Int,
     currentPageIndex: Int,
-    primaryColor: Color,
     modifier: Modifier = Modifier
 ) {
     Box() {
@@ -35,20 +35,21 @@ fun PagerIndicator(
             horizontalArrangement = Arrangement.Center
         ) {
             repeat(pageCount) { iteration ->
-                val color = if (currentPageIndex == iteration) primaryColor else Color.Transparent
+                val color =
+                    if (currentPageIndex == iteration) MaterialTheme.colorScheme.onSurface else Color.Transparent
                 if (iteration == 0) {
                     if (currentPageIndex == iteration) {
                         Icon(
                             painter = painterResource(R.drawable.location),
                             contentDescription = "geo",
-                            tint = primaryColor,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(5.dp)
                         )
                     } else {
                         Icon(
                             painter = painterResource(R.drawable.empty_location),
                             contentDescription = "geo",
-                            tint = primaryColor,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(5.dp)
                         )
                     }
@@ -59,7 +60,7 @@ fun PagerIndicator(
                             .padding(5.dp)
                             .clip(RoundedCornerShape(10))
                             .background(color)
-                            .border(color = primaryColor, width = 1.dp)
+                            .border(color = MaterialTheme.colorScheme.onSurface, width = 1.dp)
                             .size(12.dp)
                     )
                 }

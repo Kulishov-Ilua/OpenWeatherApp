@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,9 +28,7 @@ import ru.kulishov.openweatherapp.data.remote.model.Forecast
 fun WeatherParamsBlockUI(
     state: Int,
     onClick: (Int) -> Unit,
-    weather: Forecast,
-    primaryColor: Color,
-    textStyle: TextStyle
+    weather: Forecast
 ) {
     println(state)
     Box(Modifier.fillMaxWidth()) {
@@ -62,11 +60,11 @@ fun WeatherParamsBlockUI(
                     Text(
                         stringResource(R.string.temp) + ": ${weather.main.temp}°С",
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }
@@ -91,11 +89,11 @@ fun WeatherParamsBlockUI(
                             R.string.ms
                         ),
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }
@@ -120,11 +118,11 @@ fun WeatherParamsBlockUI(
                             R.string.mmHg
                         ),
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }
@@ -152,11 +150,11 @@ fun WeatherParamsBlockUI(
                     Text(
                         stringResource(R.string.hum) + ": ${weather.main.humidity}%",
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }
@@ -179,11 +177,11 @@ fun WeatherParamsBlockUI(
                     Text(
                         stringResource(R.string.cloud) + ": ${weather.clouds.all}",
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }
@@ -204,13 +202,15 @@ fun WeatherParamsBlockUI(
                         )
                     }
                     Text(
-                        stringResource(R.string.visibl) + ": ${weather.visibility}" + stringResource(R.string.m),
+                        stringResource(R.string.visibl) + ": ${weather.visibility}" + stringResource(
+                            R.string.m
+                        ),
                         style = TextStyle(
-                            fontFamily = textStyle.fontFamily,
-                            color = primaryColor,
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = textStyle.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                         )
                     )
                 }

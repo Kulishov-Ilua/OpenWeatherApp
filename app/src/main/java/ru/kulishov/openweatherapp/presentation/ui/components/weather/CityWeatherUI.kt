@@ -8,9 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.kulishov.openweatherapp.R
@@ -21,8 +19,6 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherView
 @Composable
 fun CityWeatherUI(
     viewModel: CityWeatherViewModel,
-    primaryColor: Color,
-    textStyle: TextStyle
 ) {
     val currentForecast = viewModel.currentForecast.collectAsState()
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
@@ -46,12 +42,9 @@ fun CityWeatherUI(
                     message = stringResource(R.string.there_is_no_internet_connection) + "\n" + stringResource(
                         R.string.the_data_is_current_on
                     ) + ":${currentForecast.value.dt_txt}",
-                    textStyle = textStyle
                 )
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
             }
 
@@ -64,7 +57,6 @@ fun CityWeatherUI(
             ) {
                 ErrorMessageBoxUI(
                     message = stringResource(R.string.data_is_missing),
-                    textStyle = textStyle
                 )
             }
         }
@@ -77,8 +69,6 @@ fun CityWeatherUI(
             ) {
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 WeatherParamsBlockUI(
                     state = paramsState.value,
@@ -86,8 +76,6 @@ fun CityWeatherUI(
                         viewModel.setParamState(state)
                     },
                     weather = currentForecast.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 HoursWeatherBlock(
                     state = paramsState.value,
@@ -96,8 +84,6 @@ fun CityWeatherUI(
                     },
                     listForecast = curentForecastList.value,
                     selectedHour = selectedHour.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
                     onClick = { day ->
@@ -105,8 +91,6 @@ fun CityWeatherUI(
                     },
                     listForecast = forecastList.value,
                     selectedDay = selectedDay.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
             }
         }

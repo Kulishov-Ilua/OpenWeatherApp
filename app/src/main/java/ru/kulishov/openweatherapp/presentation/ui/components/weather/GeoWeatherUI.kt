@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,9 +29,7 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewM
 
 @Composable
 fun GeoWeatherUi(
-    viewModel: GeoWeatherViewModel,
-    primaryColor: Color,
-    textStyle: TextStyle
+    viewModel: GeoWeatherViewModel
 ) {
     val currentForecast = viewModel.currentForecast.collectAsState()
     val curentForecastList = viewModel.weatherListCurrentDayWithDate.collectAsState()
@@ -50,7 +47,6 @@ fun GeoWeatherUi(
             ) {
                 ErrorMessageBoxUI(
                     stringResource(R.string.geo_error),
-                    textStyle
                 )
                 Box(
                     Modifier
@@ -68,11 +64,11 @@ fun GeoWeatherUi(
                         Text(
                             stringResource(R.string.update),
                             style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
+                                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
-                                fontStyle = textStyle.fontStyle
+                                fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                             )
                         )
                     }
@@ -87,7 +83,6 @@ fun GeoWeatherUi(
             ) {
                 ErrorMessageBoxUI(
                     message = stringResource(R.string.perm_geo_error),
-                    textStyle = textStyle
                 )
                 Box(
                     Modifier
@@ -105,11 +100,11 @@ fun GeoWeatherUi(
                         Text(
                             stringResource(R.string.update),
                             style = TextStyle(
-                                fontFamily = textStyle.fontFamily,
+                                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
-                                fontStyle = textStyle.fontStyle
+                                fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                             )
                         )
                     }
@@ -129,7 +124,6 @@ fun GeoWeatherUi(
             ) {
                 ErrorMessageBoxUI(
                     message = stringResource(R.string.there_is_no_internet_connection),
-                    textStyle = textStyle
                 )
             }
 
@@ -142,7 +136,6 @@ fun GeoWeatherUi(
             ) {
                 ErrorMessageBoxUI(
                     message = stringResource(R.string.data_is_missing),
-                    textStyle = textStyle
                 )
             }
         }
@@ -155,8 +148,6 @@ fun GeoWeatherUi(
             ) {
                 CurrentWeatherBlockUI(
                     weather = currentForecast.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 WeatherParamsBlockUI(
                     state = paramsState.value,
@@ -164,8 +155,6 @@ fun GeoWeatherUi(
                         viewModel.setParamState(state)
                     },
                     weather = currentForecast.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 HoursWeatherBlock(
                     state = paramsState.value,
@@ -174,8 +163,6 @@ fun GeoWeatherUi(
                     },
                     listForecast = curentForecastList.value,
                     selectedHour = selectedHour.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
                 DaysWeatherBlockUI(
                     onClick = { day ->
@@ -183,8 +170,6 @@ fun GeoWeatherUi(
                     },
                     listForecast = forecastList.value,
                     selectedDay = selectedDay.value,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle
                 )
             }
         }

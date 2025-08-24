@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,8 +40,6 @@ fun SelectedCityScreen(
     getCityWeatherByNameUseCase: GetCityWeatherByNameUseCase,
     updateCityWeatherUseCase: UpdateCityWeatherUseCase,
     insertCityWeatherUseCase: InsertCityWeatherUseCase,
-    primaryColor: Color,
-    textStyle: TextStyle,
     retrofit: Retrofit,
     onExit: () -> Unit
 
@@ -55,8 +52,6 @@ fun SelectedCityScreen(
     ) {
         FindCitiesField(
             viewModel = searchViewModel,
-            textColor = primaryColor,
-            textStyle = TextStyle(),
             onTap = { city ->
                 selectedCityViewModel.insertSelectedCities(city)
             })
@@ -77,8 +72,6 @@ fun SelectedCityScreen(
                 cityWeatherViewModel.loadWeather(town)
                 CityCardUI(
                     viewModel = cityWeatherViewModel,
-                    primaryColor = primaryColor,
-                    textStyle = textStyle,
                     onTap = {
                         selectedCityViewModel.deleteSelectedCities(town)
                     })
@@ -101,11 +94,11 @@ fun SelectedCityScreen(
             Text(
                 stringResource(R.string.ok),
                 style = TextStyle(
-                    fontFamily = textStyle.fontFamily,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                     color = MaterialTheme.colorScheme.surface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    fontStyle = textStyle.fontStyle
+                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                 )
             )
         }

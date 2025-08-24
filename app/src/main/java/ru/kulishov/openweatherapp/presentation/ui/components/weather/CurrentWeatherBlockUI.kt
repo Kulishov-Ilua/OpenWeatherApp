@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,44 +22,47 @@ import ru.kulishov.openweatherapp.data.remote.model.Forecast
 
 @Composable
 fun CurrentWeatherBlockUI(
-    weather: Forecast,
-    primaryColor: Color,
-    textStyle: TextStyle){
+    weather: Forecast
+) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Image(painter = painterResource(
-            if(weather.main.humidity>80) R.drawable.rain
-            else if (weather.clouds.all>10) R.drawable.cloud
-            else R.drawable.sunpng
-        ),
+        Image(
+            painter = painterResource(
+                if (weather.main.humidity > 80) R.drawable.rain
+                else if (weather.clouds.all > 10) R.drawable.cloud
+                else R.drawable.sunpng
+            ),
             contentDescription = "WeatherIcon",
             modifier = Modifier.height(110.dp),
-            contentScale = ContentScale.FillHeight)
+            contentScale = ContentScale.FillHeight
+        )
 
-        Column(modifier = Modifier.fillMaxWidth(),
+        Column(
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(5.dp)) {
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
             Text(
                 "${weather.main.temp}°С",
                 style = TextStyle(
-                    fontFamily = textStyle.fontFamily,
-                    color = primaryColor,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 56.sp,
-                    fontStyle = textStyle.fontStyle
+                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                 )
             )
             Text(
                 stringResource(R.string.it_feels_like) + ": ${weather.main.feels_like}°С",
                 style = TextStyle(
-                    fontFamily = textStyle.fontFamily,
-                    color = primaryColor,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp,
-                    fontStyle = textStyle.fontStyle
+                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
                 )
             )
         }
