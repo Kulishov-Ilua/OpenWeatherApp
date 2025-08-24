@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,6 +72,15 @@ class MainActivity : ComponentActivity() {
             val selectedCityScreenViewModel: CitiesScreenViewModel = hiltViewModel()
             val weatherNavigationViewModel: WeatherNavigationViewModel = hiltViewModel()
 
+            val cities = selectedCityScreenViewModel.selectedCities.collectAsState()
+            val citiesVM = cities.value.mapIndexed { index, city ->
+                val cityViewModel: CityWeatherViewModel = hiltViewModel(
+                    key = "city_${city.id}_$index"
+                )
+                cityViewModel.loadWeather(city)
+                cityViewModel
+            }
+
 
             val geoWeatherViewModel = GeoWeatherViewModel(
                 retrofit = retrofit,
@@ -106,12 +116,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 } else {
                                     SelectedCityScreen(
-                                        selectedCityViewModel = selectedCityScreenViewModel,
-                                        searchViewModel = searchViewModel,
-                                        getCityWeatherByNameUseCase,
-                                        updateCityWeatherUseCase = updateCityWeatherUseCase,
-                                        insertCityWeatherUseCase = insertWeatherByNameUseCase,
-                                        retrofit = retrofit,
+                                        citiesVM,
+                                        selectedCityScreenViewModel,
+                                        searchViewModel,
                                         onExit = { navState = true })
                                 }
 

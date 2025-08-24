@@ -35,16 +35,12 @@ import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherView
 
 @Composable
 fun SelectedCityScreen(
+    citiesVM: List<CityWeatherViewModel>,
     selectedCityViewModel: CitiesScreenViewModel,
     searchViewModel: CitySearchViewModel,
-    getCityWeatherByNameUseCase: GetCityWeatherByNameUseCase,
-    updateCityWeatherUseCase: UpdateCityWeatherUseCase,
-    insertCityWeatherUseCase: InsertCityWeatherUseCase,
-    retrofit: Retrofit,
     onExit: () -> Unit
 
 ) {
-    val towns = selectedCityViewModel.selectedCities.collectAsState()
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp),
@@ -62,18 +58,12 @@ fun SelectedCityScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            items(towns.value) { town ->
-                val cityWeatherViewModel = CityWeatherViewModel(
-                    getCityWeatherByNameUseCase = getCityWeatherByNameUseCase,
-                    updateCityWeatherUseCase = updateCityWeatherUseCase,
-                    insertCityWeatherUseCase = insertCityWeatherUseCase,
-                    retrofit = retrofit
-                )
-                cityWeatherViewModel.loadWeather(town)
+            items(citiesVM) { VM ->
+                val name = VM.cityName.collectAsState()
                 CityCardUI(
-                    viewModel = cityWeatherViewModel,
+                    viewModel = VM,
                     onTap = {
-                        selectedCityViewModel.deleteSelectedCities(town)
+                        selectedCityViewModel.deleteSelectedCities(name.value)
                     })
             }
         }
