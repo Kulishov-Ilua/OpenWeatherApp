@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.domain.usecase.cities.GetSelectedCityUseCase
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
-import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +17,8 @@ class WeatherNavigationViewModel @Inject constructor(
     private val getSelectedCityUseCase: GetSelectedCityUseCase
 ) : BaseViewModel() {
     private val _uiState =
-        MutableStateFlow<CitiesScreenViewModel.UiState>(CitiesScreenViewModel.UiState.Loading)
-    val uiState: StateFlow<CitiesScreenViewModel.UiState> = _uiState.asStateFlow()
+        MutableStateFlow<UiState>(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
     private val _selectedCities = MutableStateFlow<List<SelectedCity>>(emptyList())
     val selectedCities: StateFlow<List<SelectedCity>> = _selectedCities.asStateFlow()
 
@@ -38,11 +38,11 @@ class WeatherNavigationViewModel @Inject constructor(
             getSelectedCityUseCase()
                 .catch { e ->
                     _uiState.value =
-                        CitiesScreenViewModel.UiState.Error(e.message ?: "Unknow error")
+                        UiState.Error(e.message ?: "Unknow error")
                 }
                 .collect { cities ->
                     _selectedCities.value = cities
-                    _uiState.value = CitiesScreenViewModel.UiState.Success
+                    _uiState.value = UiState.Success
                 }
         }
     }
@@ -60,9 +60,4 @@ class WeatherNavigationViewModel @Inject constructor(
         }
     }
 
-    sealed class UiState {
-        object Loading : UiState()
-        object Success : UiState()
-        data class Error(val message: String) : UiState()
-    }
 }

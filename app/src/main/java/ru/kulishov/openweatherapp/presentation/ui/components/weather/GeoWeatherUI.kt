@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.kulishov.openweatherapp.R
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.GeoWeatherViewModel
 
@@ -42,7 +43,7 @@ fun GeoWeatherUi(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val weatherResponse = viewModel.weatherForecast.collectAsState()
     when (uiState.value) {
-        is GeoWeatherViewModel.UiState.locationEnabled -> {
+        is UiState.locationEnabled -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -79,7 +80,7 @@ fun GeoWeatherUi(
             }
         }
 
-        is GeoWeatherViewModel.UiState.NotPermission -> {
+        is UiState.NotPermission -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -116,11 +117,11 @@ fun GeoWeatherUi(
             }
         }
 
-        is GeoWeatherViewModel.UiState.Loading -> {
+        is UiState.Loading -> {
             CircularProgressIndicator()
         }
 
-        is GeoWeatherViewModel.UiState.InternetError -> {
+        is UiState.InternetError -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -134,7 +135,7 @@ fun GeoWeatherUi(
 
         }
 
-        is GeoWeatherViewModel.UiState.Error -> {
+        is UiState.Error -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -146,7 +147,7 @@ fun GeoWeatherUi(
             }
         }
 
-        is GeoWeatherViewModel.UiState.Success -> {
+        is UiState.Success -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,

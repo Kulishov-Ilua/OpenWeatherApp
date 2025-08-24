@@ -13,11 +13,12 @@ import ru.kulishov.openweatherapp.data.remote.model.Clouds
 import ru.kulishov.openweatherapp.data.remote.model.Coord
 import ru.kulishov.openweatherapp.data.remote.model.Forecast
 import ru.kulishov.openweatherapp.data.remote.model.MainForecast
-import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.data.remote.model.Sys
-import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.data.remote.model.Wind
+import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.UiState
+import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
@@ -236,7 +237,7 @@ class CityWeatherViewModel @Inject constructor(
         error: String
     ) {
         if (cachedWeather != null) {
-            _uiState.value = UiState.EnternetError(cachedWeather.update)
+            _uiState.value = UiState.InternetError(cachedWeather.update.toString())
         } else {
             _uiState.value = UiState.Error("Network error: $error")
         }
@@ -263,10 +264,4 @@ class CityWeatherViewModel @Inject constructor(
         setSelectedTime(forecastTime.hour)
     }
 
-    sealed class UiState {
-        object Loading : UiState()
-        object Success : UiState()
-        data class EnternetError(val timeInfo: Long) : UiState()
-        data class Error(val message: String) : UiState()
-    }
 }

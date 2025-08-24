@@ -32,6 +32,7 @@ import ru.kulishov.openweatherapp.data.remote.model.Sys
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.data.remote.model.Wind
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
 import ru.kulishov.openweatherapp.widget_feature.WeatherWidget
@@ -223,7 +224,7 @@ class GeoWeatherViewModel @Inject constructor(
 
                         },
                         onFailure = { e ->
-                            _uiState.value = UiState.InternetError
+                            _uiState.value = UiState.InternetError("")
                         }
                     )
 
@@ -323,13 +324,4 @@ class GeoWeatherViewModel @Inject constructor(
         setSelectedTime(forecastTime.hour)
     }
 
-    sealed class UiState {
-        object Loading : UiState()
-        object Success : UiState()
-        object NotPermission : UiState()
-        object InternetError : UiState()
-
-        object locationEnabled : UiState()
-        data class Error(val message: String) : UiState()
-    }
 }

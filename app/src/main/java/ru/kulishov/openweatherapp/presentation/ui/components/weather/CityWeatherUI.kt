@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.kulishov.openweatherapp.R
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
 
@@ -31,18 +32,20 @@ fun CityWeatherUI(
     val paramsState = viewModel.paramState.collectAsState()
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     when (uiState.value) {
-        is CityWeatherViewModel.UiState.Loading -> {
+        is UiState.Loading -> {
             CircularProgressIndicator()
         }
 
-        is CityWeatherViewModel.UiState.EnternetError -> {
+        is UiState.InternetError -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 ErrorMessageBoxUI(
-                    message = stringResource(R.string.there_is_no_internet_connection)+"\n" + stringResource(R.string.the_data_is_current_on)+":${currentForecast.value.dt_txt}",
+                    message = stringResource(R.string.there_is_no_internet_connection) + "\n" + stringResource(
+                        R.string.the_data_is_current_on
+                    ) + ":${currentForecast.value.dt_txt}",
                     textStyle = textStyle
                 )
                 CurrentWeatherBlockUI(
@@ -54,7 +57,7 @@ fun CityWeatherUI(
 
         }
 
-        is CityWeatherViewModel.UiState.Error -> {
+        is UiState.Error -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -66,7 +69,7 @@ fun CityWeatherUI(
             }
         }
 
-        is CityWeatherViewModel.UiState.Success -> {
+        is UiState.Success -> {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -107,6 +110,9 @@ fun CityWeatherUI(
                 )
             }
         }
+
+        is UiState.NotPermission -> {}
+        is UiState.locationEnabled -> {}
     }
 
 

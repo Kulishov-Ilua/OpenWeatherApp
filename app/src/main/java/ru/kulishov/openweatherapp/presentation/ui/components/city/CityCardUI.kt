@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.kulishov.openweatherapp.R
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
 
 @Composable
@@ -83,11 +84,11 @@ fun CityCardUI(
                     horizontalArrangement = Arrangement.spacedBy(15.dp)
                 ) {
                     when (uiState.value) {
-                        is CityWeatherViewModel.UiState.Loading -> {
+                        is UiState.Loading -> {
                             CircularProgressIndicator()
                         }
 
-                        is CityWeatherViewModel.UiState.EnternetError -> {
+                        is UiState.InternetError -> {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -115,7 +116,7 @@ fun CityCardUI(
                             }
                         }
 
-                        is CityWeatherViewModel.UiState.Success -> {
+                        is UiState.Success -> {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -143,7 +144,7 @@ fun CityCardUI(
                             }
                         }
 
-                        is CityWeatherViewModel.UiState.Error -> {
+                        is UiState.Error -> {
                             Text(
                                 stringResource(R.string.not_data),
                                 style = TextStyle(
@@ -155,6 +156,9 @@ fun CityCardUI(
                                 )
                             )
                         }
+
+                        is UiState.locationEnabled -> {}
+                        is UiState.NotPermission -> {}
                     }
                 }
             }

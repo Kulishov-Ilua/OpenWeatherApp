@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.domain.usecase.cities.DeleteSelectedCityUseCase
 import ru.kulishov.openweatherapp.domain.usecase.cities.GetSelectedCityUseCase
 import ru.kulishov.openweatherapp.domain.usecase.cities.InsertSelectedCityUseCase
@@ -76,9 +77,4 @@ class CitiesScreenViewModel @Inject constructor(
         }
     }
 
-    sealed class UiState {
-        object Loading : UiState()
-        object Success : UiState()
-        data class Error(val message: String) : UiState()
-    }
 }

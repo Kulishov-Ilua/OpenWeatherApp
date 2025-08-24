@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.domain.usecase.cities.FindCityUseCase
 import ru.kulishov.openweatherapp.presentation.viewmodel.BaseViewModel
 import javax.inject.Inject
@@ -60,9 +61,4 @@ class CitySearchViewModel @Inject constructor(
     }
 
 
-    sealed class UiState {
-        object Loading : UiState()
-        object Success : UiState()
-        data class Error(val message: String) : UiState()
-    }
 }
