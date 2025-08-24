@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.presentation.viewmodel.weather
 
+import android.util.Log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -187,7 +188,7 @@ class CityWeatherViewModel @Inject constructor(
                     insertCityWeatherUseCase(weather)
                 }
             } catch (e: Exception) {
-                println("Database update failed: ${e.message}")
+                Log.e("Database update", "${e.message}")
             }
         }
     }

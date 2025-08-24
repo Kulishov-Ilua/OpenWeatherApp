@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.presentation.ui.components.weather
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +37,7 @@ fun WeatherParamsBlockUI(
     onClick: (Int) -> Unit,
     weather: Forecast
 ) {
-    println(state)
+    Log.d("State", state.toString())
     Box(Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.fillMaxWidth(),

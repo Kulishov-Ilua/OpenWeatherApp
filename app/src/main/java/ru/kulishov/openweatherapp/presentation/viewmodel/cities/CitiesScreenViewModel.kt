@@ -65,9 +65,7 @@ class CitiesScreenViewModel @Inject constructor(
                 val containsCity = selectedCities.value.any { it.enName == city.enName }
 
                 if (!containsCity) {
-                    println("insert")
                     val a = insertSelectedCityUseCase(city)
-                    println("tag:$a")
                     _selectedCities.value = selectedCities.value + city
                 }
                 _uiState.value = UiState.Success

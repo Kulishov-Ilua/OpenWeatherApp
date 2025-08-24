@@ -24,7 +24,6 @@ fun cityRequest(
         ) {
             if (response.isSuccessful) {
                 val weather = response.body()
-                println("data: $weather")
                 if (weather != null) {
                     Log.d(TAG, "Responce body: $weather")
                     onSuccess(weather)
@@ -33,7 +32,7 @@ fun cityRequest(
                     onFailure("Request failed: ${response.message()}")
                 }
             } else {
-                println("Error: ${response.code()} - ${response.errorBody()?.string()}")
+                Log.e("Response", "${response.code()} - ${response.errorBody()?.string()}")
             }
         }
 
@@ -63,7 +62,6 @@ fun geoRequest(
         ) {
             if (response.isSuccessful) {
                 val weather = response.body()
-                println("data: $weather")
                 if (weather != null) {
                     Log.d(TAG, "Responce body: $weather")
                     onSuccess(weather)
@@ -72,7 +70,7 @@ fun geoRequest(
                     onFailure("Request failed: ${response.message()}")
                 }
             } else {
-                println("Error: ${response.code()} - ${response.errorBody()?.string()}")
+                Log.e("Error", "${response.code()} - ${response.errorBody()?.string()}")
             }
         }
 
