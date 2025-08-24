@@ -26,5 +26,6 @@
     <string name="data_is_missing">Data is missing!</string>
     <string name="not_data">Not data</string>
     <string name="ok">Ok</string>
+    <string name="perm_geo_error">There is no permission to use geolocation</string>
 
 </resources>

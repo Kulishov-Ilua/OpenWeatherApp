@@ -85,7 +85,7 @@ fun GeoWeatherUi(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
-                    message = "Нет разрешения на использование геолокации",
+                    message = stringResource(R.string.perm_geo_error),
                     textStyle = textStyle
                 )
                 Box(
@@ -102,7 +102,7 @@ fun GeoWeatherUi(
                         shape = RoundedCornerShape(10),
                     ) {
                         Text(
-                            "Обновить",
+                            stringResource(R.string.update),
                             style = TextStyle(
                                 fontFamily = textStyle.fontFamily,
                                 color = MaterialTheme.colorScheme.surface,
@@ -127,7 +127,7 @@ fun GeoWeatherUi(
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 ErrorMessageBoxUI(
-                    message = "Отсутствует подключение к интернету!",
+                    message = stringResource(R.string.there_is_no_internet_connection),
                     textStyle = textStyle
                 )
             }
@@ -140,7 +140,7 @@ fun GeoWeatherUi(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
-                    message = "Данные отсутствуют!",
+                    message = stringResource(R.string.data_is_missing),
                     textStyle = textStyle
                 )
             }

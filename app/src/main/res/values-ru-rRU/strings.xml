@@ -26,4 +26,5 @@
     <string name="data_is_missing">Данные отсутствуют!</string>
     <string name="not_data">Нет данных</string>
     <string name="ok">Готово</string>
+    <string name="perm_geo_error">Нет разрешения на использование геолокации</string>
 </resources>

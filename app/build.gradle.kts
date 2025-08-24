@@ -28,7 +28,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "OW_API_KEY", "${getProperty("local.properties", "openWeatherApiKey")}")
+        buildConfigField(
+            "String",
+            "OW_API_KEY",
+            "${getProperty("local.properties", "openWeatherApiKey")}"
+        )
     }
 
     buildTypes {
@@ -74,10 +78,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.sqlite.bundled)
     implementation(libs.room.runtime)
-    //implementation(libs.gson)
 
-    implementation (libs.converter.gson)
-    implementation (libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
 
     ksp(libs.room.compiler)
 
@@ -93,6 +96,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+
 }
 
 room {
