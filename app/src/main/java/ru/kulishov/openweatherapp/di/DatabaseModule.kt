@@ -2,10 +2,6 @@ package ru.kulishov.openweatherapp.di
 
 import android.content.Context
 import android.location.LocationManager
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +24,6 @@ import ru.kulishov.openweatherapp.domain.usecase.cities.InsertSelectedCityUseCas
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -39,13 +34,7 @@ object DatabaseModule {
     fun provideDatabase(
         @ApplicationContext context: Context
     ): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "app_database"
-        )
-            .createFromAsset("databases/cities.db")
-            .build()
+        return AppDatabase.getInstance(context)
     }
 
     @Provides
