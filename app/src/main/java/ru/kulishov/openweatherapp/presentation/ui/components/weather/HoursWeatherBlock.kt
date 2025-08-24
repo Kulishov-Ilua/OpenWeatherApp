@@ -5,9 +5,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -50,8 +53,9 @@ fun HoursWeatherBlock(
                 .toLocalDateTime()
             Box(
                 Modifier
-                    .width(70.dp)
-                    .height(80.dp)
+                    .defaultMinSize(minHeight = 100.dp, minWidth = 100.dp)
+                    .width(IntrinsicSize.Min)
+                    .height(IntrinsicSize.Min)
                     .clip(RoundedCornerShape(10.dp))
                     .clickable {
                         onClick(forecast)
@@ -68,6 +72,7 @@ fun HoursWeatherBlock(
                 }
                 Column(
                     modifier = Modifier
+                        .padding(3.dp)
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(5.dp)),
                     horizontalAlignment = Alignment.CenterHorizontally,

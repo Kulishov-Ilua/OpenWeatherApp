@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -61,12 +61,12 @@ fun WeatherScreenUi(
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
@@ -85,16 +85,23 @@ fun WeatherScreenUi(
                     pageCount = selectedCities.value.size + 1,
                     currentPageIndex = currentPage.value,
                 )
-                if (currentPage.value == 0) {
-                    GeoWeatherUi(
-                        viewModel = geoWeatherViewModel,
-                    )
-                } else {
-                    CityWeatherUI(
-                        viewModel = cityWeatherViewModel,
-                    )
+                LazyColumn() {
+                    item {
+                        if (currentPage.value == 0) {
+                            GeoWeatherUi(
+                                viewModel = geoWeatherViewModel,
+                            )
+                        } else {
+                            CityWeatherUI(
+                                viewModel = cityWeatherViewModel,
+                            )
+                        }
+                    }
                 }
+
             }
+
+
         }
     }
 

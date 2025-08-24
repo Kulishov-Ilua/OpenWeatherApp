@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.kulishov.openweatherapp.R
@@ -35,19 +38,20 @@ fun WeatherParamsBlockUI(
 ) {
     println(state)
     Box(Modifier.fillMaxWidth()) {
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 Box(
                     Modifier
-                        .height(30.dp)
                         .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
                         .clip(RoundedCornerShape(5.dp))
                         .clickable {
                             onClick(0)
@@ -69,14 +73,53 @@ fun WeatherParamsBlockUI(
                             color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
                 Box(
                     Modifier
-                        .height(30.dp)
                         .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
+                        .clip(RoundedCornerShape(5.dp))
+                        .clickable {
+                            onClick(3)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (state == 3) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
+                            modifier = Modifier.fillMaxHeight(),
+                            contentScale = ContentScale.FillHeight
+                        )
+                    }
+                    Text(
+                        stringResource(R.string.hum) + ": ${weather.main.humidity}%",
+                        style = TextStyle(
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Box(
+                    Modifier
+                        .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
                         .clip(RoundedCornerShape(5.dp))
                         .clickable {
                             onClick(1)
@@ -100,14 +143,52 @@ fun WeatherParamsBlockUI(
                             color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
                 Box(
                     Modifier
-                        .height(30.dp)
                         .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
+                        .clip(RoundedCornerShape(5.dp))
+                        .clickable {
+                            onClick(4)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (state == 4) {
+                        Image(
+                            painter = painterResource(R.drawable.weather_params_background),
+                            contentDescription = "background",
+                            modifier = Modifier.fillMaxHeight(),
+                            contentScale = ContentScale.FillHeight
+                        )
+                    }
+                    Text(
+                        stringResource(R.string.cloud) + ":   ${weather.clouds.all}",
+                        style = TextStyle(
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp,
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Box(
+                    Modifier
+                        .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
                         .clip(RoundedCornerShape(5.dp))
                         .clickable {
                             onClick(2)
@@ -131,77 +212,16 @@ fun WeatherParamsBlockUI(
                             color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
-                        )
-                    )
-                }
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Box(
-                    Modifier
-                        .height(30.dp)
-                        .width(167.dp)
-                        .clip(RoundedCornerShape(5.dp))
-                        .clickable {
-                            onClick(3)
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (state == 3) {
-                        Image(
-                            painter = painterResource(R.drawable.weather_params_background),
-                            contentDescription = "background",
-                            modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight
-                        )
-                    }
-                    Text(
-                        stringResource(R.string.hum) + ": ${weather.main.humidity}%",
-                        style = TextStyle(
-                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
                 Box(
                     Modifier
-                        .height(30.dp)
                         .width(167.dp)
-                        .clip(RoundedCornerShape(5.dp))
-                        .clickable {
-                            onClick(4)
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (state == 4) {
-                        Image(
-                            painter = painterResource(R.drawable.weather_params_background),
-                            contentDescription = "background",
-                            modifier = Modifier.fillMaxHeight(),
-                            contentScale = ContentScale.FillHeight
-                        )
-                    }
-                    Text(
-                        stringResource(R.string.cloud) + ": ${weather.clouds.all}",
-                        style = TextStyle(
-                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
-                        )
-                    )
-                }
-                Box(
-                    Modifier
-                        .height(30.dp)
-                        .width(167.dp)
+                        .defaultMinSize(minHeight = 30.dp)
+                        .height(IntrinsicSize.Min)
                         .clip(RoundedCornerShape(5.dp))
                         .clickable {
                             onClick(5)
@@ -225,11 +245,13 @@ fun WeatherParamsBlockUI(
                             color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
-                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle
+                            fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
             }
+
         }
     }
 }

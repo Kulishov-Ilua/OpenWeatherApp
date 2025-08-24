@@ -42,7 +42,7 @@ fun GeoWeatherUi(
     when (uiState.value) {
         is UiState.locationEnabled -> {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
@@ -57,6 +57,7 @@ fun GeoWeatherUi(
                     Button(
                         onClick = { viewModel.getForecast() },
                         modifier = Modifier
+                            .padding(top = 25.dp)
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(10),
@@ -78,7 +79,7 @@ fun GeoWeatherUi(
 
         is UiState.NotPermission -> {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ErrorMessageBoxUI(
@@ -86,13 +87,14 @@ fun GeoWeatherUi(
                 )
                 Box(
                     Modifier
-                        .padding(bottom = 25.dp)
+                        .padding(bottom = 15.dp)
                         .fillMaxSize(),
                     contentAlignment = Alignment.BottomCenter
                 ) {
                     Button(
                         onClick = { viewModel.getForecast() },
                         modifier = Modifier
+                            .padding(top = 25.dp)
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(10),
