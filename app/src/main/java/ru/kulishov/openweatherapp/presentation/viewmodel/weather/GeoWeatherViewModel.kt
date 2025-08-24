@@ -29,7 +29,6 @@ import ru.kulishov.openweatherapp.data.remote.model.Coord
 import ru.kulishov.openweatherapp.data.remote.model.Forecast
 import ru.kulishov.openweatherapp.data.remote.model.MainForecast
 import ru.kulishov.openweatherapp.data.remote.model.Sys
-import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.data.remote.model.Wind
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.model.UiState
@@ -176,12 +175,15 @@ class GeoWeatherViewModel @Inject constructor(
             return
         }
         fusedLocationClient.getCurrentLocation(
-            Priority.PRIORITY_LOW_POWER,
+            Priority.PRIORITY_HIGH_ACCURACY,
             cancellationTokenSource?.token
         )
             .addOnCompleteListener { data ->
-                println("${data.result.latitude} ${data.result.longitude}")
-                loadWeather(data.result.latitude, data.result.latitude)
+                if (data.result == null) {
+                    _uiState.value = UiState.locationEnabled
+                } else {
+                    loadWeather(data.result.latitude, data.result.latitude)
+                }
             }
     }
 
@@ -202,7 +204,6 @@ class GeoWeatherViewModel @Inject constructor(
             _uiState.value = UiState.Loading
             if (!isApiBlocked.value) {
                 try {
-                    var apiWeather: WeatherForecastResponse? = null
                     blockedApi()
                     geoRequest(
                         retrofit = retrofit,
