@@ -27,5 +27,15 @@
     <string name="not_data">Not data</string>
     <string name="ok">Ok</string>
     <string name="perm_geo_error">There is no permission to use geolocation</string>
+    <string name="log_phone">Log in by phone</string>
+    <string name="log_log">Log in to log in</string>
+    <string name="send_code">Send the code via SMS</string>
+    <string name="number_example" translatable="false">+7(___)___-__-__</string>
+    <string name="accept_terms">By clicking this button, you agree that you have clicked this button.</string>
+    <string name="sms_cod">SMS cod</string>
+    <string name="enter_code">Enter the code from the text message</string>
+    <string name="continue_str">Continue</string>
+    <string name="invalid_otp">Invalid OTP</string>
+    <string name="incorrect_number">Incorrect number</string>
 
 </resources>

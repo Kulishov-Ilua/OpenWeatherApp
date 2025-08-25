@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,15 +26,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
+import ru.kulishov.openweatherapp.domain.model.UiState
 import ru.kulishov.openweatherapp.domain.usecase.weather.GetCityWeatherByNameUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.InsertCityWeatherUseCase
 import ru.kulishov.openweatherapp.domain.usecase.weather.UpdateCityWeatherUseCase
+import ru.kulishov.openweatherapp.presentation.ui.auth.OTPScreen
+import ru.kulishov.openweatherapp.presentation.ui.auth.PhoneInputScreen
 import ru.kulishov.openweatherapp.presentation.ui.cities.SelectedCityScreen
+import ru.kulishov.openweatherapp.presentation.ui.components.app.ErrorMessageBoxUI
 import ru.kulishov.openweatherapp.presentation.ui.weather.WeatherScreenUi
+import ru.kulishov.openweatherapp.presentation.viewmodel.auth.AuthScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitiesScreenViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.cities.CitySearchViewModel
 import ru.kulishov.openweatherapp.presentation.viewmodel.weather.CityWeatherViewModel
@@ -71,6 +78,7 @@ class MainActivity : ComponentActivity() {
             val searchViewModel: CitySearchViewModel = hiltViewModel()
             val selectedCityScreenViewModel: CitiesScreenViewModel = hiltViewModel()
             val weatherNavigationViewModel: WeatherNavigationViewModel = hiltViewModel()
+            val authScreenViewModel: AuthScreenViewModel = hiltViewModel()
 
             val cities = selectedCityScreenViewModel.selectedCities.collectAsState()
             val citiesVM = cities.value.mapIndexed { index, city ->
@@ -81,6 +89,8 @@ class MainActivity : ComponentActivity() {
                 cityViewModel
             }
 
+            val authState = authScreenViewModel.uiState.collectAsState()
+            val otpState = authScreenViewModel.otpState.collectAsState()
 
             val geoWeatherViewModel = GeoWeatherViewModel(
                 retrofit = retrofit,
@@ -108,37 +118,90 @@ class MainActivity : ComponentActivity() {
                                 verticalArrangement = Arrangement.spacedBy(25.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                if (navState) {
-                                    WeatherScreenUi(
-                                        geoWeatherViewModel = geoWeatherViewModel,
-                                        weatherNavigationViewModel = weatherNavigationViewModel,
-                                        cityWeatherViewModel = weatherScreenWeatherViewModel,
-                                    )
-                                } else {
-                                    SelectedCityScreen(
-                                        citiesVM,
-                                        selectedCityScreenViewModel,
-                                        searchViewModel,
-                                        onExit = { navState = true })
+                                when (authState.value) {
+                                    is UiState.Loading -> {
+                                        CircularProgressIndicator()
+                                    }
+
+                                    is UiState.locationEnabled -> {
+
+                                        if (!otpState.value) {
+                                            PhoneInputScreen(authScreenViewModel)
+                                        } else {
+                                            OTPScreen(authScreenViewModel)
+                                        }
+
+                                    }
+
+                                    is UiState.NotPermission -> {
+                                        ErrorMessageBoxUI(stringResource(R.string.invalid_otp))
+                                        if (!otpState.value) {
+                                            PhoneInputScreen(authScreenViewModel)
+                                        } else {
+                                            OTPScreen(authScreenViewModel)
+                                        }
+                                    }
+
+                                    is UiState.Success -> {
+                                        if (navState) {
+                                            WeatherScreenUi(
+                                                geoWeatherViewModel = geoWeatherViewModel,
+                                                weatherNavigationViewModel = weatherNavigationViewModel,
+                                                cityWeatherViewModel = weatherScreenWeatherViewModel,
+                                            )
+                                        } else {
+                                            SelectedCityScreen(
+                                                citiesVM,
+                                                selectedCityScreenViewModel,
+                                                searchViewModel,
+                                                onExit = { navState = true })
+                                        }
+                                    }
+
+                                    is UiState.Error -> {
+                                    }
+
+                                    is UiState.InternetError -> {
+                                    }
                                 }
-
                             }
 
                         }
-                        if (navState) {
-                            Box(
-                                Modifier
-                                    .padding(top = 50.dp, start = 25.dp)
-                                    .clickable {
-                                        navState = false
-                                    }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.menu),
-                                    contentDescription = "Menu",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
+                        when (authState.value) {
+                            is UiState.Loading -> {
+
+                            }
+
+                            is UiState.Success -> {
+                                if (navState) {
+                                    Box(
+                                        Modifier
+                                            .padding(top = 50.dp, start = 25.dp)
+                                            .clickable {
+                                                navState = false
+                                            }) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.menu),
+                                            contentDescription = "Menu",
+                                            tint = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+                                }
+                            }
+
+                            is UiState.Error -> {
+                            }
+
+                            is UiState.NotPermission -> {
+                            }
+
+                            is UiState.InternetError -> {
+                            }
+
+                            is UiState.locationEnabled -> {
                             }
                         }
+
                     }
                 )
 

@@ -27,4 +27,13 @@
     <string name="not_data">Нет данных</string>
     <string name="ok">Готово</string>
     <string name="perm_geo_error">Нет разрешения на использование геолокации</string>
+    <string name="log_phone">Войти по телефону</string>
+    <string name="log_log">Войдите, чтобы войти</string>
+    <string name="send_code">Отправить код по СМС</string>
+    <string name="accept_terms">Нажимая эту кнопку, вы соглашаетесь с тем, что нажали эту кнопку</string>
+    <string name="sms_cod">СМС код</string>
+    <string name="enter_code">Введите код из СМС</string>
+    <string name="continue_str">Продолжить</string>
+    <string name="invalid_otp">Неверный OTP</string>
+    <string name="incorrect_number">Некорректный номер</string>
 </resources>

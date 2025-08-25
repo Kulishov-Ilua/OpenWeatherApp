@@ -1,5 +1,6 @@
 package ru.kulishov.openweatherapp.di
 
+import android.accounts.AccountManager
 import android.content.Context
 import android.location.LocationManager
 import dagger.Module
@@ -102,4 +103,9 @@ object ProviderUtils {
     fun provideLocationManager(@ApplicationContext context: Context): LocationManager {
         return context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
+
+    @Provides
+    @Singleton
+    fun provideAccountManager(@ApplicationContext context: Context): AccountManager =
+        AccountManager.get(context)
 }
