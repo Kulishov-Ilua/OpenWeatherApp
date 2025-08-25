@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.data.local.mapper
+package ru.kulishov.openweatherapp.data.local.data.mapper
 
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse

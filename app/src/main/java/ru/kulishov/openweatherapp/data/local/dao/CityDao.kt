@@ -3,7 +3,7 @@ package ru.kulishov.openweatherapp.data.local.dao
 import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.kulishov.openweatherapp.data.local.entity.CityEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.CityEntity
 
 @Dao
 interface CityDao {

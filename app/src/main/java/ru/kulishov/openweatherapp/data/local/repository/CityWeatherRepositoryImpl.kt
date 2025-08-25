@@ -1,9 +1,9 @@
-package ru.kulishov.openweatherapp.data.repository
+package ru.kulishov.openweatherapp.data.local.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.kulishov.openweatherapp.data.local.dao.CityWeatherDao
-import ru.kulishov.openweatherapp.data.local.mapper.CityWeatherMapper
+import ru.kulishov.openweatherapp.data.local.data.mapper.CityWeatherMapper
 import ru.kulishov.openweatherapp.domain.model.WeatherForecastResponceWithDateTime
 import ru.kulishov.openweatherapp.data.remote.model.WeatherForecastResponse
 import ru.kulishov.openweatherapp.domain.repository.CityWeatherRepository

@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Retrofit
-import ru.kulishov.openweatherapp.data.local.mapper.WeatherForecastMapper
+import ru.kulishov.openweatherapp.data.local.data.mapper.WeatherForecastMapper
 import ru.kulishov.openweatherapp.data.remote.api.geoRequest
 import ru.kulishov.openweatherapp.data.remote.model.City
 import ru.kulishov.openweatherapp.data.remote.model.Clouds

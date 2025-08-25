@@ -5,8 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.kulishov.openweatherapp.data.local.entity.CityEntity
-import ru.kulishov.openweatherapp.data.local.entity.SelectedCityEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.SelectedCityEntity
 
 @Dao
 interface SelectedCityDao {

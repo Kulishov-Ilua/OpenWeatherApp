@@ -8,8 +8,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import ru.kulishov.openweatherapp.data.local.entity.CityWeatherEntity
-import ru.kulishov.openweatherapp.data.local.mapper.CityWeatherMapper
+import ru.kulishov.openweatherapp.data.local.data.entity.CityWeatherEntity
+import ru.kulishov.openweatherapp.data.local.data.mapper.CityWeatherMapper
 import ru.kulishov.openweatherapp.data.remote.model.City
 import ru.kulishov.openweatherapp.data.remote.model.Clouds
 import ru.kulishov.openweatherapp.data.remote.model.Coord

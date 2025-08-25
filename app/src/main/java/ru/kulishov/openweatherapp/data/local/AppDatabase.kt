@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.data.local.database
+package ru.kulishov.openweatherapp.data.local
 
 import android.content.Context
 import androidx.room.Database
@@ -8,10 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import ru.kulishov.openweatherapp.data.local.dao.CityDao
 import ru.kulishov.openweatherapp.data.local.dao.CityWeatherDao
 import ru.kulishov.openweatherapp.data.local.dao.SelectedCityDao
-import ru.kulishov.openweatherapp.data.local.entity.CityEntity
-import ru.kulishov.openweatherapp.data.local.entity.CityFtsEntity
-import ru.kulishov.openweatherapp.data.local.entity.CityWeatherEntity
-import ru.kulishov.openweatherapp.data.local.entity.SelectedCityEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.CityEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.CityFtsEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.CityWeatherEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.SelectedCityEntity
 
 @Database(
     entities = [CityWeatherEntity::class,

@@ -10,10 +10,10 @@ import dagger.hilt.components.SingletonComponent
 import ru.kulishov.openweatherapp.data.local.dao.CityDao
 import ru.kulishov.openweatherapp.data.local.dao.CityWeatherDao
 import ru.kulishov.openweatherapp.data.local.dao.SelectedCityDao
-import ru.kulishov.openweatherapp.data.local.database.AppDatabase
-import ru.kulishov.openweatherapp.data.repository.CityRepositoryImpl
-import ru.kulishov.openweatherapp.data.repository.CityWeatherRepositoryImpl
-import ru.kulishov.openweatherapp.data.repository.SelectedCityRepositoryImpl
+import ru.kulishov.openweatherapp.data.local.AppDatabase
+import ru.kulishov.openweatherapp.data.local.repository.CityRepositoryImpl
+import ru.kulishov.openweatherapp.data.local.repository.CityWeatherRepositoryImpl
+import ru.kulishov.openweatherapp.data.local.repository.SelectedCityRepositoryImpl
 import ru.kulishov.openweatherapp.domain.repository.CityRepository
 import ru.kulishov.openweatherapp.domain.repository.CityWeatherRepository
 import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository

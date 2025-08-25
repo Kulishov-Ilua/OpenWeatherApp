@@ -1,9 +1,9 @@
-package ru.kulishov.openweatherapp.data.repository
+package ru.kulishov.openweatherapp.data.local.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.kulishov.openweatherapp.data.local.dao.SelectedCityDao
-import ru.kulishov.openweatherapp.data.local.mapper.SelectedCityMapper
+import ru.kulishov.openweatherapp.data.local.data.mapper.SelectedCityMapper
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 import ru.kulishov.openweatherapp.domain.repository.SelectedCityRepository
 import javax.inject.Inject

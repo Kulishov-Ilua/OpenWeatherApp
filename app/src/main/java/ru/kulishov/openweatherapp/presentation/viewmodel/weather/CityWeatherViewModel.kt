@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import retrofit2.Retrofit
-import ru.kulishov.openweatherapp.data.local.mapper.WeatherForecastMapper
+import ru.kulishov.openweatherapp.data.local.data.mapper.WeatherForecastMapper
 import ru.kulishov.openweatherapp.data.remote.api.cityRequest
 import ru.kulishov.openweatherapp.data.remote.model.City
 import ru.kulishov.openweatherapp.data.remote.model.Clouds

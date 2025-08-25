@@ -1,6 +1,6 @@
-package ru.kulishov.openweatherapp.data.local.mapper
+package ru.kulishov.openweatherapp.data.local.data.mapper
 
-import ru.kulishov.openweatherapp.data.local.entity.SelectedCityEntity
+import ru.kulishov.openweatherapp.data.local.data.entity.SelectedCityEntity
 import ru.kulishov.openweatherapp.domain.model.SelectedCity
 
 object SelectedCityMapper {

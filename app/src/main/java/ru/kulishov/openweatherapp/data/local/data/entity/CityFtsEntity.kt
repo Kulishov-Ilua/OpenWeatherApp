@@ -1,4 +1,4 @@
-package ru.kulishov.openweatherapp.data.local.entity
+package ru.kulishov.openweatherapp.data.local.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
